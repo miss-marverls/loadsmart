@@ -13,7 +13,7 @@ class Load(models.Model):
     ref = models.CharField(max_length=200)
     origin_city = models.CharField(max_length=200)
     destination_city = models.CharField(max_length=200)
-    price = models.CharField(max_length=200)
+    price = models.FloatField()
 
     def __str__(self):
         return self.ref
