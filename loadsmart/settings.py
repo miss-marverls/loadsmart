@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'load',
     'widget_tweaks',
-    'bootstrap_modal_forms'
+    #'bootstrap_modal_forms'
     'app',
     'users',
 ]

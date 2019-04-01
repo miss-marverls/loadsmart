@@ -1,9 +1,14 @@
 {% extends 'load/base.html' %}
 {% block content %}
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+          <div class="modal-dialog" role="document">
+                <div class="modal-content"></div>
+          </div>
+    </div>
     <div class = "row">
         <h2> Posted Loads </h2>
-        <button class = "btn btn-secondary">Add new</button>
+        <button class = "create-load btn btn-secondary">Add new</button>
     </div>
     <h3>Accepted</h3>
 
@@ -65,4 +70,6 @@
                 {% endfor %}
           </tbody>
     </table>
+
+
 {% endblock %}

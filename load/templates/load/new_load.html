@@ -1,8 +1,15 @@
 {% extends 'load/base.html' %}
 {% load widget_tweaks %}
 {% block content %}
-    <h1>New Load</h1>
         <form method="POST" class="load-form">
+        <div class="modal-header">
+            <h3 class="modal-title">Create Load</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
             <div class="form-group">
                 {% csrf_token %}
                     {% for field in form.visible_fields %}
@@ -17,9 +24,13 @@
 
                           </div>
                     {% endfor %}
-                <button type="submit" class="save btn btn-primary">Save</button>
             </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="save btn btn-primary">Save</button>
+        </div>
         </form>
+
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwkx_ql1gv3xRQtJJdn-LtQ0M2U87jFpc&libraries=places"></script>
     <script>
         origin = document.getElementById('id_origin_city');

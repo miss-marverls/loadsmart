@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from users.models import Shipper
 from django.utils import timezone
 
 # Create your models here.
@@ -7,10 +8,10 @@ from django.utils import timezone
 
 class Load(models.Model):
     shipper = models.ForeignKey(
-        User, related_name='shipper', on_delete=models.CASCADE)
+        Shipper, related_name='shipper', on_delete=models.CASCADE)
     carrier = models.ForeignKey(
-        User, related_name='carrier', on_delete=models.CASCADE, null=True, blank=True)
-    pickup_date = models.DateTimeField(default=timezone.now)
+        Shipper, related_name='carrier', on_delete=models.CASCADE, null=True, blank=True)
+    pickup_date = models.DateTimeField(default=timezone.now())
     ref = models.CharField(max_length=200)
     origin_city = models.CharField(max_length=200)
     destination_city = models.CharField(max_length=200)

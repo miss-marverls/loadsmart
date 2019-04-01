@@ -1,4 +1,5 @@
 Django==2.1.7
+django-bootstrap-modal-forms==1.4.0
 django-widget-tweaks==1.4.3
 djangorestframework==3.9.2
 djangorestframework-stubs==0.4.2
