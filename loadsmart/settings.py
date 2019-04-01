@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'load',
-    'widget_tweaks'
+    'widget_tweaks',
+    'bootstrap_modal_forms'
 ]
 
 MIDDLEWARE = [

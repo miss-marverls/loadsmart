@@ -28,5 +28,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('load/register', register_load, name = 'register_load'),
     path('load/new', new_load, name = 'new_load'),
+    path('create/', LoadCreateView.as_view(), name='create_load'),
     path('loads', list_loads, name = 'loads')
 ]
