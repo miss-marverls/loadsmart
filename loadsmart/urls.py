@@ -19,6 +19,7 @@ from rest_framework import routers
 from django.conf.urls import include
 from load.api.viewsets import LoadViewSet
 from load.views import *
+from django.urls import path, include
 
 router = routers.DefaultRouter()
 router.register('load', LoadViewSet)
@@ -29,5 +30,7 @@ urlpatterns = [
     path('load/register', register_load, name = 'register_load'),
     path('load/new', new_load, name = 'new_load'),
     path('create/', LoadCreateView.as_view(), name='create_load'),
-    path('loads', list_loads, name = 'loads')
+    path('loads', list_loads, name = 'loads'),
+    path('', include('app.urls', namespace='app')),
+    path('users/', include('users.urls', namespace='users')),
 ]
