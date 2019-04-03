@@ -143,3 +143,4 @@ dmypy.json
 # End of https://www.gitignore.io/api/django
 .idea/vcs.xml
 .idea/vcs.xml
+.vscode/settings.json
