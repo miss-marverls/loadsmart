@@ -1,3 +1,28 @@
-.load-form input, .load-form textarea {
-    width: 100%;
+.th-title{
+    color:white;
 }
+
+.pac-container {
+    z-index: 1051 !important;
+}
+
+.title-row{
+    color:black;
+    background-color: white;
+
+}
+
+.add-button{
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.title-table{
+    display: flex;
+    align-items: center;
+}
+
+.thead-secondary{
+    background-color: #6c757d;
+}
+

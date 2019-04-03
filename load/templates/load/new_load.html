@@ -1,4 +1,3 @@
-{% extends 'load/base.html' %}
 {% load widget_tweaks %}
 {% block content %}
         <form method="POST" class="load-form">
@@ -12,26 +11,23 @@
         <div class="modal-body">
             <div class="form-group">
                 {% csrf_token %}
-                    {% for field in form.visible_fields %}
-                          <div class="form-group">
-                                {% if field.name == "price" %}
-                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                    {% render_field field class="form-control" onfocus="calc_price()" %}
-                                {% else %}
-                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                    {% render_field field class="form-control" %}
-                                {% endif %}
+                <label for="{{ form.pickup_date.id_for_label }}">{{  form.pickup_date.label }}</label>
+                    {% render_field form.pickup_date class="form-control" placeholder="mm/dd/aaaa" %}
+                <label for="{{ form.ref.id_for_label }}#">{{  form.ref.label }}</label>
+                    {% render_field form.ref class="form-control" placeholder="ref#" %}
+                <label for="{{ form.origin_city.id_for_label }}">{{  form.origin_city.label }}</label>
+                    {% render_field form.origin_city class="form-control" placeholder="Type a city" %}
+                <label for="{{ form.destination_city.id_for_label }}">{{  form.destination_city.label }}</label>
+                    {% render_field form.destination_city class="form-control" placeholder="Type a city" %}
+                <label for="{{ form.price.id_for_label }}">{{  form.price.label }}</label>
+                    {% render_field form.price class="form-control" placeholder="Sugested price" onfocus="calc_price()"%}
 
-                          </div>
-                    {% endfor %}
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="save btn btn-primary">Save</button>
+            <button type="submit" class="save btn btn-secondary">Save</button>
         </div>
         </form>
-
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwkx_ql1gv3xRQtJJdn-LtQ0M2U87jFpc&libraries=places"></script>
     <script>
         origin = document.getElementById('id_origin_city');
         destination = document.getElementById('id_destination_city');
