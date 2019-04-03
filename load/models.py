@@ -8,9 +8,9 @@ from django.utils import timezone
 
 class Load(models.Model):
     shipper = models.ForeignKey(
-        Shipper, related_name='shipper', on_delete=models.CASCADE)
+        Shipper, related_name='shipper', on_delete=models.PROTECT)
     carrier = models.ForeignKey(
-        Shipper, related_name='carrier', on_delete=models.CASCADE, null=True, blank=True)
+        Shipper, related_name='carrier', on_delete=models.PROTECT, null=True, blank=True)
     pickup_date = models.DateField()
     ref = models.CharField(max_length=200)
     origin_city = models.CharField(max_length=200)

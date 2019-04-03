@@ -3,22 +3,24 @@ from django.urls import reverse_lazy
 from .forms import LoadForm
 from .models import Load
 from users.models import Shipper
+from bootstrap_modal_forms.generic import BSModalCreateView
+
 
 # Create your views here.
+class LoadCreateView(BSModalCreateView):
+    template_name = 'load/new_load.html'
+    form_class = LoadForm
+    success_message = 'Success: Load was created.'
+    success_url = reverse_lazy('load:loads')
 
-def register_load(request):
-    return render(request, 'load/register_load.html')
-
-def new_load(request):
-    form = LoadForm(request.POST)
-    if form.is_valid():
+    def form_valid(self, form):
         load = form.save(commit=False)
         load.carrier = None
-        if request.user.is_authenticated:
-            load.shipper = request.user
+        if self.request.user.is_authenticated:
+            load.shipper = self.request.user
         load.save()
         return redirect('load:loads')
-    return render(request, 'load/new_load.html', {'form' : form})
+
 
 def list_loads(request):
     available_loads = Load.objects.filter(carrier=None)
