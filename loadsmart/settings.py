@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'bootstrap_modal_forms',
+    'rest_framework',
     'app',
     'users',
     'load',
