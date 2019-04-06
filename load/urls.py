@@ -7,7 +7,7 @@ from load.api.viewsets import LoadViewSet
 app_name = 'load'
 
 router = routers.DefaultRouter()
-router.register(r'', LoadViewSet)
+router.register(r'', LoadViewSet, base_name='Load')
 
 urlpatterns = [
     path('api/', include(router.urls)),

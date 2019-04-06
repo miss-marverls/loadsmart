@@ -6,17 +6,21 @@ from load.api.serializers import LoadSerializer
 
 
 class LoadViewSet(ModelViewSet):
-    queryset = Load.objects.filter()
     serializer_class = LoadSerializer
+
+    def get_queryset(self):
+        return Load.objects.filter(shipper=self.request.user)
+
 
     @action(methods=['get'], detail=False)
     def available(self, request):
-        queryset = Load.objects.filter(carrier=None)
+        queryset = Load.objects.filter(carrier=None, shipper=request.user)
         serializer = LoadSerializer(queryset, many=True)
         return Response(serializer.data)
 
     @action(methods=['get'], detail=False)
     def accepted(self, request):
-        queryset = Load.objects.exclude(carrier=None)
-        serializer = LoadSerializer(queryset, many=True)
+        queryset1 = Load.objects.exclude(carrier=None)
+        queryset2 = Load.objects.filter(shipper=request.user)
+        serializer = LoadSerializer(queryset1&queryset2, many=True)
         return Response(serializer.data)

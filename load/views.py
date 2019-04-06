@@ -25,5 +25,5 @@ class LoadCreateView(BSModalCreateView):
 def list_loads(request):
     available_loads = Load.objects.filter(carrier=None)
     accepted_loads = Load.objects.exclude(carrier=None)
-    return render(request, 'load/list_load.html', {'available_loads' : available_loads, 'accepted_loads' : accepted_loads})
+    return render(request, 'load/shipper_load_list.html', {'available_loads' : available_loads, 'accepted_loads' : accepted_loads})
 
