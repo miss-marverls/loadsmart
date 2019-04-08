@@ -7,9 +7,27 @@
 }
 
 .title-row{
-    color:black;
-    background-color: white;
+    color:#2b3034;
+    background-color: rgba(0, 0, 0, 0.03);
 
+}
+
+.add-button{
+    background-color: #2b3034;
+}
+
+.thead-custom{
+    background-color: #2b3034;
+}
+
+.rate-button{
+    background-color: #2b3034;
+    color: white;
+}
+
+.container-custom{
+    margin-top: 60px;
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
 .add-button{
@@ -26,3 +44,6 @@
     background-color: #6c757d;
 }
 
+.table-custom{
+      table-layout: auto;
+}

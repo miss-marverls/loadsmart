@@ -7,10 +7,11 @@ from load.api.viewsets import LoadViewSet
 app_name = 'load'
 
 router = routers.DefaultRouter()
-router.register(r'', LoadViewSet)
+router.register(r'', LoadViewSet, base_name='Load')
 
 urlpatterns = [
     path('api/', include(router.urls)),
     path('', views.list_loads, name='loads'),
     path('create/', views.LoadCreateView.as_view(), name='create-load'),
+    path('update/<int:pk>/', views.LoadUpdateView.as_view(), name='update-load'),
 ]
