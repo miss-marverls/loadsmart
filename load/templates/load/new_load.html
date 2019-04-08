@@ -21,7 +21,9 @@
                     {% render_field form.destination_city class="form-control" placeholder="Type a city" %}
                 <label for="{{ form.price.id_for_label }}">{{  form.price.label }}</label>
                     {% render_field form.price class="form-control" placeholder="Sugested price" onfocus="calc_price()"%}
-
+                {% if form.errors %}
+                    {{ form.non_field_errors }}
+                {% endif %}
             </div>
         </div>
         <div class="modal-footer">
