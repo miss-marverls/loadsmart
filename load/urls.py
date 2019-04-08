@@ -13,4 +13,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('', views.list_loads, name='loads'),
     path('create/', views.LoadCreateView.as_view(), name='create-load'),
+    path('update/<int:pk>/', views.LoadUpdateView.as_view(), name='update-load'),
 ]

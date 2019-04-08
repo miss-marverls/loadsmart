@@ -1,81 +1,92 @@
 {% extends 'load/base.html' %}
 {% block content %}
+    {% load widget_tweaks %}
+
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-          <div class="modal-dialog" role="document">
-                <div class="modal-content"></div>
-          </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+        </div>
     </div>
-    <div class = "row container title-table">
+    <div class="row container title-table">
         <h4> Posted Loads </h4>
-        <button class = "btn btn-secondary add-button">Add new</button>
+        <button class="btn btn-secondary add-button"><i class="fas fa-plus-circle"></i>Add new</button>
     </div>
 
-    <table class="table table-hover table-striped">
-          <thead class = "thead-secondary">
-                <tr>
-                     <th class = "th-title" scope="col">Pickup</th>
-                     <th class = "th-title" scope="col">Ref</th>
-                     <th class = "th-title" scope="col">Origin</th>
-                     <th class = "th-title" scope="col">Destination</th>
-                     <th class = "th-title" scope="col">Status</th>
-                     <th class = "th-title" scope="col">Price</th>
-                     <th class = "th-title" scope="col"></th>
-                </tr>
-          </thead>
-          <tbody>
-                <tr>
-                     <th id="par" class="span title-row" colspan="7" scope="colgroup">
-                         ACCEPTED
-                      </th>
-                </tr>
-                {% for load in accepted_loads %}
-                     <tr>
-                         <td>{{ load.pickup_date}}</td>
-                         <td>{{ load.ref }}</td>
-                         <td>{{ load.origin_city}}</td>
-                         <td>{{ load.destination_city}}</td>
-                         <td> Accepted by {{ load.carrier }} </td>
-                         <td>${{ load.price}}</td>
-                     </tr>
-                {% endfor %}
+    <table class="table table-hover table-custom">
+        <thead class="thead-custom">
+        <tr>
+            <th class="th-title" scope="col">Pickup</th>
+            <th class="th-title" scope="col">Ref#</th>
+            <th class="th-title" scope="col">Origin</th>
+            <th class="th-title" scope="col">Destination</th>
+            <th class="th-title" scope="col">Status</th>
+            <th class="th-title" scope="col">Price</th>
+            <th class="th-title" scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th id="par" class="span title-row" colspan="7" scope="colgroup">
+                ACCEPTED
+            </th>
+        </tr>
+        {% for load in accepted_loads %}
+            <tr>
+                <td>{{ load.pickup_date }}</td>
+                <td>{{ load.ref }}</td>
+                <td>{{ load.origin_city }}</td>
+                <td>{{ load.destination_city }}</td>
+                <td> Accepted by {{ load.carrier }} </td>
+                <td>${{ load.price }}</td>
+            </tr>
+        {% endfor %}
 
-                <tr>
-                     <th id="par" class="span title-row" colspan="7" scope="colgroup">
-                         AVAILABLE LOADS
-                      </th>
-                </tr>
+        <tr>
+            <th id="par" class="span title-row" colspan="7" scope="colgroup">
+                AVAILABLE LOADS
+            </th>
+        </tr>
 
-                {% for load in available_loads %}
-                     <tr>
-                         <td>{{ load.pickup_date}}</td>
-                         <td>{{ load.ref }}</td>
-                         <td>{{ load.origin_city}}</td>
-                         <td>{{ load.destination_city}}</td>
-                         <td> Load Available </td>
-                         <td> ${{ load.price}}</td>
-                         <td>
-                             <a class="btn btn-secondary" href="">Edit Rate</a>
-                         </td>
-                     </tr>
-                {% endfor %}
-          </tbody>
+        {% for load in available_loads %}
+            <tr>
+                <td>{{ load.pickup_date }}</td>
+                <td>{{ load.ref }}</td>
+                <td>{{ load.origin_city }}</td>
+                <td>{{ load.destination_city }}</td>
+                <td> Load Available</td>
+                <td> ${{ load.price }}</td>
+                <td>
+                    <button class="btn edit-rate rate-button" data-id="{% url 'load:update-load' load.id %}"> Edit
+                        Rate
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
     <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-          <div class="modal-dialog" role="document">
-                <div class="modal-content">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
-                </div>
-          </div>
+            </div>
         </div>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwkx_ql1gv3xRQtJJdn-LtQ0M2U87jFpc&libraries=places"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
+    </div>
+    {% block extrascripts %}
+        <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwkx_ql1gv3xRQtJJdn-LtQ0M2U87jFpc&libraries=places"></script>
+        <script type="text/javascript">
+            $(function () {
 
-            $(".add-button").modalForm({
-                formURL: "{% url 'load:create-load' %}"
+                $(".add-button").modalForm({
+                    formURL: "{% url 'load:create-load' %}"
+                });
+
+                $(".edit-rate").each(function () {
+                    $(this).modalForm({formURL: $(this).data('id')});
+                });
+
             });
-
-        });
         </script>
+    {% endblock extrascripts %}
 {% endblock %}
