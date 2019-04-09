@@ -36,3 +36,9 @@ class CarrierLoadViewSet(ModelViewSet):
         queryset = Load.objects.filter(carrier=request.user.id)
         serializer = LoadSerializer(queryset, many=True)
         return Response(serializer.data)
+
+    @action(methods=['get'], detail=False)
+    def available(self, request):
+        queryset = Load.objects.filter(carrier=None)
+        serializer = LoadSerializer(queryset, many=True)
+        return Response(serializer.data)
