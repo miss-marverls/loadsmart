@@ -2,12 +2,13 @@ from django.urls import path
 from . import views
 from rest_framework import routers
 from django.conf.urls import include
-from load.api.viewsets import LoadViewSet
+from load.api.viewsets import LoadViewSet, CarrierLoadViewSet
 
 app_name = 'load'
 
 router = routers.DefaultRouter()
 router.register(r'', LoadViewSet, base_name='Load')
+router.register('carrier', CarrierLoadViewSet, base_name='Load')
 
 urlpatterns = [
     path('api/', include(router.urls)),
