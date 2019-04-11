@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from users.models import Shipper
 from django.utils import timezone
 
+
 # Create your models here.
 
 
@@ -19,3 +20,11 @@ class Load(models.Model):
 
     def __str__(self):
         return self.ref
+
+
+class DroppedLoads(models.Model):
+    class Meta:
+        unique_together = (('load', 'carrier'),)
+
+    load = models.ForeignKey(Load, on_delete=models.PROTECT)
+    carrier = models.ForeignKey(Shipper, on_delete=models.PROTECT)

@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
-from load.models import Load
-from load.api.serializers import LoadSerializer
+from load.models import Load, DroppedLoads
+from load.api.serializers import LoadSerializer, DroppedLoadSerializer
 
 
 class LoadViewSet(ModelViewSet):
@@ -45,7 +45,7 @@ class CarrierLoadViewSet(ModelViewSet):
         serializer = LoadSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    @action(methods=['get', 'post'], detail=True)
+    @action(methods=['get'], detail=True)
     def accept(self, request, pk=None):
         load = get_object_or_404(Load, pk=pk, carrier=None)
         serializer = LoadSerializer(load, data={'carrier': request.user.id}, partial=True)
@@ -53,3 +53,15 @@ class CarrierLoadViewSet(ModelViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['get'], detail=True)
+    def drop(self, request, pk=None):
+        load_ = get_object_or_404(Load, pk=pk, carrier=None)
+        dropped_ = DroppedLoads.objects.filter(load=load_)
+        if len(dropped_) == 0:
+            dropped_load = DroppedLoads(load=load_, carrier=request.user)
+            dropped_load.save()
+            serializer = DroppedLoadSerializer(dropped_load)
+            return Response(serializer.data)
+        return Response(data={'detail': "Load already dropped"})
+
