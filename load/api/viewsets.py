@@ -65,3 +65,12 @@ class CarrierLoadViewSet(ModelViewSet):
             return Response(serializer.data)
         return Response(data={'detail': "Load already dropped"})
 
+    @action(methods=['get'], detail=False)
+    def dropped(self, request):
+        dropped_loads = DroppedLoads.objects.filter(carrier=request.user)
+        data = []
+        for load in dropped_loads:
+            load = get_object_or_404(Load, pk=load.load.pk)
+            serializer = LoadSerializer(load)
+            data.append(serializer.data)
+        return Response(data)
