@@ -16,8 +16,6 @@ class ShipperAPITestCase(APITestCase):
         self.user = Shipper.objects.create_user(email="hireme@loadsmart.com", password="iwilldoagreatjob")
         self.client.login(email="hireme@loadsmart.com", password="iwilldoagreatjob")
         self.data_ = {
-            "shipper_id": 2,
-            "carrier": None,
             "pickup_date": datetime.date(2019, 4, 11),
             "ref": "963",
             "origin_city": "Salvador",
@@ -26,8 +24,6 @@ class ShipperAPITestCase(APITestCase):
         }
         self.client.post(self.url, self.data_, format="json")
         self.data_ = {
-            "shipper": self.user.pk,
-            "carrier": None,
             "pickup_date": datetime.date(2019, 4, 11),
             "ref": "132",
             "origin_city": "Alagoinhas",
