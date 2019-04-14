@@ -1,49 +1,56 @@
-.th-title{
-    color:white;
+.th-title {
+    color: white;
 }
 
 .pac-container {
     z-index: 1051 !important;
 }
 
-.title-row{
-    color:#2b3034;
+body {
+    background-color: #f9f9f9;
+}
+
+.title-row {
+    color: #2b3034;
     background-color: rgba(0, 0, 0, 0.03);
 
 }
 
-.add-button{
+.navbar-custom {
     background-color: #2b3034;
 }
 
-.thead-custom{
+.add-button {
     background-color: #2b3034;
 }
 
-.rate-button{
+.thead-custom {
+    background-color: #2b3034;
+}
+
+.rate-button {
     background-color: #2b3034;
     color: white;
 }
 
-.container-custom{
-    margin-top: 60px;
-    background-color: rgba(0, 0, 0, 0.03);
+.container-custom {
+    margin-top: 10px;
 }
 
-.add-button{
+.add-button {
     border-radius: 20px;
     margin: 10px;
 }
 
-.title-table{
+.title-table {
     display: flex;
     align-items: center;
 }
 
-.thead-secondary{
+.thead-secondary {
     background-color: #6c757d;
 }
 
-.table-custom{
-      table-layout: auto;
+.table-custom {
+    table-layout: auto;
 }
