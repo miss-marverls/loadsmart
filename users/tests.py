@@ -32,17 +32,20 @@ class LogInViewTests(TestCase):
 class RegisterViewTests(TestCase):
 
     def setUp(self):
-        # Create a shipper user
+        # Create an invalid user
         self.data_invalid = {
             'email': 'hireme@loadsmart.com',
             'password': 'iwilldoagreatjob'}
 
+        # Create a shipper
         self.data_shipper = {
             'first_name': 'hireme',
             'last_name': 'shipper',
             'email': 'hireme_shipper@loadsmart.com',
-            'password': 'iwilldoagreatjob'}
+            'password1': 'iwilldoagreatjob',
+            'password2': 'iwilldoagreatjob'}
 
+        # Create a carrier
         self.data_carrier = {
             'first_name': 'hireme',
             'last_name': 'carrier',
@@ -51,15 +54,26 @@ class RegisterViewTests(TestCase):
             'password1': 'iwilldoagreatjob',
             'password2': 'iwilldoagreatjob'}
 
-    def test_register_shipper(self):
+    def test_register_shipper_invalid(self):
         response = self.client.post(
             reverse('users:register_shipper'), self.data_invalid, follow=True)
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/register.html')
 
-    def test_register_carrier(self):
+    def test_register_carrier_invalid(self):
+        response = self.client.post(
+            reverse('users:register_carrier'), self.data_invalid, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/register.html')
+    
+    def test_register_shipper_redirect(self):
+        response = self.client.post(
+            reverse('users:register_shipper'), self.data_shipper, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, reverse('users:login'))
+
+    def test_register_carrier_redirect(self):
         response = self.client.post(
             reverse('users:register_carrier'), self.data_carrier, follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'users/login.html')
         self.assertRedirects(response, reverse('users:login'))
-        self.assertEqual(len(Carrier.objects.all()), 1)

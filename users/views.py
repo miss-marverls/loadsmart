@@ -34,10 +34,8 @@ class CarrierRegistrationView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = CarrierRegistrationView.form_class(request.POST)
-        print(request.POST)
 
         if form.is_valid():
-            print(form.cleaned_data)
             user = form.save()
             mc_number = form.cleaned_data['mc_number']
             user.mc_number = mc_number
@@ -45,7 +43,6 @@ class CarrierRegistrationView(CreateView):
             user.save()
 
             carrier = Carrier.objects.create(user=user, mc_number=mc_number)
-            print(carrier)
             carrier.save()
 
             return HttpResponseRedirect(self.success_url)
