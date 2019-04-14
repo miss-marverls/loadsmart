@@ -3,19 +3,31 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
-from load.models import Load, DroppedLoads
-from load.api.serializers import LoadSerializer, DroppedLoadSerializer
+from load.models import Load
+from load.api.serializers import LoadSerializer, CreateLoadSerializer
 
 
 class LoadViewSet(ModelViewSet):
     serializer_class = LoadSerializer
 
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return CreateLoadSerializer
+        return LoadSerializer
+
     def get_queryset(self):
         return Load.objects.filter(shipper=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        serializer = CreateLoadSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(shipper_id=request.user.pk)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     @action(methods=['get'], detail=False)
     def available(self, request):
-        queryset = Load.objects.filter(carrier=None, shipper=request.user)
+        queryset = Load.objects.filter(carrier=None, shipper_id=request.user.pk)
         serializer = LoadSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -41,7 +53,8 @@ class CarrierLoadViewSet(ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def available(self, request):
-        queryset = Load.objects.filter(carrier=None)
+        dropped_loads = request.user.dropped_by.all()
+        queryset = Load.objects.filter(carrier=None).exclude(id__in=dropped_loads)
         serializer = LoadSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -57,20 +70,14 @@ class CarrierLoadViewSet(ModelViewSet):
     @action(methods=['get'], detail=True)
     def drop(self, request, pk=None):
         load_ = get_object_or_404(Load, pk=pk, carrier=None)
-        dropped_ = DroppedLoads.objects.filter(load=load_)
-        if len(dropped_) == 0:
-            dropped_load = DroppedLoads(load=load_, carrier=request.user)
-            dropped_load.save()
-            serializer = DroppedLoadSerializer(dropped_load)
-            return Response(serializer.data)
+        if not request.user in load_.dropped_by.all():
+            load_.dropped_by.add(request.user)
+            return Response(status.HTTP_201_CREATED)
         return Response(data={'detail': "Load already dropped"})
 
     @action(methods=['get'], detail=False)
     def dropped(self, request):
-        dropped_loads = DroppedLoads.objects.filter(carrier=request.user)
-        data = []
-        for load in dropped_loads:
-            load = get_object_or_404(Load, pk=load.load.pk)
-            serializer = LoadSerializer(load)
-            data.append(serializer.data)
-        return Response(data)
+        loads = request.user.dropped_by.all()
+        serializer = LoadSerializer(loads, many=True)
+        return Response(serializer.data)
+
