@@ -16,4 +16,5 @@ urlpatterns = [
     path('carrier/', views.list_carrier_loads, name='carrier-loads'),
     path('create/', views.LoadCreateView.as_view(), name='create-load'),
     path('update/<int:pk>/', views.LoadUpdateView.as_view(), name='update-load'),
+    path('accept/<int:pk>/', views.accept_load, name='accept-load')
 ]

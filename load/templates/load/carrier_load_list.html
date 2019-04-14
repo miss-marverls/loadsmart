@@ -55,7 +55,7 @@
                          <td> ${{ load.price}}</td>
                          <td>
                              <a class="btn" href="">Reject</a>
-                             <a class="btn btn-success" href="">Accept</a>
+                             <a class="btn btn-success" href="{% url 'load:accept-load' load.id %}">Accept</a>
                          </td>
                      </tr>
                 {% endfor %}
