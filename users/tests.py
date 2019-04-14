@@ -22,11 +22,11 @@ class LogInViewTests(TestCase):
         self.assertTemplateUsed(response, 'users/login.html')
 
     def test_login(self):
-        response = self.client.post(reverse('users:login'), self.data_, follow=True)
+        response = self.client.post(
+            reverse('users:login'), self.data_, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(self.client.login(
             username="hireme_shipper@loadsmart.com", password="iwilldoagreatjob"))
-        
 
 
 class RegisterViewTests(TestCase):
@@ -50,22 +50,16 @@ class RegisterViewTests(TestCase):
             'email': 'hireme_carrier@loadsmart.com',
             'password1': 'iwilldoagreatjob',
             'password2': 'iwilldoagreatjob'}
-    
+
     def test_register_shipper(self):
-        response = self.client.post(reverse('users:register_shipper'), self.data_invalid, follow=True)
+        response = self.client.post(
+            reverse('users:register_shipper'), self.data_invalid, follow=True)
         self.assertEqual(response.status_code, 200)
 
     def test_register_carrier(self):
-        response = self.client.post(reverse('users:register_carrier'), self.data_carrier, follow=True)
+        response = self.client.post(
+            reverse('users:register_carrier'), self.data_carrier, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/login.html')
-        self.assertRedirects(response,reverse('users:login'))
-        self.assertEqual(len(Carrier.objects.all()),1)
-
-        
-
-
-        
-
-    
-
+        self.assertRedirects(response, reverse('users:login'))
+        self.assertEqual(len(Carrier.objects.all()), 1)

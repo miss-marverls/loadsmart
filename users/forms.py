@@ -12,6 +12,7 @@ class ShipperCreationForm(UserCreationForm):
 
 class CarrierCreationForm(UserCreationForm):
     mc_number = forms.CharField(required=True)
+
     class Meta:
         model = Shipper
-        fields = [ 'first_name', 'last_name', 'email','mc_number']
+        fields = ['first_name', 'last_name', 'email', 'mc_number']
