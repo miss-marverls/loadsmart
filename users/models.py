@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
@@ -41,5 +42,14 @@ class Shipper(PermissionsMixin, AbstractBaseUser):
         max_length=50,
         blank=False,
     )
+    is_shipper = models.BooleanField(default=False)
+    is_carrier = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email'
     objects = EmailUserManager()
+
+
+class Carrier(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    mc_number = models.CharField(max_length=12)

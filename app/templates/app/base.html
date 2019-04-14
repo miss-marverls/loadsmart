@@ -4,7 +4,8 @@
     <a href="{% url 'load:loads' %}"> - loads </a>
     <a href="{% url 'users:logout' %}"> - log out </a>
 {% else %}
-    <a href="{% url 'users:register' %}"> - register </a>
+    <a href="{% url 'users:register_shipper' %}"> - register shipper</a>
+    <a href="{% url 'users:register_carrier' %}"> - register carrier</a>
     <a href="{% url 'users:login' %}"> - login </a>
 {% endif %}
 
