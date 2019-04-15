@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APITestCase, APIClient
 from django.urls import reverse
 from rest_framework import status
-from users.models import Shipper
+from users.models import Shipper, Carrier
 import datetime
 from collections import OrderedDict
 
@@ -59,6 +59,7 @@ class CarrierAPITestCase(APITestCase):
     def setUp(self):
         self.user = Shipper.objects.create_user(
             email="hireme@loadsmart.com", password="iwilldoagreatjob")
+        self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")
         self.client.login(email="hireme@loadsmart.com",
                           password="iwilldoagreatjob")
         self.data_ = {
