@@ -47,7 +47,8 @@ def list_loads(request):
 
 def list_carrier_loads(request):
     carrier = Carrier.objects.get(user=request.user.pk)
-    available_loads = Load.objects.filter(carrier=None)
+    dropped_loads = carrier.dropped_by.all()
+    available_loads = Load.objects.filter(carrier=None).exclude(id__in=dropped_loads)
     accepted_loads = Load.objects.filter(carrier=carrier)
     return render(request, 'load/carrier_load_list.html',
                   {'available_loads': available_loads, 'accepted_loads': accepted_loads})
@@ -59,3 +60,12 @@ def accept_load(request, pk):
     load.carrier = carrier
     load.save()
     return redirect('load:carrier-loads')
+
+
+def drop_load(request, pk):
+    load = Load.objects.get(pk=pk)
+    carrier = Carrier.objects.get(user=request.user.pk)
+    load.dropped_by.add(carrier)
+    return redirect('load:carrier-loads')
+
+

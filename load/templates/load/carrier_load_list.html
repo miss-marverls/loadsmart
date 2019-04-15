@@ -2,64 +2,65 @@
 {% block content %}
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-          <div class="modal-dialog" role="document">
-                <div class="modal-content"></div>
-          </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+        </div>
     </div>
-    <div class = "row container title-table">
+    <div class="row container title-table">
         <h4> Loads </h4>
     </div>
 
     <table class="table table-hover table-custom">
-          <thead class="thead-custom">
-                <tr>
-                     <th class = "th-title" scope="col">Pickup</th>
-                     <th class = "th-title" scope="col">Origin</th>
-                     <th class = "th-title" scope="col">Destination</th>
-                     <th class = "th-title" scope="col">Shipper</th>
-                     <th class = "th-title" scope="col">Status</th>
-                     <th class = "th-title" scope="col">Price</th>
-                     <th class = "th-title" scope="col"></th>
-                </tr>
-          </thead>
-          <tbody>
-                <tr>
-                     <th id="par" class="span title-row" colspan="7" scope="colgroup">
-                         ACCEPTED
-                      </th>
-                </tr>
-                {% for load in accepted_loads %}
-                     <tr>
-                         <td>{{ load.pickup_date}}</td>
-                         <td>{{ load.origin_city}}</td>
-                         <td>{{ load.destination_city}}</td>
-                         <td>{{ load.shipper }} </td>
-                         <td style="color:green">Accepted</td>
-                         <td>${{ load.price}}</td>
-                     </tr>
-                {% endfor %}
+        <thead class="thead-custom">
+        <tr>
+            <th class="th-title" scope="col">Pickup</th>
+            <th class="th-title" scope="col">Origin</th>
+            <th class="th-title" scope="col">Destination</th>
+            <th class="th-title" scope="col">Shipper</th>
+            <th class="th-title" scope="col">Status</th>
+            <th class="th-title" scope="col">Price</th>
+            <th class="th-title" scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th id="par" class="span title-row" colspan="7" scope="colgroup">
+                ACCEPTED
+            </th>
+        </tr>
+        {% for load in accepted_loads %}
+            <tr>
+                <td>{{ load.pickup_date }}</td>
+                <td>{{ load.origin_city }}</td>
+                <td>{{ load.destination_city }}</td>
+                <td>{{ load.shipper.first_name }} {{ load.shipper.last_name }} </td>
+                <td style="color:green">Accepted</td>
+                <td>${{ load.price }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
 
-                <tr>
-                     <th id="par" class="span title-row" colspan="7" scope="colgroup">
-                         AVAILABLE LOADS
-                      </th>
-                </tr>
+        <tr>
+            <th id="par" class="span title-row" colspan="7" scope="colgroup">
+                AVAILABLE LOADS
+            </th>
+        </tr>
 
-                {% for load in available_loads %}
-                     <tr>
-                         <td>{{ load.pickup_date}}</td>
-                         <td>{{ load.origin_city}}</td>
-                         <td>{{ load.destination_city}}</td>
-                         <td>{{ load.shipper }}</td>
-                         <td> Waiting </td>
-                         <td> ${{ load.price}}</td>
-                         <td>
-                             <a class="btn" href="">Reject</a>
-                             <a class="btn btn-success" href="{% url 'load:accept-load' load.id %}">Accept</a>
-                         </td>
-                     </tr>
-                {% endfor %}
-          </tbody>
+        {% for load in available_loads %}
+            <tr>
+                <td>{{ load.pickup_date }}</td>
+                <td>{{ load.origin_city }}</td>
+                <td>{{ load.destination_city }}</td>
+                <td>{{ load.shipper.first_name }} {{ load.shipper.last_name }}</td>
+                <td> Waiting</td>
+                <td> ${{ load.price }}</td>
+                <td>
+                    <a class="btn" href="{% url 'load:drop-load' load.id %}">Reject</a>
+                    <a class="btn btn-success" href="{% url 'load:accept-load' load.id %}">Accept</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
 
