@@ -88,6 +88,7 @@ class CarrierAPITestCase(APITestCase):
         }
         self.client.post(self.url, self.data_, format="json")
         self.client.get('/load/api/carrier/2/accept/', format="json")
+        self.client.get('/load/api/carrier/3/drop/', format="json")
 
     def test_accept_load(self):
         response = self.client.get(
@@ -103,6 +104,13 @@ class CarrierAPITestCase(APITestCase):
         }
         self.assertEqual(response.data, data_)
 
+    def test_accept_invalid_load(self):
+        response = self.client.get(
+            '/load/api/carrier/2/accept/', format="json")
+        self.assertEqual(response.data, {
+            "detail": "Not found."
+        })
+
     def test_accepted_load(self):
         response = self.client.get(
             '/load/api/carrier/accepted/', format="json")
@@ -111,10 +119,19 @@ class CarrierAPITestCase(APITestCase):
     def test_available_load(self):
         response = self.client.get(
             '/load/api/carrier/available/', format="json")
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(response.data), 1)
 
-    def test_drop_load(self):
-        pass
+    def test_drop_load_invalid(self):
+        response = self.client.get('/load/api/carrier/1/drop/')
+        self.assertEqual(response.data, status.HTTP_201_CREATED)
+
+    def test_drop_load_invalid(self):
+        response = self.client.get('/load/api/carrier/3/drop/')
+        self.assertEqual(response.data, {
+            "detail": "Load already dropped"
+        })
 
     def test_list_dropped(self):
-        pass
+        response = self.client.get(
+            '/load/api/carrier/dropped/', format="json")
+        self.assertEqual(len(response.data), 1)
