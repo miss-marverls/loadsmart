@@ -121,7 +121,7 @@ class CarrierAPITestCase(APITestCase):
             '/load/api/carrier/available/', format="json")
         self.assertEqual(len(response.data), 1)
 
-    def test_drop_load_invalid(self):
+    def test_drop_load(self):
         response = self.client.get('/load/api/carrier/1/drop/')
         self.assertEqual(response.data, status.HTTP_201_CREATED)
 
