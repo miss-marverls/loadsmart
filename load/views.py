@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .models import Load
+from users.models import Carrier
 from .forms import LoadForm, LoadEditRateForm
 from bootstrap_modal_forms.generic import BSModalCreateView, BSModalUpdateView
 
@@ -45,7 +46,26 @@ def list_loads(request):
 
 
 def list_carrier_loads(request):
-    available_loads = Load.objects.filter(carrier=None)
-    accepted_loads = Load.objects.filter(carrier=request.user)
+    carrier = Carrier.objects.get(user=request.user.pk)
+    dropped_loads = carrier.dropped_by.all()
+    available_loads = Load.objects.filter(carrier=None).exclude(id__in=dropped_loads)
+    accepted_loads = Load.objects.filter(carrier=carrier)
     return render(request, 'load/carrier_load_list.html',
                   {'available_loads': available_loads, 'accepted_loads': accepted_loads})
+
+
+def accept_load(request, pk):
+    load = Load.objects.get(pk=pk)
+    carrier = Carrier.objects.get(user=request.user.pk)
+    load.carrier = carrier
+    load.save()
+    return redirect('load:carrier-loads')
+
+
+def drop_load(request, pk):
+    load = Load.objects.get(pk=pk)
+    carrier = Carrier.objects.get(user=request.user.pk)
+    load.dropped_by.add(carrier)
+    return redirect('load:carrier-loads')
+
+

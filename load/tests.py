@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APITestCase, APIClient
 from django.urls import reverse
 from rest_framework import status
-from users.models import Shipper
+from users.models import Shipper, Carrier
 import datetime
 from collections import OrderedDict
 
@@ -59,6 +59,7 @@ class CarrierAPITestCase(APITestCase):
     def setUp(self):
         self.user = Shipper.objects.create_user(
             email="hireme@loadsmart.com", password="iwilldoagreatjob")
+        self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")
         self.client.login(email="hireme@loadsmart.com",
                           password="iwilldoagreatjob")
         self.data_ = {
@@ -87,6 +88,7 @@ class CarrierAPITestCase(APITestCase):
         }
         self.client.post(self.url, self.data_, format="json")
         self.client.get('/load/api/carrier/2/accept/', format="json")
+        self.client.get('/load/api/carrier/3/drop/', format="json")
 
     def test_accept_load(self):
         response = self.client.get(
@@ -102,6 +104,13 @@ class CarrierAPITestCase(APITestCase):
         }
         self.assertEqual(response.data, data_)
 
+    def test_accept_invalid_load(self):
+        response = self.client.get(
+            '/load/api/carrier/2/accept/', format="json")
+        self.assertEqual(response.data, {
+            "detail": "Not found."
+        })
+
     def test_accepted_load(self):
         response = self.client.get(
             '/load/api/carrier/accepted/', format="json")
@@ -110,10 +119,19 @@ class CarrierAPITestCase(APITestCase):
     def test_available_load(self):
         response = self.client.get(
             '/load/api/carrier/available/', format="json")
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(response.data), 1)
 
     def test_drop_load(self):
-        pass
+        response = self.client.get('/load/api/carrier/1/drop/')
+        self.assertEqual(response.data, status.HTTP_201_CREATED)
+
+    def test_drop_load_invalid(self):
+        response = self.client.get('/load/api/carrier/3/drop/')
+        self.assertEqual(response.data, {
+            "detail": "Load already dropped"
+        })
 
     def test_list_dropped(self):
-        pass
+        response = self.client.get(
+            '/load/api/carrier/dropped/', format="json")
+        self.assertEqual(len(response.data), 1)

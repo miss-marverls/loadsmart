@@ -17,7 +17,7 @@ class Load(models.Model):
     origin_city = models.CharField(max_length=200)
     destination_city = models.CharField(max_length=200)
     price = models.FloatField()
-    dropped_by = models.ManyToManyField(Shipper, related_name="dropped_by")
+    dropped_by = models.ManyToManyField(Carrier, related_name="dropped_by")
 
     def __str__(self):
         return self.ref

@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from load.models import Load
+from users.models import Carrier
 from load.api.serializers import LoadSerializer, CreateLoadSerializer
 
 
@@ -47,21 +48,24 @@ class CarrierLoadViewSet(ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def accepted(self, request):
-        queryset = Load.objects.filter(carrier=request.user.id)
+        carrier = Carrier.objects.get(user=request.user.pk)
+        queryset = Load.objects.filter(carrier=carrier)
         serializer = LoadSerializer(queryset, many=True)
         return Response(serializer.data)
 
     @action(methods=['get'], detail=False)
     def available(self, request):
-        dropped_loads = request.user.dropped_by.all()
+        carrier = Carrier.objects.get(user=request.user.pk)
+        dropped_loads = carrier.dropped_by.all()
         queryset = Load.objects.filter(carrier=None).exclude(id__in=dropped_loads)
         serializer = LoadSerializer(queryset, many=True)
         return Response(serializer.data)
 
     @action(methods=['get'], detail=True)
     def accept(self, request, pk=None):
+        carrier = Carrier.objects.get(user=request.user.pk)
         load = get_object_or_404(Load, pk=pk, carrier=None)
-        serializer = LoadSerializer(load, data={'carrier': request.user.id}, partial=True)
+        serializer = LoadSerializer(load, data={'carrier': carrier.pk}, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -69,15 +73,16 @@ class CarrierLoadViewSet(ModelViewSet):
 
     @action(methods=['get'], detail=True)
     def drop(self, request, pk=None):
+        carrier = Carrier.objects.get(user=request.user.pk)
         load_ = get_object_or_404(Load, pk=pk, carrier=None)
-        if not request.user in load_.dropped_by.all():
-            load_.dropped_by.add(request.user)
+        if not carrier in load_.dropped_by.all():
+            load_.dropped_by.add(carrier)
             return Response(status.HTTP_201_CREATED)
         return Response(data={'detail': "Load already dropped"})
 
     @action(methods=['get'], detail=False)
     def dropped(self, request):
-        loads = request.user.dropped_by.all()
+        carrier = Carrier.objects.get(user=request.user.pk)
+        loads = carrier.dropped_by.all()
         serializer = LoadSerializer(loads, many=True)
         return Response(serializer.data)
-
