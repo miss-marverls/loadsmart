@@ -35,7 +35,7 @@
                 <td>{{ load.destination_city }}</td>
                 <td>{{ load.shipper.first_name }} {{ load.shipper.last_name }} </td>
                 <td style="color:green">Accepted</td>
-                <td>${{ load.price }}</td>
+                <td>${{ load.carrier_price }}</td>
                 <td></td>
             </tr>
         {% endfor %}
@@ -53,7 +53,7 @@
                 <td>{{ load.destination_city }}</td>
                 <td>{{ load.shipper.first_name }} {{ load.shipper.last_name }}</td>
                 <td> Waiting</td>
-                <td> ${{ load.price }}</td>
+                <td> ${{ load.carrier_price }}</td>
                 <td>
                     <a class="btn" href="{% url 'load:drop-load' load.id %}">Reject</a>
                     <a class="btn btn-success" href="{% url 'load:accept-load' load.id %}">Accept</a>

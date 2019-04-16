@@ -16,6 +16,7 @@ class LoadCreateView(BSModalCreateView):
     def form_valid(self, form):
         load = form.save(commit=False)
         load.carrier = None
+        load.carrier_price = load.shipper_price - load.shipper_price*5/100
         if self.request.user.is_authenticated:
             load.shipper = self.request.user
         load.save()
@@ -34,6 +35,7 @@ class LoadUpdateView(BSModalUpdateView):
         load.carrier = None
         if self.request.user.is_authenticated:
             load.shipper = self.request.user
+            load.carrier_price = load.shipper_price - load.shipper_price*5/100
         load.save()
         return super(LoadUpdateView, self).form_valid(form)
 
