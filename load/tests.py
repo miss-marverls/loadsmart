@@ -23,7 +23,7 @@ class ShipperAPITestCase(APITestCase):
             "ref": "963",
             "origin_city": "Salvador",
             "destination_city": "Lauro de Freitas",
-            "price": 75
+            "shipper_price": 75
         }
         self.client.post(self.url, self.data_, format="json")
         self.data_ = {
@@ -31,7 +31,7 @@ class ShipperAPITestCase(APITestCase):
             "ref": "132",
             "origin_city": "Alagoinhas",
             "destination_city": "Feira de Santana",
-            "price": 150
+            "shipper_price": 150
         }
         self.client.post(self.url, self.data_, format="json")
 
@@ -67,7 +67,7 @@ class CarrierAPITestCase(APITestCase):
             "ref": "963",
             "origin_city": "Salvador",
             "destination_city": "Lauro de Freitas",
-            "price": 75
+            "shipper_price": 75
         }
         self.client.post(self.url, self.data_, format="json")
         self.data_ = {
@@ -75,7 +75,7 @@ class CarrierAPITestCase(APITestCase):
             "ref": "132",
             "origin_city": "Alagoinhas",
             "destination_city": "Feira de Santana",
-            "price": 150
+            "shipper_price": 150
         }
         self.client.post(self.url, self.data_, format="json")
 
@@ -84,7 +84,7 @@ class CarrierAPITestCase(APITestCase):
             "ref": "132",
             "origin_city": "NY",
             "destination_city": "Los Angeles",
-            "price": 1500
+            "shipper_price": 1500
         }
         self.client.post(self.url, self.data_, format="json")
         self.client.get('/load/api/carrier/2/accept/', format="json")
@@ -100,7 +100,7 @@ class CarrierAPITestCase(APITestCase):
             "ref": "963",
             "origin_city": "Salvador",
             "destination_city": "Lauro de Freitas",
-            "price": 75.0
+            "carrier_price": 71.25
         }
         self.assertEqual(response.data, data_)
 
