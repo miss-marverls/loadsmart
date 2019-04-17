@@ -4,18 +4,18 @@ from .models import Load
 from users.models import Carrier
 from .forms import LoadForm, LoadEditRateForm
 from .decorators import shipper_required, carrier_required
+from django.utils.decorators import method_decorator
 from bootstrap_modal_forms.generic import BSModalCreateView, BSModalUpdateView
 
 
 # Create your views here.
-
+@method_decorator(shipper_required, name='dispatch')
 class LoadCreateView(BSModalCreateView):
     template_name = 'load/new_load.html'
     form_class = LoadForm
     success_message = 'Success: Load was created.'
     success_url = reverse_lazy('load:loads')
 
-    @shipper_required
     def form_valid(self, form):
         load = form.save(commit=False)
         load.carrier = None
@@ -25,7 +25,7 @@ class LoadCreateView(BSModalCreateView):
         load.save()
         return super(LoadCreateView, self).form_valid(form)
 
-
+@method_decorator(shipper_required, name='dispatch')
 class LoadUpdateView(BSModalUpdateView):
     model = Load
     template_name = 'load/edit_rate.html'
@@ -33,7 +33,6 @@ class LoadUpdateView(BSModalUpdateView):
     success_message = 'Success: Rate was updated.'
     success_url = reverse_lazy('load:loads')
 
-    @shipper_required
     def form_valid(self, form):
         load = form.save(commit=False)
         load.carrier = None
@@ -46,8 +45,8 @@ class LoadUpdateView(BSModalUpdateView):
 
 @shipper_required
 def list_loads(request):
-    available_loads = Load.objects.filter(carrier=None)
-    accepted_loads = Load.objects.exclude(carrier=None)
+    available_loads = Load.objects.filter(carrier=None, shipper_id=request.user.pk)
+    accepted_loads = Load.objects.exclude(carrier=None).filter(shipper_id=request.user.pk)
     return render(request, 'load/shipper_load_list.html',
                   {'available_loads': available_loads, 'accepted_loads': accepted_loads})
 
