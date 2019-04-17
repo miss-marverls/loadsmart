@@ -2,8 +2,6 @@ from django.test import TestCase
 from django.urls import reverse
 from .models import Shipper, Carrier
 
-# Create your tests here.
-
 
 class LogInViewTests(TestCase):
 
@@ -65,7 +63,7 @@ class RegisterViewTests(TestCase):
             reverse('users:register_carrier'), self.data_invalid, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/register.html')
-    
+
     def test_register_shipper_redirect(self):
         response = self.client.post(
             reverse('users:register_shipper'), self.data_shipper, follow=True)
