@@ -9,22 +9,25 @@ class ShipperSerializer(ModelSerializer):
         fields = ('first_name', 'last_name', 'email')
 
 
-class LoadSerializer(ModelSerializer):
+class ShipperLoadSerializer(ModelSerializer):
     shipper = ShipperSerializer()
 
     class Meta:
         model = Load
         fields = ('shipper', 'carrier', 'pickup_date', 'ref',
-                  'origin_city', 'destination_city', 'price')
+                  'origin_city', 'destination_city', 'shipper_price')
+
+
+class CarrierLoadSerializer(ModelSerializer):
+    shipper = ShipperSerializer()
+
+    class Meta:
+        model = Load
+        fields = ('shipper', 'carrier', 'pickup_date', 'ref',
+                  'origin_city', 'destination_city', 'carrier_price')
 
 
 class CreateLoadSerializer(ModelSerializer):
     class Meta:
         model = Load
-        fields = ('pickup_date', 'ref', 'origin_city', 'destination_city', 'price')
-
-
-"""class DroppedLoadSerializer(ModelSerializer):
-    class Meta:
-        model = DroppedLoads
-        fields = ('load', 'carrier')"""
+        fields = ('pickup_date', 'ref', 'origin_city', 'destination_city', 'shipper_price')
