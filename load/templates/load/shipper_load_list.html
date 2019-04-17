@@ -38,7 +38,7 @@
                 <td>{{ load.origin_city }}</td>
                 <td>{{ load.destination_city }}</td>
                 <td> Accepted by {{ load.carrier.mc_number }} </td>
-                <td>${{ load.price }}</td>
+                <td>${{ load.shipper_price }}</td>
                 <td></td>
             </tr>
         {% endfor %}
@@ -56,7 +56,7 @@
                 <td>{{ load.origin_city }}</td>
                 <td>{{ load.destination_city }}</td>
                 <td> Load Available</td>
-                <td> ${{ load.price }}</td>
+                <td> ${{ load.shipper_price }}</td>
                 <td>
                     <button class="btn edit-rate rate-button" data-id="{% url 'load:update-load' load.id %}"> Edit
                         Rate
