@@ -21,7 +21,7 @@ class LoadViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = CreateLoadSerializer(data=request.data)
-        carrier_price_ = request.data["shipper_price"] - request.data["shipper_price"] * 5 / 100
+        carrier_price_ = request.data["shipper_price"] - round(request.data["shipper_price"] * 5 / 100, 2)
         if serializer.is_valid():
             serializer.save(shipper_id=request.user.pk, carrier_price=carrier_price_)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
