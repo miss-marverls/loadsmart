@@ -10,12 +10,12 @@ from collections import OrderedDict
 # Create your tests here.
 
 class ShipperAPITestCase(APITestCase):
-    url = reverse("load:shipper-list")
+    url = reverse("load:api-list")
     client = APIClient()
 
     def setUp(self):
         self.user = Shipper.objects.create_user(
-            email="hireme@loadsmart.com", password="iwilldoagreatjob")
+            email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
         self.client.login(email="hireme@loadsmart.com",
                           password="iwilldoagreatjob")
         self.data_ = {
@@ -41,24 +41,24 @@ class ShipperAPITestCase(APITestCase):
 
     def test_list_available_loads(self):
         response = self.client.get(
-            reverse("load:shipper-available"), format="json")
+            reverse("load:api-available"), format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
     def test_list_accepted_loads(self):
         response = self.client.get(
-            reverse("load:shipper-accepted"), format="json")
+            reverse("load:api-accepted"), format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)
 
 
 class CarrierAPITestCase(APITestCase):
-    url = reverse("load:shipper-list")
+    url = reverse("load:api-list")
     client = APIClient()
 
     def setUp(self):
         self.user = Shipper.objects.create_user(
-            email="hireme@loadsmart.com", password="iwilldoagreatjob")
+            email="hireme@loadsmart.com", password="iwilldoagreatjob", is_carrier="1")
         self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")
         self.client.login(email="hireme@loadsmart.com",
                           password="iwilldoagreatjob")
@@ -87,12 +87,12 @@ class CarrierAPITestCase(APITestCase):
             "shipper_price": 1500
         }
         self.client.post(self.url, self.data_, format="json")
-        self.client.get('/load/api/carrier/2/accept/', format="json")
-        self.client.get('/load/api/carrier/3/drop/', format="json")
+        self.client.post('/api/loads/2/accept/', format="json")
+        self.client.post('/api/loads/3/reject/', format="json")
 
     def test_accept_load(self):
-        response = self.client.get(
-            '/load/api/carrier/1/accept/', format="json")
+        response = self.client.post(
+            '/api/loads/1/accept/', format="json")
         data_ = {
             "shipper": OrderedDict([('first_name', ''), ('last_name', ''), ('email', 'hireme@loadsmart.com')]),
             "carrier": 1,
@@ -105,33 +105,33 @@ class CarrierAPITestCase(APITestCase):
         self.assertEqual(response.data, data_)
 
     def test_accept_invalid_load(self):
-        response = self.client.get(
-            '/load/api/carrier/2/accept/', format="json")
+        response = self.client.post(
+            '/api/loads/2/accept/', format="json")
         self.assertEqual(response.data, {
             "detail": "Not found."
         })
 
     def test_accepted_load(self):
         response = self.client.get(
-            '/load/api/carrier/accepted/', format="json")
+            '/api/loads/accepted/', format="json")
         self.assertEqual(len(response.data), 1)
 
     def test_available_load(self):
         response = self.client.get(
-            '/load/api/carrier/available/', format="json")
+            '/api/loads/available/', format="json")
         self.assertEqual(len(response.data), 1)
 
     def test_drop_load(self):
-        response = self.client.get('/load/api/carrier/1/drop/')
+        response = self.client.post('/api/loads/1/reject/')
         self.assertEqual(response.data, status.HTTP_201_CREATED)
 
     def test_drop_load_invalid(self):
-        response = self.client.get('/load/api/carrier/3/drop/')
+        response = self.client.post('/api/loads/3/reject/')
         self.assertEqual(response.data, {
             "detail": "Load already dropped"
         })
 
     def test_list_dropped(self):
         response = self.client.get(
-            '/load/api/carrier/dropped/', format="json")
+            '/api/loads/rejected/', format="json")
         self.assertEqual(len(response.data), 1)
