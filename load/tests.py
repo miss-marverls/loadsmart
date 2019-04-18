@@ -15,7 +15,7 @@ class ShipperAPITestCase(APITestCase):
 
     def setUp(self):
         self.user = Shipper.objects.create_user(
-            email="hireme@loadsmart.com", password="iwilldoagreatjob")
+            email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
         self.client.login(email="hireme@loadsmart.com",
                           password="iwilldoagreatjob")
         self.data_ = {
@@ -45,7 +45,7 @@ class ShipperAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
-     def test_list_accepted_loads(self):
+    def test_list_accepted_loads(self):
         response = self.client.get(
             reverse("load:api-accepted"), format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -58,7 +58,7 @@ class CarrierAPITestCase(APITestCase):
 
     def setUp(self):
         self.user = Shipper.objects.create_user(
-            email="hireme@loadsmart.com", password="iwilldoagreatjob")
+            email="hireme@loadsmart.com", password="iwilldoagreatjob", is_carrier="1")
         self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")
         self.client.login(email="hireme@loadsmart.com",
                           password="iwilldoagreatjob")
