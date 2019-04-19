@@ -58,8 +58,7 @@ class CarrierAPITestCase(APITestCase):
 
     def setUp(self):
         self.user = Shipper.objects.create_user(
-            email="hireme@loadsmart.com", password="iwilldoagreatjob", is_carrier="1")
-        self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")
+            email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
         self.client.login(email="hireme@loadsmart.com",
                           password="iwilldoagreatjob")
         self.data_ = {
@@ -87,6 +86,12 @@ class CarrierAPITestCase(APITestCase):
             "shipper_price": 1500
         }
         self.client.post(self.url, self.data_, format="json")
+        self.client.logout()
+        self.user = Shipper.objects.create_user(
+            email="carrier@loadsmart.com", password="iwilldoagreatjob", is_carrier="1")
+        self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")
+        self.client.login(email="carrier@loadsmart.com",
+                          password="iwilldoagreatjob")
         self.client.post('/api/loads/2/accept/', format="json")
         self.client.post('/api/loads/3/reject/', format="json")
 

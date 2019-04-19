@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from load.models import Load
-from users.models import Shipper
+from users.models import Shipper, Carrier
 
 
 class ShipperSerializer(ModelSerializer):
@@ -9,8 +9,14 @@ class ShipperSerializer(ModelSerializer):
         fields = ('first_name', 'last_name', 'email')
 
 
+class CarrierSerializer(ModelSerializer):
+    class Meta:
+        model = Carrier
+        fields = ('mc_number',)
+
+
 class ShipperLoadSerializer(ModelSerializer):
-    shipper = ShipperSerializer()
+    carrier = CarrierSerializer()
 
     class Meta:
         model = Load
