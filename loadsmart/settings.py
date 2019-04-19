@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'bootstrap_modal_forms',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_nose',
     'app',
     'users',

@@ -1,15 +1,18 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from load.models import Load
 from users.models import Carrier
 from load.api.serializers import CarrierLoadSerializer, ShipperLoadSerializer, CreateLoadSerializer
+from .permissions import CanAccess
 
 
 class LoadViewSet(ModelViewSet):
     serializer_class = ''
+    permission_classes = (IsAuthenticated, CanAccess,)
 
     def get_serializer_class(self):
         if self.request.user.is_shipper:
@@ -28,7 +31,6 @@ class LoadViewSet(ModelViewSet):
 
         return Load.objects.all()
 
-
     def create(self, request, *args, **kwargs):
         serializer = CreateLoadSerializer(data=request.data)
         carrier_price_ = request.data["shipper_price"] - round(request.data["shipper_price"] * 5 / 100, 2)
@@ -44,7 +46,6 @@ class LoadViewSet(ModelViewSet):
     @action(methods=['get'], detail=False)
     def available(self, request):
         self.serializer_class = self.get_serializer_class()
-
         if self.request.user.is_shipper:
             return self.shipper_available(request)
 
