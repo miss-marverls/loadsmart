@@ -43,13 +43,18 @@ class LoadUpdateView(BSModalUpdateView):
         return super(LoadUpdateView, self).form_valid(form)
 
 
-@shipper_required
 def list_loads(request):
+    if request.user.is_shipper:
+        return list_shipper_loads(request)
+    return list_carrier_loads(request)
+
+
+@shipper_required
+def list_shipper_loads(request):
     available_loads = Load.objects.filter(carrier=None, shipper_id=request.user.pk)
     accepted_loads = Load.objects.exclude(carrier=None).filter(shipper_id=request.user.pk)
     return render(request, 'load/shipper_load_list.html',
                   {'available_loads': available_loads, 'accepted_loads': accepted_loads})
-
 
 @carrier_required
 def list_carrier_loads(request):
@@ -68,7 +73,7 @@ def accept_load(request, pk):
     carrier = Carrier.objects.get(user=request.user.pk)
     load.carrier = carrier
     load.save()
-    return redirect('load:carrier-loads')
+    return redirect('load:loads')
 
 
 @carrier_required
@@ -76,4 +81,4 @@ def drop_load(request, pk):
     load = Load.objects.get(pk=pk)
     carrier = Carrier.objects.get(user=request.user.pk)
     load.dropped_by.add(carrier)
-    return redirect('load:carrier-loads')
+    return redirect('load:loads')

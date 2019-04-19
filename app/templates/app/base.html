@@ -1,11 +1,7 @@
 <a href="{% url 'app:index' %}"> Index </a>
 
 {% if user.is_authenticated %}
-    {% if user.is_shipper %}
-        <a href="{% url 'load:loads' %}"> - loads </a>
-    {% else %}
-        <a href="{% url 'load:carrier-loads' %}"> - loads </a>
-    {% endif %}
+    <a href="{% url 'load:loads' %}"> - loads </a>
     <a href="{% url 'users:logout' %}"> - log out </a>
 {% else %}
     <a href="{% url 'users:register_shipper' %}"> - register shipper</a>
