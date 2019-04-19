@@ -1,5 +1,5 @@
 venv
-.vscode
+.vscode/
 .idea
 __pycache__
 
@@ -70,6 +70,7 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+cover/
 
 # Translations
 *.mo

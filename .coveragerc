@@ -1,0 +1,13 @@
+# .coveragerc to control coverage.py
+[run]
+omit = 	*/migrations/*
+	*/__init__.py
+#branch = True
+
+[report]
+omit = 	*/migrations/*
+	*/__init__.py
+show_missing = True
+
+
+    
