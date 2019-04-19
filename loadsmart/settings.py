@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'bootstrap_modal_forms',
     'rest_framework',
+    'django_nose',
     'app',
     'users',
     'load',
@@ -123,3 +124,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the loadsmart apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=app,users,load',
+    '--cover-erase',
+    '--cover-html',
+]
