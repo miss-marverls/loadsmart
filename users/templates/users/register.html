@@ -1,15 +1,38 @@
 {% extends "app/base.html" %}
 
+{% load widget_tweaks %}
 {% block content %}
+    <form method="POST" class="load-form">
+        <div class="modal-header">
+            <h3 class="modal-title">Register</h3>
+        </div>
 
-    <h1> Register </h1>
+        <div class="modal-body">
+            <div class="form-group">
+                {% csrf_token %}
+                {% for field in form %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {% render_field field class="form-control" placeholder="" %}
 
-    <form role="form" class="form" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
 
-        <button type="submit"> submit </button>
-        <input type="hidden" name="next" value="{% url 'app:index' %}" />
+                    {% if field.help_text %}
+                        <p>
+                            <small style="color: gray"> {{ field.help_text|safe }} </small>
+                        </p>
+                    {% endif %}
+
+                    {% for error in field.errors %}
+                        <p style="color: red"> {{ error }} </p>
+                    {% endfor %}
+
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="save btn btn-success">Save</button>
+            <input type="hidden" name="next" value="{% url 'app:index' %}" />
+        </div>
     </form>
 
 {% endblock content %}
