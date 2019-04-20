@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from . import views
+from rest_framework.authtoken.views import obtain_auth_token
 
 app_name = 'users'
 
@@ -11,4 +12,6 @@ urlpatterns = [
          name='register_shipper'),
     path('register_carrier/', views.CarrierRegistrationView.as_view(),
          name='register_carrier'),
+    path('token/', obtain_auth_token),
+
 ]
