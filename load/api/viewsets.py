@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
 from load.models import Load
 from users.models import Carrier
@@ -13,6 +14,7 @@ from .permissions import CanAccess
 class LoadViewSet(ModelViewSet):
     serializer_class = ''
     permission_classes = (IsAuthenticated, CanAccess,)
+    authentication_classes = (TokenAuthentication,)
 
     def get_serializer_class(self):
         if self.request.user.is_shipper:
