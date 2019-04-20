@@ -24,9 +24,15 @@ if errorlevel 9009 (
 	echo.http://sphinx-doc.org/
 	exit /b 1
 )
-
+copy $(SOURCEDIR)/modules.rst $(SOURCEDIR)/index.rst
+sphinx-apidoc -f -o rst .. '../*/migrations' '../manage.py'
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
 goto end
+
+:clean
+echo.Removing rst files...
+del rst/*
+%SPHINXBUILD% -M clean %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
 
 :help
 %SPHINXBUILD% -M help %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
