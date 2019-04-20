@@ -3,6 +3,7 @@ from rest_framework.test import APITestCase, APIClient
 from django.urls import reverse
 from rest_framework import status
 from users.models import Shipper, Carrier
+from rest_framework.authtoken.models import Token
 import datetime
 from collections import OrderedDict
 
@@ -16,8 +17,8 @@ class ShipperAPITestCase(APITestCase):
     def setUp(self):
         self.user = Shipper.objects.create_user(
             email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
-        self.client.login(email="hireme@loadsmart.com",
-                          password="iwilldoagreatjob")
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.data_ = {
             "pickup_date": datetime.date(2019, 4, 11),
             "ref": "963",
@@ -59,8 +60,8 @@ class CarrierAPITestCase(APITestCase):
     def setUp(self):
         self.user = Shipper.objects.create_user(
             email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
-        self.client.login(email="hireme@loadsmart.com",
-                          password="iwilldoagreatjob")
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.data_ = {
             "pickup_date": datetime.date(2019, 4, 11),
             "ref": "963",
@@ -89,9 +90,9 @@ class CarrierAPITestCase(APITestCase):
         self.client.logout()
         self.user = Shipper.objects.create_user(
             email="carrier@loadsmart.com", password="iwilldoagreatjob", is_carrier="1")
+        self.token = Token.objects.create(user=self.user)
         self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")
-        self.client.login(email="carrier@loadsmart.com",
-                          password="iwilldoagreatjob")
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.client.post('/api/loads/2/accept/', format="json")
         self.client.post('/api/loads/3/reject/', format="json")
 
