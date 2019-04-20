@@ -7,10 +7,12 @@ REM Command file for Sphinx documentation
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
-set SOURCEDIR=.
+set SOURCEDIR=rst
 set BUILDDIR=_build
+set SPHINXOPTS= -c .
 
 if "%1" == "" goto help
+if "%1" == "clean" goto clean
 
 %SPHINXBUILD% >NUL 2>NUL
 if errorlevel 9009 (
@@ -24,15 +26,16 @@ if errorlevel 9009 (
 	echo.http://sphinx-doc.org/
 	exit /b 1
 )
-copy $(SOURCEDIR)/modules.rst $(SOURCEDIR)/index.rst
-sphinx-apidoc -f -o rst .. '../*/migrations' '../manage.py'
+sphinx-apidoc -f -o rst .. "../*/migrations" "../manage.py"
+COPY %SOURCEDIR%\modules.rst %SOURCEDIR%\index.rst
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
 goto end
 
 :clean
 echo.Removing rst files...
-del rst/*
-%SPHINXBUILD% -M clean %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
+DEL /q %SOURCEDIR%\*
+%SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
+goto end
 
 :help
 %SPHINXBUILD% -M help %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
