@@ -136,6 +136,15 @@ class ShipperAPITestCase(APITestCase):
         response = self.client.post(self.url, self.data_, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+    def test_create_invalid_load(self):
+        response = self.client.post(self.url, data={
+            "pickup_date": datetime.date.today(),
+            "ref": "132",
+            "origin_city": "Alagoinhas",
+            "shipper_price": 150
+        }, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_list_available_loads(self):
         response = self.client.get(
             reverse("load:api-available"), format="json")
