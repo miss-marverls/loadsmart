@@ -1,0 +1,244 @@
+[
+{
+    "model": "load.load",
+    "pk": 1,
+    "fields": {
+        "shipper": 1,
+        "carrier": 1,
+        "pickup_date": "2019-07-08",
+        "ref": "987",
+        "origin_city": "Alagoinhas",
+        "destination_city": "Alagoinhas",
+        "shipper_price": 100.0,
+        "carrier_price": 95.0,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 2,
+    "fields": {
+        "shipper": 1,
+        "carrier": 1,
+        "pickup_date": "2019-05-31",
+        "ref": "987",
+        "origin_city": "Feira de Santana",
+        "destination_city": "Feira de Santana",
+        "shipper_price": 150.0,
+        "carrier_price": 142.5,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 3,
+    "fields": {
+        "shipper": 1,
+        "carrier": 1,
+        "pickup_date": "2019-01-04",
+        "ref": "85",
+        "origin_city": "Alagoinhas",
+        "destination_city": "Alagoinhas",
+        "shipper_price": 200.0,
+        "carrier_price": 190.0,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 4,
+    "fields": {
+        "shipper": 1,
+        "carrier": 2,
+        "pickup_date": "2019-04-04",
+        "ref": "57",
+        "origin_city": "Newport Beach, CA, EUA",
+        "destination_city": "Portland, OR, EUA",
+        "shipper_price": 1512.0,
+        "carrier_price": 1436.4,
+        "dropped_by": [
+            1
+        ]
+    }
+},
+{
+    "model": "load.load",
+    "pk": 5,
+    "fields": {
+        "shipper": 1,
+        "carrier": null,
+        "pickup_date": "2019-01-04",
+        "ref": "9754321",
+        "origin_city": "Newport Beach, CA, EUA",
+        "destination_city": "Portland, OR, EUA",
+        "shipper_price": 1512.52,
+        "carrier_price": 1436.894,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 6,
+    "fields": {
+        "shipper": 1,
+        "carrier": null,
+        "pickup_date": "2019-07-08",
+        "ref": "897",
+        "origin_city": "New York, NY, EUA",
+        "destination_city": "New Orleans, LA, EUA",
+        "shipper_price": 1960.5,
+        "carrier_price": 1862.475,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 7,
+    "fields": {
+        "shipper": 1,
+        "carrier": null,
+        "pickup_date": "2019-07-08",
+        "ref": "987",
+        "origin_city": "New York, NY, EUA",
+        "destination_city": "New Orleans, LA, EUA",
+        "shipper_price": 1960.5,
+        "carrier_price": 1862.0,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 8,
+    "fields": {
+        "shipper": 1,
+        "carrier": null,
+        "pickup_date": "2019-07-08",
+        "ref": "9754321",
+        "origin_city": "New York, NY, EUA",
+        "destination_city": "New Orleans, LA, EUA",
+        "shipper_price": 1960.5,
+        "carrier_price": 1862.47,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 9,
+    "fields": {
+        "shipper": 1,
+        "carrier": null,
+        "pickup_date": "2019-05-17",
+        "ref": "159",
+        "origin_city": "Alagoinhas",
+        "destination_city": "Feira de Santana",
+        "shipper_price": 1960.5,
+        "carrier_price": 1862.47,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 10,
+    "fields": {
+        "shipper": 1,
+        "carrier": 1,
+        "pickup_date": "2019-04-18",
+        "ref": "987",
+        "origin_city": "NYC, NY, EUA",
+        "destination_city": "Los Angeles, CA, EUA",
+        "shipper_price": 4185.0,
+        "carrier_price": 3975.75,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 11,
+    "fields": {
+        "shipper": 3,
+        "carrier": 2,
+        "pickup_date": "2019-04-18",
+        "ref": "98754",
+        "origin_city": "Alagoinhas",
+        "destination_city": "Salvador",
+        "shipper_price": 50.0,
+        "carrier_price": 47.5,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 12,
+    "fields": {
+        "shipper": 3,
+        "carrier": null,
+        "pickup_date": "2019-05-31",
+        "ref": "321",
+        "origin_city": "Alagoinhas",
+        "destination_city": "Alagoinhas Velha, Alagoinhas - BA, Brasil",
+        "shipper_price": 2.7,
+        "carrier_price": 2.5650000000000004,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 13,
+    "fields": {
+        "shipper": 3,
+        "carrier": null,
+        "pickup_date": "2019-04-19",
+        "ref": "88",
+        "origin_city": "Salvador",
+        "destination_city": "Cama\u00e7ari",
+        "shipper_price": 88.0,
+        "carrier_price": 83.6,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 14,
+    "fields": {
+        "shipper": 1,
+        "carrier": null,
+        "pickup_date": "2019-04-19",
+        "ref": "88",
+        "origin_city": "Salvador",
+        "destination_city": "Cruz das Almas",
+        "shipper_price": 88.0,
+        "carrier_price": 83.6,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 15,
+    "fields": {
+        "shipper": 1,
+        "carrier": null,
+        "pickup_date": "2019-04-19",
+        "ref": "88",
+        "origin_city": "Salvador",
+        "destination_city": "Itabuna",
+        "shipper_price": 88.0,
+        "carrier_price": 83.6,
+        "dropped_by": []
+    }
+},
+{
+    "model": "load.load",
+    "pk": 16,
+    "fields": {
+        "shipper": 1,
+        "carrier": null,
+        "pickup_date": "2019-04-19",
+        "ref": "88",
+        "origin_city": "Salvador",
+        "destination_city": "Cama\u00e7ari",
+        "shipper_price": 88.0,
+        "carrier_price": 83.6,
+        "dropped_by": []
+    }
+}
+]

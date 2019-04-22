@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from .models import Load
 from users.models import Carrier
@@ -25,6 +25,7 @@ class LoadCreateView(BSModalCreateView):
             load.shipper = self.request.user
         load.save()
         return super(LoadCreateView, self).form_valid(form)
+
 
 @method_decorator(shipper_required, name='dispatch')
 class LoadUpdateView(BSModalUpdateView):
@@ -57,6 +58,7 @@ def list_shipper_loads(request):
     return render(request, 'load/shipper_load_list.html',
                   {'available_loads': available_loads, 'accepted_loads': accepted_loads})
 
+
 @carrier_required
 def list_carrier_loads(request):
     carrier = Carrier.objects.get(user=request.user.pk)
@@ -70,7 +72,7 @@ def list_carrier_loads(request):
 
 @carrier_required
 def accept_load(request, pk):
-    load = Load.objects.get(pk=pk)
+    load = get_object_or_404(Load, pk=pk, carrier=None)
     carrier = Carrier.objects.get(user=request.user.pk)
     load.carrier = carrier
     load.save()
@@ -79,7 +81,7 @@ def accept_load(request, pk):
 
 @carrier_required
 def drop_load(request, pk):
-    load = Load.objects.get(pk=pk)
+    load = get_object_or_404(Load, pk=pk, carrier=None)
     carrier = Carrier.objects.get(user=request.user.pk)
     load.dropped_by.add(carrier)
     return redirect('load:loads')

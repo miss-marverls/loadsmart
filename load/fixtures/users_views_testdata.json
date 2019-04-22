@@ -1,0 +1,82 @@
+[
+{
+    "model": "users.shipper",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$kM4E6J9a2lmm$uZh+EXqrd+ISRltAMNYTdFqXfJM8uw12VqmEMy/YgyQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "email": "hireme@loadsmart.com",
+        "first_name": "Miss",
+        "last_name": "Marvel",
+        "is_shipper": true,
+        "is_carrier": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.shipper",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$gzF6zehhxkA5$+CnM9F7/soSaApwezZuq2eWK+i38CKye9PFJ1KbGIbw=",
+        "last_login": null,
+        "is_superuser": false,
+        "email": "carrier@loadsmart.com",
+        "first_name": "Carrier",
+        "last_name": "Nice",
+        "is_shipper": false,
+        "is_carrier": true,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.shipper",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$l8Aaf0T8KMN9$x7lcLA928VE4mttf2gx3AU5VZG6kdaNXMuGbFDTrDMw=",
+        "last_login": null,
+        "is_superuser": false,
+        "email": "cosmo@cat.com",
+        "first_name": "Cosmo",
+        "last_name": "Inacio",
+        "is_shipper": true,
+        "is_carrier": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.shipper",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$GQNt1cT1Csqz$J8xSnuVw6ziLK2mKwqaIdKGwaNgYS/zibEgMq/mIACo=",
+        "last_login": null,
+        "is_superuser": false,
+        "email": "wanda@cat.com",
+        "first_name": "Wanda",
+        "last_name": "Leticia",
+        "is_shipper": false,
+        "is_carrier": true,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.carrier",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "mc_number": "54125"
+    }
+},
+{
+    "model": "users.carrier",
+    "pk": 2,
+    "fields": {
+        "user": 4,
+        "mc_number": "64417"
+    }
+}
+]

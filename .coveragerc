@@ -2,11 +2,13 @@
 [run]
 omit = 	*/migrations/*
 	*/__init__.py
+	*/admin.py
 #branch = True
 
 [report]
 omit = 	*/migrations/*
 	*/__init__.py
+	*/admin.py
 show_missing = True
 
 
