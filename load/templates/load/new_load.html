@@ -50,7 +50,7 @@
 
                 directionsService.route(request, function (result, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
-                        distance = result.routes[0].legs[0].distance.text.slice(0, -3).replace(".", "").replace(",", ".");
+                        distance = result.routes[0].legs[0].distance.value * 0.0006213712;
                         price.value = ((distance * 150.0) / 100.0).toFixed(2);
                     }
                 });
