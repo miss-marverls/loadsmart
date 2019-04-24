@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APITestCase, APIClient
 from django.urls import reverse
 from rest_framework import status
-from users.models import User, Carrier
+from users.models import User, Shipper, Carrier
 from .models import Load
 from .forms import LoadForm
 from rest_framework.authtoken.models import Token
@@ -114,6 +114,7 @@ class ShipperAPITestCase(APITestCase):
         self.user = User.objects.create_user(
             email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
         self.token = Token.objects.create(user=self.user)
+        self.user = Shipper.objects.update_or_create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.data_ = {
             "pickup_date": datetime.date(2019, 4, 11),
@@ -170,6 +171,7 @@ class CarrierAPITestCase(APITestCase):
         self.user = User.objects.create_user(
             email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
         self.token = Token.objects.create(user=self.user)
+        self.user = Shipper.objects.update_or_create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.data_ = {
             "pickup_date": datetime.date(2019, 4, 11),
@@ -209,7 +211,7 @@ class CarrierAPITestCase(APITestCase):
         response = self.client.post(
             '/api/loads/1/accept/', format="json")
         data_ = {
-            "shipper": OrderedDict([('first_name', ''), ('last_name', ''), ('email', 'hireme@loadsmart.com')]),
+            "shipper": OrderedDict(),
             "carrier": 1,
             "pickup_date": '2019-04-11',
             "ref": "963",

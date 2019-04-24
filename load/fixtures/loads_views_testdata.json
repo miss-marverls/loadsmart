@@ -155,7 +155,7 @@
     "model": "load.load",
     "pk": 11,
     "fields": {
-        "shipper": 3,
+        "shipper": 2,
         "carrier": 2,
         "pickup_date": "2019-04-18",
         "ref": "98754",
@@ -170,7 +170,7 @@
     "model": "load.load",
     "pk": 12,
     "fields": {
-        "shipper": 3,
+        "shipper": 2,
         "carrier": null,
         "pickup_date": "2019-05-31",
         "ref": "321",
@@ -185,7 +185,7 @@
     "model": "load.load",
     "pk": 13,
     "fields": {
-        "shipper": 3,
+        "shipper": 2,
         "carrier": null,
         "pickup_date": "2019-04-19",
         "ref": "88",

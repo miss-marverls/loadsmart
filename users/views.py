@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse, reverse_lazy
 # nas versões django 1.9.* essa importação era no django.core.urlresolvers
 
-from .models import Carrier, User
+from .models import Shipper, Carrier
 from .forms import ShipperCreationForm, CarrierCreationForm
 
 
@@ -21,6 +21,9 @@ class ShipperRegistrationView(CreateView):
             user = form.save()
             user.is_shipper = True
             user.save()
+
+            shipper = Shipper.objects.create(user=user)
+            shipper.save()
 
             return HttpResponseRedirect(self.success_url)
 

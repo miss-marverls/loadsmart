@@ -1,6 +1,6 @@
 [
 {
-    "model": "users.User",
+    "model": "users.user",
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$100000$kM4E6J9a2lmm$uZh+EXqrd+ISRltAMNYTdFqXfJM8uw12VqmEMy/YgyQ=",
@@ -16,7 +16,7 @@
     }
 },
 {
-    "model": "users.User",
+    "model": "users.user",
     "pk": 2,
     "fields": {
         "password": "pbkdf2_sha256$100000$gzF6zehhxkA5$+CnM9F7/soSaApwezZuq2eWK+i38CKye9PFJ1KbGIbw=",
@@ -32,7 +32,7 @@
     }
 },
 {
-    "model": "users.User",
+    "model": "users.user",
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$100000$l8Aaf0T8KMN9$x7lcLA928VE4mttf2gx3AU5VZG6kdaNXMuGbFDTrDMw=",
@@ -48,7 +48,7 @@
     }
 },
 {
-    "model": "users.User",
+    "model": "users.user",
     "pk": 4,
     "fields": {
         "password": "pbkdf2_sha256$100000$GQNt1cT1Csqz$J8xSnuVw6ziLK2mKwqaIdKGwaNgYS/zibEgMq/mIACo=",
@@ -64,11 +64,25 @@
     }
 },
 {
+    "model": "users.shipper",
+    "pk": 1,
+    "fields": {
+        "user": 1
+    }
+},
+{
     "model": "users.carrier",
     "pk": 1,
     "fields": {
         "user": 2,
         "mc_number": "54125"
+    }
+},
+{
+    "model": "users.shipper",
+    "pk": 2,
+    "fields": {
+        "user": 3
     }
 },
 {
