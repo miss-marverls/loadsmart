@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from load.models import Load
 from users.models import Carrier
 from load.api.serializers import CarrierLoadSerializer, ShipperLoadSerializer, CreateLoadSerializer
+from load import utils
 from .permissions import CanAccess
 
 
@@ -35,10 +36,10 @@ class LoadViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = CreateLoadSerializer(data=request.data)
-        carrier_price_ = request.data["shipper_price"] - round(request.data["shipper_price"] * 5 / 100, 2)
+        carrier_price = utils.calculate_carrier_price(request.data["shipper_price"])
         if serializer.is_valid():
             serializer.save(shipper_id=request.user.pk,
-                            carrier_price=carrier_price_)
+                            carrier_price=carrier_price)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
