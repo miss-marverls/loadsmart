@@ -6,6 +6,7 @@ from .forms import LoadForm, LoadEditRateForm
 from .decorators import shipper_required, carrier_required, login_required
 from django.utils.decorators import method_decorator
 from bootstrap_modal_forms.generic import BSModalCreateView, BSModalUpdateView
+from . import utils
 
 
 # Create your views here.
@@ -19,7 +20,7 @@ class LoadCreateView(BSModalCreateView):
     def form_valid(self, form):
         load = form.save(commit=False)
         load.carrier = None
-        load.carrier_price = round(load.shipper_price - load.shipper_price * 5 / 100, 2)
+        load.carrier_price = utils.calculate_carrier_price(load.shipper_price)
         if self.request.user.is_authenticated:
             load.shipper = self.request.user
         load.save()
@@ -39,7 +40,7 @@ class LoadUpdateView(BSModalUpdateView):
         load.carrier = None
         if self.request.user.is_authenticated:
             load.shipper = self.request.user
-            load.carrier_price = round(load.shipper_price - load.shipper_price * 5 / 100, 2)
+            load.carrier_price = utils.calculate_carrier_price(load.shipper_price)
         load.save()
         return super(LoadUpdateView, self).form_valid(form)
 
