@@ -85,3 +85,13 @@ def drop_load(request, pk):
     carrier = Carrier.objects.get(user=request.user.pk)
     load.dropped_by.add(carrier)
     return redirect('load:loads')
+
+
+@carrier_required
+def cancel_load(request, pk):
+    carrier = Carrier.objects.get(user=request.user.pk)
+    load = get_object_or_404(Load, pk=pk, carrier=carrier)
+    load.carrier = None
+    load.save()
+    load.dropped_by.add(carrier)
+    return redirect('load:loads')

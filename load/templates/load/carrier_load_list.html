@@ -36,7 +36,7 @@
                 <td>{{ load.shipper.first_name }} {{ load.shipper.last_name }} </td>
                 <td style="color:green">Accepted</td>
                 <td>${{ load.carrier_price }}</td>
-                <td></td>
+                <td><a class = "btn btn-danger" href="{% url 'load:cancel-load' load.id %}">Drop</a></td>
             </tr>
         {% endfor %}
 
