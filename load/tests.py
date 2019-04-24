@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APITestCase, APIClient
 from django.urls import reverse
 from rest_framework import status
-from users.models import Shipper, Carrier
+from users.models import User, Carrier
 from .models import Load
 from .forms import LoadForm
 from rest_framework.authtoken.models import Token
@@ -111,7 +111,7 @@ class ShipperAPITestCase(APITestCase):
     client = APIClient()
 
     def setUp(self):
-        self.user = Shipper.objects.create_user(
+        self.user = User.objects.create_user(
             email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
         self.token = Token.objects.create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
@@ -167,7 +167,7 @@ class CarrierAPITestCase(APITestCase):
     client = APIClient()
 
     def setUp(self):
-        self.user = Shipper.objects.create_user(
+        self.user = User.objects.create_user(
             email="hireme@loadsmart.com", password="iwilldoagreatjob", is_shipper="1")
         self.token = Token.objects.create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
@@ -197,7 +197,7 @@ class CarrierAPITestCase(APITestCase):
         }
         self.client.post(self.url, self.data_, format="json")
         self.client.logout()
-        self.user = Shipper.objects.create_user(
+        self.user = User.objects.create_user(
             email="carrier@loadsmart.com", password="iwilldoagreatjob", is_carrier="1")
         self.token = Token.objects.create(user=self.user)
         self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")

@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from .models import Load
 from users.models import Carrier
 from .forms import LoadForm, LoadEditRateForm
-from .decorators import shipper_required, carrier_required
+from .decorators import shipper_required, carrier_required, login_required
 from django.utils.decorators import method_decorator
 from bootstrap_modal_forms.generic import BSModalCreateView, BSModalUpdateView
 
@@ -43,7 +43,7 @@ class LoadUpdateView(BSModalUpdateView):
         load.save()
         return super(LoadUpdateView, self).form_valid(form)
 
-
+@login_required
 def list_loads(request):
     if request.user.is_shipper:
         return list_shipper_loads(request)

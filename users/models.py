@@ -27,7 +27,7 @@ class EmailUserManager(BaseUserManager):
         return user
 
 
-class Shipper(PermissionsMixin, AbstractBaseUser):
+class User(PermissionsMixin, AbstractBaseUser):
     email = models.EmailField(
         verbose_name=_('Email address'),
         unique=True,
