@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from .models import Load
-from users.models import Carrier
+from users.models import Carrier, Shipper
 from .forms import LoadForm, LoadEditRateForm
-from .decorators import shipper_required, carrier_required
+from .decorators import shipper_required, carrier_required, login_required
 from django.utils.decorators import method_decorator
 from bootstrap_modal_forms.generic import BSModalCreateView, BSModalUpdateView
 from . import utils
@@ -22,7 +22,8 @@ class LoadCreateView(BSModalCreateView):
         load.carrier = None
         load.carrier_price = utils.calculate_carrier_price(load.shipper_price)
         if self.request.user.is_authenticated:
-            load.shipper = self.request.user
+            shipper = Shipper.objects.get(user=self.request.user.pk)
+            load.shipper = shipper
         load.save()
         return super(LoadCreateView, self).form_valid(form)
 
@@ -39,12 +40,13 @@ class LoadUpdateView(BSModalUpdateView):
         load = form.save(commit=False)
         load.carrier = None
         if self.request.user.is_authenticated:
-            load.shipper = self.request.user
+            shipper = Shipper.objects.get(user=self.request.user.pk)
+            load.shipper = shipper
             load.carrier_price = utils.calculate_carrier_price(load.shipper_price)
         load.save()
         return super(LoadUpdateView, self).form_valid(form)
 
-
+@login_required
 def list_loads(request):
     if request.user.is_shipper:
         return list_shipper_loads(request)
@@ -53,8 +55,9 @@ def list_loads(request):
 
 @shipper_required
 def list_shipper_loads(request):
-    available_loads = Load.objects.filter(carrier=None, shipper_id=request.user.pk)
-    accepted_loads = Load.objects.exclude(carrier=None).filter(shipper_id=request.user.pk)
+    shipper = Shipper.objects.get(user=request.user.pk)
+    available_loads = Load.objects.filter(carrier=None, shipper=shipper)
+    accepted_loads = Load.objects.exclude(carrier=None).filter(shipper=shipper)
     return render(request, 'load/shipper_load_list.html',
                   {'available_loads': available_loads, 'accepted_loads': accepted_loads})
 

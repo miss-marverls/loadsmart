@@ -6,7 +6,7 @@
         <title>Loadsmart</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
             integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/load.css' %}">
+        <link rel="stylesheet" href="{% static '/css/load.css' %}">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
             integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
@@ -15,7 +15,7 @@
 
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-            <a class="navbar-brand" href="#">Loadsmart</a>
+            <a class="navbar-brand" href="{% url 'app:index' %}">Loadsmart</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -42,7 +42,6 @@
                                 {{ user.get_username }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Profile</a>
                                 <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
                             </div>
                         </li>

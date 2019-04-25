@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
 from load.models import Load
-from users.models import Carrier
+from users.models import Shipper, Carrier
 from load.api.serializers import CarrierLoadSerializer, ShipperLoadSerializer, CreateLoadSerializer
 from load import utils
 from .permissions import CanAccess
@@ -30,7 +30,8 @@ class LoadViewSet(ModelViewSet):
         self.serializer_class = self.get_serializer_class()
 
         if self.request.user.is_shipper:
-            return Load.objects.filter(shipper=self.request.user)
+            shipper = Shipper.objects.get(user=self.request.user.pk)
+            return Load.objects.filter(shipper=shipper)
 
         return Load.objects.all()
 
@@ -55,8 +56,9 @@ class LoadViewSet(ModelViewSet):
         return self.carrier_available(request)
 
     def shipper_available(self, request):
+        shipper = Shipper.objects.get(user=request.user.pk)
         queryset = Load.objects.filter(
-            carrier=None, shipper_id=request.user.pk)
+            carrier=None, shipper=shipper)
         serializer = ShipperLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
@@ -81,8 +83,9 @@ class LoadViewSet(ModelViewSet):
         return self.carrier_accepted(request)
 
     def shipper_accepted(self, request):
+        shipper = Shipper.objects.get(user=request.user.pk)
         queryset = Load.objects.exclude(
-            carrier=None).filter(shipper=request.user)
+            carrier=None).filter(shipper=shipper)
         serializer = ShipperLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)

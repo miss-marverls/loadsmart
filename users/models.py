@@ -27,7 +27,7 @@ class EmailUserManager(BaseUserManager):
         return user
 
 
-class Shipper(PermissionsMixin, AbstractBaseUser):
+class User(PermissionsMixin, AbstractBaseUser):
     email = models.EmailField(
         verbose_name=_('Email address'),
         unique=True,
@@ -47,6 +47,10 @@ class Shipper(PermissionsMixin, AbstractBaseUser):
 
     USERNAME_FIELD = 'email'
     objects = EmailUserManager()
+
+class Shipper(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
 
 
 class Carrier(models.Model):

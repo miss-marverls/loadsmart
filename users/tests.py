@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from .models import Shipper, Carrier
+from .models import User
 
 
 class LogInViewTests(TestCase):
@@ -9,7 +9,7 @@ class LogInViewTests(TestCase):
         self.data_ = {
             'email': 'hireme_shipper@loadsmart.com',
             'password': 'iwilldoagreatjob'}
-        self.user = Shipper.objects.create_user(**self.data_)
+        self.user = User.objects.create_user(**self.data_)
 
     def test_view_url_by_name(self):
         response = self.client.get(reverse('users:login'))
