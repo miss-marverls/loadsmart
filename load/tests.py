@@ -211,6 +211,7 @@ class CarrierAPITestCase(APITestCase):
         response = self.client.post(
             '/api/loads/1/accept/', format="json")
         data_ = {
+            "id": 1,
             "shipper": OrderedDict([('user', OrderedDict([
                 ('first_name', ''),
                 ('last_name', ''),

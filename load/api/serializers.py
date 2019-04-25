@@ -37,7 +37,7 @@ class CarrierLoadSerializer(ModelSerializer):
 
     class Meta:
         model = Load
-        fields = ('shipper', 'carrier', 'pickup_date', 'ref',
+        fields = ('id', 'shipper', 'carrier', 'pickup_date', 'ref',
                   'origin_city', 'destination_city', 'carrier_price')
 
 
