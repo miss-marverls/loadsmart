@@ -20,12 +20,8 @@ body {
     background-color: #2b3034;
 }
 
-.add-button {
-    background-color: #2b3034;
-}
-
 .thead-custom {
-    background-color: #2b3034;
+    background-color: #3e4c55;
 }
 
 .rate-button {
@@ -38,6 +34,7 @@ body {
 }
 
 .add-button {
+    background-color: #3e4c55;
     border-radius: 20px;
     margin: 10px;
 }
@@ -53,4 +50,30 @@ body {
 
 .table-custom {
     table-layout: auto;
+}
+
+.button-custom {
+    display: inline-block;
+    border: none;
+    color: whitesmoke;
+    padding: 5px;
+}
+
+.button-accept {
+    width: 48%;
+    background-color: #66caa1;
+}
+
+.button-cancel {
+    background-color: #AAAAAA;
+}
+
+.button-drop {
+    width: 48%;
+    background-color: #AAAAAA;
+}
+
+.logo-custom {
+    color: #66caa1;
+    font-size: 22px;
 }

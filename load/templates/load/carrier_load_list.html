@@ -36,7 +36,7 @@
                 <td>{{ load.shipper.first_name }} {{ load.shipper.last_name }} </td>
                 <td style="color:green">Accepted</td>
                 <td>${{ load.carrier_price }}</td>
-                <td></td>
+                <td><a class = "btn button-custom btn-block button-cancel" href="{% url 'load:cancel-load' load.id %}">Drop</a></td>
             </tr>
         {% endfor %}
 
@@ -55,8 +55,8 @@
                 <td> Waiting</td>
                 <td> ${{ load.carrier_price }}</td>
                 <td>
-                    <a class="btn" href="{% url 'load:drop-load' load.id %}">Reject</a>
-                    <a class="btn btn-success" href="{% url 'load:accept-load' load.id %}">Accept</a>
+                    <a class="btn button-custom button-drop" href="{% url 'load:drop-load' load.id %}">Reject</a>
+                    <a class="btn button-custom button-accept" href="{% url 'load:accept-load' load.id %}">Accept</a>
                 </td>
             </tr>
         {% endfor %}

@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:pk>/update/', views.LoadUpdateView.as_view(), name='update-load'),
     path('<int:pk>/accept/', views.accept_load, name='accept-load'),
     path('<int:pk>/drop/', views.drop_load, name='drop-load'),
+    path('<int:pk>/cancel/', views.cancel_load, name='cancel-load')
 ]
