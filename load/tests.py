@@ -211,7 +211,11 @@ class CarrierAPITestCase(APITestCase):
         response = self.client.post(
             '/api/loads/1/accept/', format="json")
         data_ = {
-            "shipper": OrderedDict(),
+            "shipper": OrderedDict([('user', OrderedDict([
+                ('first_name', ''),
+                ('last_name', ''),
+                ('email', 'hireme@loadsmart.com')]
+            ))]),
             "carrier": 1,
             "pickup_date": '2019-04-11',
             "ref": "963",
