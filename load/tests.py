@@ -245,7 +245,7 @@ class CarrierAPITestCase(APITestCase):
 
     def test_drop_load(self):
         response = self.client.post('/api/loads/1/reject/')
-        self.assertEqual(response.data, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_drop_load_invalid(self):
         response = self.client.post('/api/loads/3/reject/')
