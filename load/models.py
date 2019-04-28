@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from users.models import Shipper, Carrier
 from django.utils import timezone
-from . import utils
 
 
 # Create your models here.
