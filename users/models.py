@@ -48,6 +48,7 @@ class User(PermissionsMixin, AbstractBaseUser):
     USERNAME_FIELD = 'email'
     objects = EmailUserManager()
 
+
 class Shipper(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)

@@ -1,4 +1,4 @@
-## About
+## Loadsmart
 
 Loadsmart is a New York company that facilitates how shippers and freight brokers find the right carriers to move their shipments.
 
