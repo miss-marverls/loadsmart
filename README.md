@@ -28,15 +28,17 @@ Run unit tests with coverage inside of project folder:
 
     (env)~/loadsmart$ python manage.py test
 
-## Apps documentation
+## Project documentation
 Generate documentation:
 
     (env)~/loadsmart$ cd docs/
     (env)~/loadsmart/docs$ make html
     
-Documentation is available in loadsmart/docs/_build/html/index.html   
+Project Documentation is available in loadsmart/docs/_build/html/index.html
 
-## API
+## API documentation
+
+API Documentation can be accessed using: http://localhost:8000/docs
 
 
 
