@@ -56,18 +56,13 @@ class LoadViewSet(ModelViewSet):
         return self.carrier_available(request)
 
     def shipper_available(self, request):
-        shipper = Shipper.objects.get(user=request.user.pk)
-        queryset = Load.objects.filter(
-            carrier=None, shipper=shipper)
+        queryset = Load.objects.get_shipper_available_loads(request)
         serializer = ShipperLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
 
     def carrier_available(self, request):
-        carrier = Carrier.objects.get(user=request.user.pk)
-        rejected_loads = carrier.dropped_by.all()
-        queryset = Load.objects.filter(
-            carrier=None).exclude(id__in=rejected_loads)
+        queryset = Load.objects.get_carrier_available_loads(request)
         serializer = CarrierLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
@@ -83,16 +78,13 @@ class LoadViewSet(ModelViewSet):
         return self.carrier_accepted(request)
 
     def shipper_accepted(self, request):
-        shipper = Shipper.objects.get(user=request.user.pk)
-        queryset = Load.objects.exclude(
-            carrier=None).filter(shipper=shipper)
+        queryset = Load.objects.get_shipper_accepted_loads(request)
         serializer = ShipperLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
 
     def carrier_accepted(self, request):
-        carrier = Carrier.objects.get(user=request.user.pk)
-        queryset = Load.objects.filter(carrier=carrier)
+        queryset = Load.objects.get_carrier_accepted_loads(request)
         serializer = CarrierLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
@@ -101,9 +93,8 @@ class LoadViewSet(ModelViewSet):
     @action(methods=['get'], detail=False)
     def rejected(self, request):
         self.serializer_class = self.get_serializer_class()
-        carrier = Carrier.objects.get(user=request.user.pk)
-        loads = carrier.dropped_by.all()
-        serializer = CarrierLoadSerializer(loads, many=True)
+        queryset = Load.objects.get_carrier_rejected_loads(request)
+        serializer = CarrierLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
 
@@ -111,7 +102,7 @@ class LoadViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def accept(self, request, pk=None):
         self.serializer_class = self.get_serializer_class()
-        carrier = Carrier.objects.get(user=request.user.pk)
+        carrier = Carrier.objects.get_carrier(request)
         load = get_object_or_404(Load, pk=pk, carrier=None)
         serializer = CarrierLoadSerializer(
             load, data={'carrier': carrier.pk}, partial=True)

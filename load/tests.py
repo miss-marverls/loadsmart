@@ -16,7 +16,8 @@ class ShipperAppTestCase(TestCase):
     fixtures = ['loads_views_testdata.json', 'users_views_testdata.json']
 
     def setUp(self):
-        self.client.login(username="hireme@loadsmart.com", password="iwilldoagreatjob")
+        self.client.login(username="hireme@loadsmart.com",
+                          password="iwilldoagreatjob")
 
     def create_load(self):
         return Load(pickup_date=datetime.date.today(), ref="123", origin_city="NY", destination_city="Los Angeles",
@@ -73,14 +74,16 @@ class ShipperAppTestCase(TestCase):
     def test_form_edit_price(self):
         resp = self.client.post('/1/update/')
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(resp.context['form']['shipper_price'].errors, [u'This field is required.'])
+        self.assertEqual(resp.context['form']['shipper_price'].errors, [
+                         u'This field is required.'])
 
 
 class CarrierAppTestCase(TestCase):
     fixtures = ['loads_views_testdata.json', 'users_views_testdata.json']
 
     def setUp(self):
-        self.client.login(username="carrier@loadsmart.com", password="iwilldoagreatjob")
+        self.client.login(username="carrier@loadsmart.com",
+                          password="iwilldoagreatjob")
 
     def test_list_loads(self):
         response = self.client.get('/loads/')
@@ -95,14 +98,14 @@ class CarrierAppTestCase(TestCase):
         response = self.client.get('/1/accept/')
         self.assertEqual(response.status_code, 404)
 
-    def test_drop_load(self):
-        response = self.client.get('/5/drop/')
+    def test_reject_load(self):
+        response = self.client.get('/5/reject/')
         load = Load.objects.get(pk=5)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Carrier.objects.get(pk=1) in load.dropped_by.all())
 
-    def test_drop_accepted_load(self):
-        response = self.client.get('/1/drop/')
+    def test_reject_accepted_load(self):
+        response = self.client.get('/1/reject/')
         self.assertEqual(response.status_code, 404)
 
 
@@ -160,7 +163,8 @@ class ShipperAPITestCase(APITestCase):
 
     def test_unauthorized_method(self):
         response = self.client.delete('/api/loads/3/')
-        self.assertEqual(response.data, {"detail": "You do not have permission to perform this action."})
+        self.assertEqual(response.data, {
+                         "detail": "You do not have permission to perform this action."})
 
 
 class CarrierAPITestCase(APITestCase):
@@ -202,7 +206,8 @@ class CarrierAPITestCase(APITestCase):
         self.user = User.objects.create_user(
             email="carrier@loadsmart.com", password="iwilldoagreatjob", is_carrier="1")
         self.token = Token.objects.create(user=self.user)
-        self.user = Carrier.objects.update_or_create(user=self.user, mc_number="123456789")
+        self.user = Carrier.objects.update_or_create(
+            user=self.user, mc_number="123456789")
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.client.post('/api/loads/2/accept/', format="json")
         self.client.post('/api/loads/3/reject/', format="json")
@@ -243,17 +248,17 @@ class CarrierAPITestCase(APITestCase):
             '/api/loads/available/', format="json")
         self.assertEqual(len(response.data), 1)
 
-    def test_drop_load(self):
+    def test_reject_load(self):
         response = self.client.post('/api/loads/1/reject/')
         self.assertEqual(response.data, status.HTTP_201_CREATED)
 
-    def test_drop_load_invalid(self):
+    def test_reject_load_invalid(self):
         response = self.client.post('/api/loads/3/reject/')
         self.assertEqual(response.data, {
             "detail": "Load already dropped"
         })
 
-    def test_list_dropped(self):
+    def test_list_rejected(self):
         response = self.client.get(
             '/api/loads/rejected/', format="json")
         self.assertEqual(len(response.data), 1)
@@ -262,4 +267,5 @@ class CarrierAPITestCase(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION="")
         response = self.client.get(
             '/api/loads/rejected/', format="json")
-        self.assertEqual(response.data, {"detail": "Authentication credentials were not provided."})
+        self.assertEqual(
+            response.data, {"detail": "Authentication credentials were not provided."})
