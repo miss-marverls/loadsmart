@@ -110,7 +110,7 @@ class LoadViewSet(ModelViewSet):
         if serializer.is_valid():
             serializer.save()
 
-            return Response(serializer.data)
+            return Response(status=status.HTTP_201_CREATED, data=serializer.data)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -124,6 +124,6 @@ class LoadViewSet(ModelViewSet):
         if not carrier in load_.dropped_by.all():
             load_.dropped_by.add(carrier)
 
-            return Response(status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_201_CREATED)
 
-        return Response(data={'detail': "Load already dropped"})
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={'detail': "Load already dropped"})
