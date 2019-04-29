@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'app',
     'users',
     'load',
+    'docs',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,7 @@ NOSE_ARGS = [
     '--cover-erase',
     '--cover-html',
 ]
+
+DOCS_ROOT = 'docs/_build/html'
+# DOCS_ACCESS = 'staff'
+

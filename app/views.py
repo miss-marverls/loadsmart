@@ -5,5 +5,5 @@ def index(request):
     return render(request, 'app/index.html')
 
 
-def docs(request):
+def docs_api(request):
     return render(request, 'app/api-doc.html')
