@@ -22,9 +22,10 @@ class LoadCreateView(BSModalCreateView):
         load.carrier = None
         load.carrier_price = utils.calculate_carrier_price(load.shipper_price)
         if self.request.user.is_authenticated:
-            shipper = Shipper.objects.get(user=self.request.user.pk)
+            shipper = Shipper.objects.get_shipper(self.request)
             load.shipper = shipper
         load.save()
+
         return super(LoadCreateView, self).form_valid(form)
 
 
@@ -40,7 +41,7 @@ class LoadUpdateView(BSModalUpdateView):
         load = form.save(commit=False)
         load.carrier = None
         if self.request.user.is_authenticated:
-            shipper = Shipper.objects.get(user=self.request.user.pk)
+            shipper = Shipper.objects.get_shipper(self.request)
             load.shipper = shipper
             load.carrier_price = utils.calculate_carrier_price(load.shipper_price)
         load.save()
@@ -55,20 +56,16 @@ def list_loads(request):
 
 @shipper_required
 def list_shipper_loads(request):
-    shipper = Shipper.objects.get(user=request.user.pk)
-    available_loads = Load.objects.filter(carrier=None, shipper=shipper)
-    accepted_loads = Load.objects.exclude(carrier=None).filter(shipper=shipper)
+    available_loads = Load.objects.get_shipper_available_loads(request)
+    accepted_loads = Load.objects.get_shipper_accepted_loads(request)
     return render(request, 'load/shipper_load_list.html',
                   {'available_loads': available_loads, 'accepted_loads': accepted_loads})
 
 
 @carrier_required
 def list_carrier_loads(request):
-    carrier = Carrier.objects.get(user=request.user.pk)
-    dropped_loads = carrier.dropped_by.all()
-    available_loads = Load.objects.filter(
-        carrier=None).exclude(id__in=dropped_loads)
-    accepted_loads = Load.objects.filter(carrier=carrier)
+    available_loads = Load.objects.get_carrier_available_loads(request)
+    accepted_loads = Load.objects.get_carrier_accepted_loads(request)
     return render(request, 'load/carrier_load_list.html',
                   {'available_loads': available_loads, 'accepted_loads': accepted_loads})
 
@@ -76,23 +73,23 @@ def list_carrier_loads(request):
 @carrier_required
 def accept_load(request, pk):
     load = get_object_or_404(Load, pk=pk, carrier=None)
-    carrier = Carrier.objects.get(user=request.user.pk)
+    carrier = Carrier.objects.get_carrier(request)
     load.carrier = carrier
     load.save()
     return redirect('load:loads')
 
 
 @carrier_required
-def drop_load(request, pk):
+def reject_load(request, pk):
     load = get_object_or_404(Load, pk=pk, carrier=None)
-    carrier = Carrier.objects.get(user=request.user.pk)
+    carrier = Carrier.objects.get_carrier(request)
     load.dropped_by.add(carrier)
     return redirect('load:loads')
 
 
 @carrier_required
-def cancel_load(request, pk):
-    carrier = Carrier.objects.get(user=request.user.pk)
+def drop_load(request, pk):
+    carrier = Carrier.objects.get_carrier(request)
     load = get_object_or_404(Load, pk=pk, carrier=carrier)
     load.carrier = None
     load.save()

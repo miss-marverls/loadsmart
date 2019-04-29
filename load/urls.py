@@ -15,6 +15,6 @@ urlpatterns = [
     path('create/', views.LoadCreateView.as_view(), name='create-load'),
     path('<int:pk>/update/', views.LoadUpdateView.as_view(), name='update-load'),
     path('<int:pk>/accept/', views.accept_load, name='accept-load'),
-    path('<int:pk>/drop/', views.drop_load, name='drop-load'),
-    path('<int:pk>/cancel/', views.cancel_load, name='cancel-load')
+    path('<int:pk>/reject/', views.reject_load, name='reject-load'),
+    path('<int:pk>/drop/', views.drop_load, name='drop-load')
 ]
