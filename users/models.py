@@ -49,12 +49,26 @@ class User(PermissionsMixin, AbstractBaseUser):
     objects = EmailUserManager()
 
 
+class ShipperManager(models.Manager):
+    def get_shipper(self, request):
+        return self.get(user=request.user.pk)
+
+
 class Shipper(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
+
+    objects = ShipperManager()
+
+
+class CarrierManager(models.Manager):
+    def get_carrier(self, request):
+        return self.get(user=request.user.pk)
 
 
 class Carrier(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     mc_number = models.CharField(max_length=12)
+
+    objects = CarrierManager()
