@@ -8,6 +8,7 @@ if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
 set SOURCEDIR=rst
+set SOURCEDIR_AUX =rst/custom_made
 set BUILDDIR=_build
 set SPHINXOPTS= -c .
 
@@ -27,13 +28,13 @@ if errorlevel 9009 (
 	exit /b 1
 )
 sphinx-apidoc -f -o rst .. "../*/migrations" "../manage.py"
-COPY %SOURCEDIR%\modules.rst %SOURCEDIR%\index.rst
+COPY %SOURCEDIR_AUX%\custom_index.rst %SOURCEDIR%\index.rst
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
 goto end
 
 :clean
 echo.Removing rst files...
-DEL /q %SOURCEDIR%\*
+DEL /q %SOURCEDIR%\*.rst
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
 goto end
 
