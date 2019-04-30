@@ -1,5 +1,15 @@
-{% extends 'load/base.html' %}
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Loads
+{% endblock title %}
+
+{% block navbar-item %}
+    <a class="nav-item nav-link" href="{% url 'app:docs' %}"> API Doc</a>
+{% endblock navbar-item %}
+
 {% block content %}
+    {% include "load/header.html" %}
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modal">
         <div class="modal-dialog" role="document">

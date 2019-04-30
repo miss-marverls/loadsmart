@@ -1,5 +1,17 @@
-{% extends 'load/base.html' %}
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}
+    Loads
+{% endblock title %}
+
+{% block navbar-item %}
+    <a class="nav-item nav-link" href="{% url 'app:docs' %}"> Documentation</a>
+{% endblock navbar-item %}
+
+
 {% block content %}
+    {% include "load/header.html" %}
     {% load widget_tweaks %}
 
 
@@ -10,7 +22,7 @@
     </div>
     <div class="row container title-table">
         <h4> Posted Loads </h4>
-        <button class="btn btn-secondary add-button"><i class="fas fa-plus-circle"></i>Add new</button>
+        <button class="btn btn-secondary add-button"><i class="fas fa-plus-circle"> </i> Add new </button>
     </div>
 
     <table class="table table-hover table-custom">
@@ -73,21 +85,20 @@
             </div>
         </div>
     </div>
-    {% block extrascripts %}
-        <script type="text/javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwkx_ql1gv3xRQtJJdn-LtQ0M2U87jFpc&libraries=places"></script>
-        <script type="text/javascript">
-            $(function () {
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwkx_ql1gv3xRQtJJdn-LtQ0M2U87jFpc&libraries=places"></script>
+    <script type="text/javascript">
+        $(function () {
 
-                $(".add-button").modalForm({
-                    formURL: "{% url 'load:create-load' %}"
-                });
-
-                $(".edit-rate").each(function () {
-                    $(this).modalForm({formURL: $(this).data('id')});
-                });
-
+            $(".add-button").modalForm({
+                formURL: "{% url 'load:create-load' %}"
             });
-        </script>
-    {% endblock extrascripts %}
-{% endblock %}
+
+            $(".edit-rate").each(function () {
+                $(this).modalForm({formURL: $(this).data('id')});
+            });
+
+        });
+    </script>
+
+{% endblock content %}
