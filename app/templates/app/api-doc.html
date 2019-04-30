@@ -1,0 +1,989 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+    API Doc
+{% endblock title %}
+
+{% block navbar-item %}
+    <a class="nav-item nav-link" href="{% url 'load:loads' %}"> Loads </a>
+{% endblock navbar-item %}
+
+{% block content %}
+<div>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+    <style>
+        .clear {
+      clear: both;
+    }
+
+    .rest {
+      font-family: 'Open Sans';
+      max-width: 1120px;
+      margin: 50px auto;
+    }
+
+    .rest * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .rest a {
+      color: #66caa1;
+      text-decoration: none;
+    }
+
+    .rest__header {
+      margin-bottom: 30px;
+      color: #5b5b5b;
+    }
+
+    .rest__title {
+      margin-bottom: 20px;
+      font-size: 40px;
+      font-weight: 600;
+    }
+
+    .rest__title small {
+      font-size: 65%;
+      font-weight: 400;
+    }
+
+    .rest__base-uri {
+      padding-left: 25px;
+      font-size: 14px;
+    }
+
+    .rest__uri-parameters {
+      font-size: 14px;
+    }
+
+    .rest .examples {
+      margin-left: 0.5em;
+    }
+
+    .rest .items {
+        background: #f5f5f5;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 9.5px;
+        margin: 0 0 10px;
+        font-size: 13px;
+        line-height: 1.42857143;
+    }
+
+    .rest blockquote {
+      margin: 0 0 20px;
+      padding: 15px 20px 15px 15px;
+      border-left: 5px solid #66caa1;
+      background: #FFF2DF;
+      position: relative;
+      font-size: 16px;
+      color: #5b5b5b;
+    }
+
+    .rest blockquote ol:first-child,
+    .rest blockquote p:first-child,
+    .rest blockquote ul:first-child {
+      margin-top: 0;
+    }
+
+    .rest blockquote ol:last-child,
+    .rest blockquote p:last-child,
+    .rest blockquote ul:last-child {
+      margin-bottom: 0;
+    }
+
+    .rest pre {
+      border: none;
+      border-radius: 0;
+      display: block;
+      padding: 9.5px;
+      margin: 0 0 10px;
+      font-size: 13px;
+      line-height: 1.42857143;
+      color: #333;
+      word-break: break-all;
+      word-wrap: break-word;
+      background-color: #F0F0F0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+
+    /* Navigation */
+
+    .rest-nav {
+      font-size: 16px;
+      font-weight: 800;
+      color: #666;
+      border-bottom: 2px solid #66caa1;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .rest-nav__item {
+      display: inline-block;
+    }
+
+    .rest-nav__item a {
+      display: block;
+      background: #f6f6f6;
+      color: #666;
+      padding: 10px 15px;
+      text-decoration: none;
+    }
+
+    .rest-nav__item a:hover {
+      background-color: #eee;
+    }
+
+    .rest-nav__item.active a {
+      color: #fff;
+      background-color: #66caa1;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* Objects */
+
+    .objects {
+      color: #5b5b5b;
+    }
+
+    .object__body {
+      display: none;
+      padding: 0 10px;
+    }
+
+    .object__body.active {
+      display: block;
+    }
+
+    .object__title {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    .object__description {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .object__body h2 {
+      font-size: 1.2em;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #ddd;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    /* Resources */
+
+    .resource {
+      margin-bottom: 20px;
+      padding: 15px 20px;
+      color: #ccc;
+    }
+
+    .resource__body {
+      margin: 0;
+      overflow: overlay;
+      word-break: break-word;
+    }
+
+    .resource__title {
+
+    }
+
+    .resource__parent-path {
+      color: #555;
+      font-weight: 400;
+      line-height: 37px;
+    }
+
+    .resource__relative-path {
+      color: #999;
+      line-height: 37px;
+    }
+
+    /* Methods */
+
+    .methods {
+      float: right;
+    }
+
+    .method__link {
+      display: block;
+      float: left;
+      margin-left: 5px;
+    }
+
+    .method__badge {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 12px;
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+      min-width: 80px;
+      background-color: #66caa1;
+      white-space: nowrap;
+    }
+
+    .method__badge:hover {
+      opacity: 0.9;
+    }
+
+    /* Modal */
+
+    .b-modal {
+      position: fixed;
+      z-index: 1070;
+      top: 0;
+      left: 0;
+      display: none;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .b-modal:focus {
+      outline: none;
+    }
+
+    .b-modal.active {
+      display: block;
+    }
+
+    .b-modal__body {
+      background-color: #fff;
+      padding: 0 10px 20px;
+      width: 100%;
+      width: calc(100% - 20px);
+      max-width: 900px;
+      position: absolute;
+      z-index: 1080;
+      top: 100px;
+      left: 50%;
+      margin-bottom: 50px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .b-modal__header {
+      padding: 15px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .b-model__close-btn {
+      background: none;
+      border: none;
+      float: right;
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1;
+      color: #000;
+      text-shadow: 0 1px 0 #fff;
+      filter: alpha(opacity=20);
+      opacity: .2;
+      cursor: pointer;
+    }
+
+    .b-model__close-btn:hover {
+      opacity: .6;
+    }
+
+    .b-model__close-btn:focus {
+      outline: 0;
+    }
+
+    .b-model__title {
+      margin: 10px 0 0;
+    }
+
+    .b-model__badge {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 12px;
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+      min-width: 80px;
+      background-color: #66caa1;
+      white-space: nowrap;
+    }
+
+    .b-model__parent-path {
+      color: #555;
+      font-weight: 400;
+    }
+
+    .b-model__relative-path {
+      color: #5b5b5b;
+    }
+    </style>
+    <div>
+        <div class="rest">
+            <div class="rest__header">
+                <h1 class="rest__title">Loadsmart API documentation</h1>
+                <p class="rest__base-uri"></p>
+            </div>
+            <ul class="rest-nav">
+                <li class="rest-nav__item active"><a class="rest-nav__link" href="#api">/api</a></li>
+                <li class="rest-nav__item"><a class="rest-nav__link" href="#user_token_">/user/token/</a></li>
+            </ul>
+            <div class="clear"></div>
+            <div class="objects">
+                <div class="object__body active" id="api">
+                    <h3 class="object__title">/api</h3>
+                    <div class="resource">
+                        <div>
+                            <h4 class="resource__body"><span class="resource__parent-path">/api</span><span class="resource__relative-path">/loads/</span> <span class="methods"><a class="method__link" href="#api_loads__post"><span class="method__badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span>
+                                </a>
+                                <div class="clear"></div>
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="b-modal" tabindex="0" id="api_loads__post">
+                            <div class="b-modal__body">
+                                <div class="b-modal__header"><button type="button" class="b-model__close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="b-model__title" id="myModalLabel"><span class="b-model__badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="b-model__parent-path">/api</span><span class="b-model__relative-path">/loads/</span></h4>
+                                </div>
+                                <div class="b-modal-content">
+                                    <blockquote>
+                                        <p>Post a load</p>
+                                    </blockquote>
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>Token</b>
+                                        <p>Security token which has to be provided in the header</p>
+                                    </div>
+                                    <ul class="rest-nav">
+                                        <li class="rest-nav__item active"><a class="rest-nav__link" href="#api_loads__post_request">Request</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads__post_response">Response</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads__post_securedby">Security</a></li>
+                                    </ul>
+                                    <div class="objects">
+                                        <div class="object__body active" id="api_loads__post_request">
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b</code></pre></div>
+                                                </li>
+                                            </ul>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: object</p>
+                                            <p><strong>Properties</strong></p>
+                                            <ul>
+                                                <li><strong>pickup_date</strong>: <em>required (date-only)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>2019-05-31</code></pre></div>
+                                                </li>
+                                                <li><strong>ref</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>896355</code></pre></div>
+                                                </li>
+                                                <li><strong>origin_city</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>NYC, NY</code></pre></div>
+                                                </li>
+                                                <li><strong>destination_city</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>Orlando, CA</code></pre></div>
+                                                </li>
+                                                <li><strong>shipper_price</strong>: <em>required (number)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>183.3</code></pre></div>
+                                                </li>
+                                            </ul>
+                                            <p><strong>Example</strong>:</p>
+                                            <div class="examples"><pre><code>{
+                                              "pickup_date": "2019-05-31",
+                                              "ref": "963",
+                                              "origin_city": "NYC, NY, EUA",
+                                              "destination_city": "Los Angeles, CA, EUA",
+                                              "shipper_price": 4184.34
+                                            }</code></pre></div>
+                                        </div>
+                                        <div class="object__body" id="api_loads__post_response">
+                                            <h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: any</p>
+                                            <p><strong>Example</strong>:</p>
+                                            <div class="examples"><pre><code>{
+                                              "pickup_date": "2019-05-31",
+                                              "ref": "963",
+                                              "origin_city": "NYC, NY, EUA",
+                                              "destination_city": "Los Angeles, CA, EUA",
+                                              "shipper_price": 4184.34
+                                            }</code></pre></div>
+                                        </div>
+                                        <div class="object__body" id="api_loads__post_securedby">
+                                            <h1>Secured by Token</h1>
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p>the security token you have to provide</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource">
+                        <div>
+                            <h4 class="resource__body"><span class="resource__parent-path">/api</span><span class="resource__relative-path">/loads/available/</span> <span class="methods"><a class="method__link" href="#api_loads_available__get"><span class="method__badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span>
+                                </a>
+                                <div class="clear"></div>
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="b-modal" tabindex="0" id="api_loads_available__get">
+                            <div class="b-modal__body">
+                                <div class="b-modal__header"><button type="button" class="b-model__close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="b-model__title" id="myModalLabel"><span class="b-model__badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="b-model__parent-path">/api</span><span class="b-model__relative-path">/loads/available/</span></h4>
+                                </div>
+                                <div class="b-modal-content">
+                                    <blockquote>
+                                        <p>If user is authenticated as a shipper. Retrieve list of available loads added by the authenticated shipper. If user is authenticated as a carrier. Retrieve list of available loads.</p>
+                                    </blockquote>
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>Token</b>
+                                        <p>Security token which has to be provided in the header</p>
+                                    </div>
+                                    <ul class="rest-nav">
+                                        <li class="rest-nav__item active"><a class="rest-nav__link" href="#api_loads_available__get_request">Request</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads_available__get_response">Response</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads_available__get_securedby">Security</a></li>
+                                    </ul>
+                                    <div class="objects">
+                                        <div class="object__body active" id="api_loads_available__get_request">
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b</code></pre></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="object__body" id="api_loads_available__get_response">
+                                            <h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: any</p>
+                                            <p><strong>Examples</strong>:</p>
+                                            <div class="examples">
+                                                <p><strong>Carrier Side</strong>:<br></p><pre><code>{
+                                                  "id": 1,
+                                                  "shipper": {
+                                                    "first_name": "Cosmo",
+                                                    "last_name": "Inacio",
+                                                    "email": "cosmo@cat.com"
+                                                  },
+                                                  "carrier": 2,
+                                                  "pickup_date": "2019-04-03",
+                                                  "ref": "9754321",
+                                                  "origin_city": "NYC, NY, EUA",
+                                                  "destination_city": "Los Angeles, CA, EUA",
+                                                  "carrier_price": 3975.12
+                                                }</code></pre>
+                                                <p><strong>Shipper Side</strong>:<br></p><pre><code>{
+                                                  "shipper": 3,
+                                                  "carrier": null,
+                                                  "pickup_date": "2019-04-29",
+                                                  "ref": "9754321",
+                                                  "origin_city": "San Francisco, CA, EUA",
+                                                  "destination_city": "NYC, NY, EUA",
+                                                  "shipper_price": 800
+                                                }</code></pre></div>
+                                        </div>
+                                        <div class="object__body" id="api_loads_available__get_securedby">
+                                            <h1>Secured by Token</h1>
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p>the security token you have to provide</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource">
+                        <div>
+                            <h4 class="resource__body"><span class="resource__parent-path">/api</span><span class="resource__relative-path">/loads/accepted/</span> <span class="methods"><a class="method__link" href="#api_loads_accepted__get"><span class="method__badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span>
+                                </a>
+                                <div class="clear"></div>
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="b-modal" tabindex="0" id="api_loads_accepted__get">
+                            <div class="b-modal__body">
+                                <div class="b-modal__header"><button type="button" class="b-model__close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="b-model__title" id="myModalLabel"><span class="b-model__badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="b-model__parent-path">/api</span><span class="b-model__relative-path">/loads/accepted/</span></h4>
+                                </div>
+                                <div class="b-modal-content">
+                                    <blockquote>
+                                        <p>If user is authenticated as a shipper. Retrieve list of accepted loads added by the authenticated shipper. If user is authenticated as a carrier. Retrieve list of acepted loads by the authenticated carrier.</p>
+                                    </blockquote>
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>Token</b>
+                                        <p>Security token which has to be provided in the header</p>
+                                    </div>
+                                    <ul class="rest-nav">
+                                        <li class="rest-nav__item active"><a class="rest-nav__link" href="#api_loads_accepted__get_request">Request</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads_accepted__get_response">Response</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads_accepted__get_securedby">Security</a></li>
+                                    </ul>
+                                    <div class="objects">
+                                        <div class="object__body active" id="api_loads_accepted__get_request">
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b</code></pre></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="object__body" id="api_loads_accepted__get_response">
+                                            <h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: any</p>
+                                            <p><strong>Examples</strong>:</p>
+                                            <div class="examples">
+                                                <p><strong>Carrier Side</strong>:<br></p><pre><code>{
+                                                  "id": 1,
+                                                  "shipper": {
+                                                    "user": {
+                                                      "first_name": "Wanda",
+                                                      "last_name": "Letícia",
+                                                      "email": "wanda@cat.com"
+                                                    }
+                                                  },
+                                                  "carrier": 1,
+                                                  "pickup_date": "2019-04-27",
+                                                  "ref": "9754321",
+                                                  "origin_city": "NYC, NY, EUA",
+                                                  "destination_city": "Los Angeles, CA, EUA",
+                                                  "carrier_price": 3975.12
+                                                }</code></pre>
+                                                <p><strong>Shipper Side</strong>:<br></p><pre><code>{
+                                                  "shipper": 1,
+                                                  "carrier": {
+                                                    "mc_number": "963258741"
+                                                  },
+                                                  "pickup_date": "2019-04-27",
+                                                  "ref": "9754321",
+                                                  "origin_city": "NYC, NY, EUA",
+                                                  "destination_city": "Los Angeles, CA, EUA",
+                                                  "shipper_price": 4184.34
+                                                }</code></pre></div>
+                                        </div>
+                                        <div class="object__body" id="api_loads_accepted__get_securedby">
+                                            <h1>Secured by Token</h1>
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p>the security token you have to provide</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource">
+                        <div>
+                            <h4 class="resource__body"><span class="resource__parent-path">/api</span><span class="resource__relative-path">/loads/{id}/accept/</span> <span class="methods"><a class="method__link" href="#api_loads__id__accept__post"><span class="method__badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span>
+                                </a>
+                                <div class="clear"></div>
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="b-modal" tabindex="0" id="api_loads__id__accept__post">
+                            <div class="b-modal__body">
+                                <div class="b-modal__header"><button type="button" class="b-model__close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="b-model__title" id="myModalLabel"><span class="b-model__badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="b-model__parent-path">/api</span><span class="b-model__relative-path">/loads/{id}/accept/</span></h4>
+                                </div>
+                                <div class="b-modal-content">
+                                    <blockquote>
+                                        <p>Mark an available load as accepted by the logged carrier.</p>
+                                    </blockquote>
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>Token</b>
+                                        <p>Security token which has to be provided in the header</p>
+                                    </div>
+                                    <ul class="rest-nav">
+                                        <li class="rest-nav__item active"><a class="rest-nav__link" href="#api_loads__id__accept__post_request">Request</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads__id__accept__post_response">Response</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads__id__accept__post_securedby">Security</a></li>
+                                    </ul>
+                                    <div class="objects">
+                                        <div class="object__body active" id="api_loads__id__accept__post_request">
+                                            <h3>URI Parameters</h3>
+                                            <ul>
+                                                <li><strong>id</strong>: <em>required (string)</em></li>
+                                            </ul>
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b</code></pre></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="object__body" id="api_loads__id__accept__post_response">
+                                            <h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: any</p>
+                                            <p><strong>Example</strong>:</p>
+                                            <div class="examples"><pre><code>{
+                                              "id": 3,
+                                              "shipper": {
+                                                "user": {
+                                                  "first_name": "Wanda",
+                                                  "last_name": "Letícia",
+                                                  "email": "wanda@cat.com"
+                                                }
+                                              },
+                                              "carrier": 1,
+                                              "pickup_date": "2019-05-04",
+                                              "ref": "987",
+                                              "origin_city": "NYC, NY, EUA",
+                                              "destination_city": "Los Angeles, CA, EUA",
+                                              "carrier_price": 3975.12
+                                            }</code></pre></div>
+                                            <h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: any</p>
+                                            <p><strong>Example</strong>:</p>
+                                            <div class="examples"><pre><code>{
+                                              "detail": "Not found."
+                                            }</code></pre></div>
+                                        </div>
+                                        <div class="object__body" id="api_loads__id__accept__post_securedby">
+                                            <h1>Secured by Token</h1>
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p>the security token you have to provide</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource">
+                        <div>
+                            <h4 class="resource__body"><span class="resource__parent-path">/api</span><span class="resource__relative-path">/loads/{id}/reject/</span> <span class="methods"><a class="method__link" href="#api_loads__id__reject__post"><span class="method__badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span>
+                                </a>
+                                <div class="clear"></div>
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="b-modal" tabindex="0" id="api_loads__id__reject__post">
+                            <div class="b-modal__body">
+                                <div class="b-modal__header"><button type="button" class="b-model__close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="b-model__title" id="myModalLabel"><span class="b-model__badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="b-model__parent-path">/api</span><span class="b-model__relative-path">/loads/{id}/reject/</span></h4>
+                                </div>
+                                <div class="b-modal-content">
+                                    <blockquote>
+                                        <p>Mark an availabe load as rejected by the logged carrier.</p>
+                                    </blockquote>
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>Token</b>
+                                        <p>Security token which has to be provided in the header</p>
+                                    </div>
+                                    <ul class="rest-nav">
+                                        <li class="rest-nav__item active"><a class="rest-nav__link" href="#api_loads__id__reject__post_request">Request</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads__id__reject__post_response">Response</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads__id__reject__post_securedby">Security</a></li>
+                                    </ul>
+                                    <div class="objects">
+                                        <div class="object__body active" id="api_loads__id__reject__post_request">
+                                            <h3>URI Parameters</h3>
+                                            <ul>
+                                                <li><strong>id</strong>: <em>required (string)</em></li>
+                                            </ul>
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b</code></pre></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="object__body" id="api_loads__id__reject__post_response">
+                                            <h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2>
+                                            <h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: any</p>
+                                            <p><strong>Example</strong>:</p>
+                                            <div class="examples"><pre><code>{
+                                              "detail": "Load already dropped"
+                                            }</code></pre></div>
+                                        </div>
+                                        <div class="object__body" id="api_loads__id__reject__post_securedby">
+                                            <h1>Secured by Token</h1>
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p>the security token you have to provide</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource">
+                        <div>
+                            <h4 class="resource__body"><span class="resource__parent-path">/api</span><span class="resource__relative-path">/loads/rejected/</span> <span class="methods"><a class="method__link" href="#api_loads_rejected__get"><span class="method__badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span>
+                                </a>
+                                <div class="clear"></div>
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="b-modal" tabindex="0" id="api_loads_rejected__get">
+                            <div class="b-modal__body">
+                                <div class="b-modal__header"><button type="button" class="b-model__close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="b-model__title" id="myModalLabel"><span class="b-model__badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="b-model__parent-path">/api</span><span class="b-model__relative-path">/loads/rejected/</span></h4>
+                                </div>
+                                <div class="b-modal-content">
+                                    <blockquote>
+                                        <p>Retrieve list of rejected loads by the authenticated carrier.</p>
+                                    </blockquote>
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>Token</b>
+                                        <p>Security token which has to be provided in the header</p>
+                                    </div>
+                                    <ul class="rest-nav">
+                                        <li class="rest-nav__item active"><a class="rest-nav__link" href="#api_loads_rejected__get_request">Request</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads_rejected__get_response">Response</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#api_loads_rejected__get_securedby">Security</a></li>
+                                    </ul>
+                                    <div class="objects">
+                                        <div class="object__body active" id="api_loads_rejected__get_request">
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b</code></pre></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="object__body" id="api_loads_rejected__get_response">
+                                            <h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: any</p>
+                                            <p><strong>Example</strong>:</p>
+                                            <div class="examples">
+                                                <p><strong>Carrier Side</strong>:<br></p><pre><code>{
+                                                  "id": 1,
+                                                  "shipper": {
+                                                    "user": {
+                                                      "first_name": "Wanda",
+                                                      "last_name": "Letícia",
+                                                      "email": "wanda@cat.com"
+                                                    }
+                                                  },
+                                                  "carrier": 1,
+                                                  "pickup_date": "2019-04-27",
+                                                  "ref": "9754321",
+                                                  "origin_city": "NYC, NY, EUA",
+                                                  "destination_city": "Los Angeles, CA, EUA",
+                                                  "carrier_price": 3975.12
+                                                }</code></pre></div>
+                                        </div>
+                                        <div class="object__body" id="api_loads_rejected__get_securedby">
+                                            <h1>Secured by Token</h1>
+                                            <h3>Headers</h3>
+                                            <ul>
+                                                <li><strong>Authorization</strong>: <em>required (string)</em>
+                                                    <p>the security token you have to provide</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="object__body" id="user_token_">
+                    <h3 class="object__title">/user/token/</h3>
+                    <div class="resource">
+                        <div>
+                            <h4 class="resource__body"><span class="resource__parent-path"></span><span class="resource__relative-path">/user/token/</span> <span class="methods"><a class="method__link" href="#user_token__post"><span class="method__badge badge_post">post</span></a>
+                                <div class="clear"></div>
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="b-modal" tabindex="0" id="user_token__post">
+                            <div class="b-modal__body">
+                                <div class="b-modal__header"><button type="button" class="b-model__close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="b-model__title" id="myModalLabel"><span class="b-model__badge badge_post">post</span> <span class="b-model__parent-path"></span><span class="b-model__relative-path">/user/token/</span></h4>
+                                </div>
+                                <div class="b-modal-content">
+                                    <blockquote>
+                                        <p>Retrieve user&#39;s token</p>
+                                    </blockquote>
+                                    <ul class="rest-nav">
+                                        <li class="rest-nav__item active"><a class="rest-nav__link" href="#user_token__post_request">Request</a></li>
+                                        <li class="rest-nav__item"><a class="rest-nav__link" href="#user_token__post_response">Response</a></li>
+                                    </ul>
+                                    <div class="objects">
+                                        <div class="object__body active" id="user_token__post_request">
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: object</p>
+                                            <p><strong>Properties</strong></p>
+                                            <ul>
+                                                <li><strong>username</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>name@domain.com</code></pre></div>
+                                                </li>
+                                                <li><strong>password</strong>: <em>required (string)</em>
+                                                    <p><strong>Example</strong>:</p>
+                                                    <div class="examples"><pre><code>password@123</code></pre></div>
+                                                </li>
+                                            </ul>
+                                            <p><strong>Example</strong>:</p>
+                                            <div class="examples"><pre><code>{
+  "username": "name@domain.com",
+  "password": "password@123"
+}</code></pre></div>
+                                        </div>
+                                        <div class="object__body" id="user_token__post_response">
+                                            <h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                                            <h3>Body</h3>
+                                            <p><strong>Media type</strong>: application/json</p>
+                                            <p><strong>Type</strong>: any</p>
+                                            <p><strong>Example</strong>:</p>
+                                            <div class="examples"><pre><code>{
+  "Token": "0b79b78b075f34bdd967a6820f39506067da56c856"
+}</code></pre></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>
+        if(!window.$) {
+          document.write('<script\
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"\
+            integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="\
+            crossorigin="anonymous"></scr' + 'ipt>');
+        }
+    </script>
+    <script>
+        "use strict";
+
+    (function () {
+      $('.rest pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+
+      $('.rest-nav__item').click(function() {
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+      });
+
+      function turnMenuItemById(id) {
+        $('.rest-nav__link[href$="' + id + '"]')
+          .parent()
+          .addClass('active')
+          .siblings()
+          .removeClass('active');
+      }
+
+      $(window).bind('hashchange', function() {
+        var hash = document.location.hash;
+        var element = $(hash);
+        var parents = element.parents(":hidden");
+
+        turnMenuItemById(hash);
+
+        $.each(parents, function(index, parent) {
+          var id = $(parent).attr('id');
+
+          if (id) {
+            turnMenuItemById(id);
+          }
+        });
+
+        parents
+          .addClass('active')
+          .siblings()
+          .removeClass('active');
+
+        element
+          .siblings()
+          .removeClass('active');
+
+        element.addClass('active');
+      });
+
+      $(window).trigger('hashchange');
+
+
+      //Close popup by click
+       $('.b-model__close-btn').click(function () {
+           closePopup();
+       });
+
+       //Close popup by press Escape
+      document.onkeydown = function(evt) {
+          evt = evt || window.event;
+          var isEscape = false;
+          if ("key" in evt) {
+              isEscape = (evt.key == "Escape" || evt.key == "Esc");
+          } else {
+              isEscape = (evt.keyCode == 27);
+          }
+          if (isEscape) {
+              console.log("ESC");
+              closePopup();
+          }
+      };
+
+      function closePopup() {
+          console.log("close");
+
+          $('.b-model__close-btn')
+              .parents('.b-modal')
+              .removeClass('active');
+
+          document.location.hash = '';
+      }
+    })();
+    </script>
+</div>
+{% endblock content %}

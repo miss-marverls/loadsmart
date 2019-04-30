@@ -1,5 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def index(request):
-    return render(request, 'app/index.html')
+    return redirect('users:login')
+
+
+def docs(request):
+    return render(request, 'app/api-doc.html')

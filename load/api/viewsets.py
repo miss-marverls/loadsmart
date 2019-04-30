@@ -6,8 +6,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
 from load.models import Load
-from users.models import Carrier
+from users.models import Shipper, Carrier
 from load.api.serializers import CarrierLoadSerializer, ShipperLoadSerializer, CreateLoadSerializer
+from load import utils
 from .permissions import CanAccess
 
 
@@ -29,16 +30,17 @@ class LoadViewSet(ModelViewSet):
         self.serializer_class = self.get_serializer_class()
 
         if self.request.user.is_shipper:
-            return Load.objects.filter(shipper=self.request.user)
+            shipper = Shipper.objects.get(user=self.request.user.pk)
+            return Load.objects.filter(shipper=shipper)
 
         return Load.objects.all()
 
     def create(self, request, *args, **kwargs):
         serializer = CreateLoadSerializer(data=request.data)
-        carrier_price_ = request.data["shipper_price"] - round(request.data["shipper_price"] * 5 / 100, 2)
+        carrier_price = utils.calculate_carrier_price(request.data["shipper_price"])
         if serializer.is_valid():
             serializer.save(shipper_id=request.user.pk,
-                            carrier_price=carrier_price_)
+                            carrier_price=carrier_price)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -54,17 +56,13 @@ class LoadViewSet(ModelViewSet):
         return self.carrier_available(request)
 
     def shipper_available(self, request):
-        queryset = Load.objects.filter(
-            carrier=None, shipper_id=request.user.pk)
+        queryset = Load.objects.get_shipper_available_loads(request)
         serializer = ShipperLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
 
     def carrier_available(self, request):
-        carrier = Carrier.objects.get(user=request.user.pk)
-        rejected_loads = carrier.dropped_by.all()
-        queryset = Load.objects.filter(
-            carrier=None).exclude(id__in=rejected_loads)
+        queryset = Load.objects.get_carrier_available_loads(request)
         serializer = CarrierLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
@@ -80,15 +78,13 @@ class LoadViewSet(ModelViewSet):
         return self.carrier_accepted(request)
 
     def shipper_accepted(self, request):
-        queryset = Load.objects.exclude(
-            carrier=None).filter(shipper=request.user)
+        queryset = Load.objects.get_shipper_accepted_loads(request)
         serializer = ShipperLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
 
     def carrier_accepted(self, request):
-        carrier = Carrier.objects.get(user=request.user.pk)
-        queryset = Load.objects.filter(carrier=carrier)
+        queryset = Load.objects.get_carrier_accepted_loads(request)
         serializer = CarrierLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
@@ -97,9 +93,8 @@ class LoadViewSet(ModelViewSet):
     @action(methods=['get'], detail=False)
     def rejected(self, request):
         self.serializer_class = self.get_serializer_class()
-        carrier = Carrier.objects.get(user=request.user.pk)
-        loads = carrier.dropped_by.all()
-        serializer = CarrierLoadSerializer(loads, many=True)
+        queryset = Load.objects.get_carrier_rejected_loads(request)
+        serializer = CarrierLoadSerializer(queryset, many=True)
 
         return Response(serializer.data)
 
@@ -107,7 +102,7 @@ class LoadViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def accept(self, request, pk=None):
         self.serializer_class = self.get_serializer_class()
-        carrier = Carrier.objects.get(user=request.user.pk)
+        carrier = Carrier.objects.get_carrier(request)
         load = get_object_or_404(Load, pk=pk, carrier=None)
         serializer = CarrierLoadSerializer(
             load, data={'carrier': carrier.pk}, partial=True)
@@ -115,7 +110,7 @@ class LoadViewSet(ModelViewSet):
         if serializer.is_valid():
             serializer.save()
 
-            return Response(serializer.data)
+            return Response(status=status.HTTP_201_CREATED, data=serializer.data)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -129,6 +124,6 @@ class LoadViewSet(ModelViewSet):
         if not carrier in load_.dropped_by.all():
             load_.dropped_by.add(carrier)
 
-            return Response(status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_201_CREATED)
 
-        return Response(data={'detail': "Load already dropped"})
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={'detail': "Load already dropped"})
