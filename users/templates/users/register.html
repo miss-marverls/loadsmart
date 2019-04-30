@@ -1,6 +1,15 @@
 {% extends "app/base.html" %}
 
 {% load widget_tweaks %}
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block navbar-item %}
+    <a class="nav-item nav-link" href="{% url 'app:docs' %}"> API Doc</a>
+{% endblock navbar-item %}
+
 {% block content %}
     <form method="POST" class="load-form">
         <div class="modal-header">
