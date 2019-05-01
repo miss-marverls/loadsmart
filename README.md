@@ -21,7 +21,7 @@ Run the development server:
 
     (env)~/loadsmart$ python manage.py runserver
 
-The project is available at http://127.0.0.1:8000/.
+The project is available at http://localhost:8000/.
 
 ## Tests
 Run unit tests with coverage inside of project folder:
@@ -34,11 +34,11 @@ Generate documentation:
     (env)~/loadsmart$ cd docs/
     (env)~/loadsmart/docs$ make html
     
-Project Documentation is available in loadsmart/docs/_build/html/index.html
+Project Documentation is available in loadsmart/docs/_build/html/index.html. It can also be accessed using: http://localhost:8000/docs/project
 
 ## API documentation
 
-API Documentation can be accessed using: http://localhost:8000/docs
+API Documentation can be accessed using: http://localhost:8000/docs/api
 
 
 

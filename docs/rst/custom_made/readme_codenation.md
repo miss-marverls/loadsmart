@@ -1,10 +1,6 @@
-## Loadsmart
-
-Loadsmart is a New York company that facilitates how shippers and freight brokers find the right carriers to move their shipments.
-
 ## Objective
 
-You will create a platform that on one side (Shipper/ Freight Broker) allows them to post loads that they need to find a truck for (eg New York, NY - Albany, NY), and on the other side allows carriers to have access to these loads and accept them.
+To create a platform that allows Shippers to post loads to be transported, and Carriers to access these loads and accept them.
 
 ## Attributes required in the Register
 
@@ -36,9 +32,8 @@ Loadsmart would receive $150,00 from the Shipper; Loadsmart would pay $142.5 for
 
 - Once Posted, Load shows up in “Available Loads” list.
 - Once Posted, Load shows up in Carrier Page.
-- When “Report Drop” button is triggered, saved info to database and delete row 
-- Edit rate: allows user to edit price 
-- Book Carrier: allows user to insert manually a Carrier name and MC that will be deemed as accepted the load. 
+- When “Report Drop” button is triggered, saved info to database and delete row. 
+- Edit rate: allows user to edit price. 
 - Once a Load is accepted on the Carrier side, move it to “Accepted” section with the name of MC, scraped from FMCSA. 
 
 ## API
@@ -57,4 +52,8 @@ Using the same logic, there are some Carriers that don’t want to access the Lo
 - List all dropped loads;
 - List all available loads (the loads the carrier can still accept or drop).
 
-You also need to provide a documentation of how to use the API.
+The API documentation has to be providade.
+
+
+
+
