@@ -133,6 +133,6 @@ class Carrier(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    mc_number = models.CharField(max_length=12)
+    mc_number = models.CharField(max_length=8)
 
     objects = CarrierManager()

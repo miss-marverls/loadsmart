@@ -118,13 +118,25 @@ class LoadViewSet(ModelViewSet):
     # Reject load
     @action(methods=['post'], detail=True)
     def reject(self, request, pk=None):
-        self.serializer_class = self.get_serializer_class()
+        load_ = get_object_or_404(Load, pk=pk)
         carrier = Carrier.objects.get(user=request.user.pk)
-        load_ = get_object_or_404(Load, pk=pk, carrier=None)
+        if load_.carrier is None:
+            return self.reject_non_accepted(pk, carrier)
+        return self.reject_accepted(pk, carrier)
 
+    def reject_non_accepted(self, pk, carrier):
+        load_ = get_object_or_404(Load, pk=pk, carrier=None)
         if not carrier in load_.dropped_by.all():
             load_.dropped_by.add(carrier)
-
             return Response(status=status.HTTP_201_CREATED)
-
         return Response(status=status.HTTP_400_BAD_REQUEST, data={'detail': "Load already dropped"})
+
+    def reject_accepted(self, pk, carrier):
+        load_ = get_object_or_404(Load, pk=pk, carrier=carrier)
+        serializer = CarrierLoadSerializer(
+            load_, data={'carrier': None}, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            load_.dropped_by.add(carrier)
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
