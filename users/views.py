@@ -1,13 +1,16 @@
-from django.shortcuts import render
-from django.views.generic import CreateView
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy  # nas versões django 1.9.* essa importação era no django.core.urlresolvers
-from .models import Shipper, Carrier
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 from .forms import ShipperCreationForm, CarrierCreationForm
+from .models import Shipper, Carrier
 
 
 class ShipperRegistrationView(CreateView):
-    """View that handles Shipper registration."""
+    """
+    View that handles Shipper registration.
+    """
 
     form_class = ShipperCreationForm
     success_url = reverse_lazy('users:login')
@@ -15,12 +18,12 @@ class ShipperRegistrationView(CreateView):
 
     def post(self, request, *args, **kwargs):
         """
+        Overrides CreateView method post to include the creation of a Shipper when a User is created.
 
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
-        :rtype:
+        :param django.http.HttpRequest request: Received request.
+        :param args: Variable length argument list.
+        :param kwargs: Arbitrary keyword arguments.
+        :return: If form is valid, redirects to login page. If form is not valid, remains in the registration.
         """
 
         form = ShipperRegistrationView.form_class(request.POST)
@@ -39,7 +42,9 @@ class ShipperRegistrationView(CreateView):
 
 
 class CarrierRegistrationView(CreateView):
-    """View that handles Carrier registration."""
+    """
+    View that handles Carrier registration.
+    """
 
     form_class = CarrierCreationForm
     success_url = reverse_lazy('users:login')
@@ -47,12 +52,14 @@ class CarrierRegistrationView(CreateView):
 
     def post(self, request, *args, **kwargs):
         """
+        Overrides CreateView method post to include the creation of a Carrier when a User is created.
 
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
+        :param django.http.HttpRequest request: Received request.
+        :param args: Variable length argument list.
+        :param kwargs: Arbitrary keyword arguments.
+        :return: If form is valid, redirects to login page. If form is not valid, remains in the registration.
         """
+
         form = CarrierRegistrationView.form_class(request.POST)
 
         if form.is_valid():

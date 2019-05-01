@@ -1,6 +1,7 @@
-from django import forms
-from .models import Load
 from bootstrap_modal_forms.forms import BSModalForm
+from django import forms
+
+from .models import Load
 
 
 class DateInput(forms.DateInput):

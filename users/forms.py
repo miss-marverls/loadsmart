@@ -1,10 +1,13 @@
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
 from .models import User
 
 
 class ShipperCreationForm(UserCreationForm):
-    """Form for Shipper creation."""
+    """
+    Form for Shipper creation.
+    """
 
     class Meta:
         model = User
@@ -12,7 +15,9 @@ class ShipperCreationForm(UserCreationForm):
 
 
 class CarrierCreationForm(UserCreationForm):
-    """Form for Carrier creation."""
+    """
+    Form for Carrier creation.
+    """
 
     mc_number = forms.CharField(required=True)
 

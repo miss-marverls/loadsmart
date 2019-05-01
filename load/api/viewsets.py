@@ -1,14 +1,15 @@
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
-from django.shortcuts import get_object_or_404
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+
+from load import utils
+from load.api.serializers import CarrierLoadSerializer, ShipperLoadSerializer, CreateLoadSerializer
 from load.models import Load
 from users.models import Shipper, Carrier
-from load.api.serializers import CarrierLoadSerializer, ShipperLoadSerializer, CreateLoadSerializer
-from load import utils
 from .permissions import CanAccess
 
 

@@ -1,20 +1,23 @@
-from django.db import models
 from django.conf import settings
-from django.utils.translation import ugettext as _
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
+from django.db import models
+from django.utils.translation import ugettext as _
 
 
 class EmailUserManager(BaseUserManager):
-    """A manager for user creation with email and password."""
+    """
+    A manager for User creation that requires an email and a password.
+    """
 
     def create_user(self, *args, **kwargs):
         """
+        Creates a User.
 
-        :param args:
-        :param kwargs:
-        :return:
-        :rtype:
+        :param args: Variable length argument list. Not used.
+        :param kwargs: Key words sent to create_user method.
+        :return: Created User
+        :rtype: User
         """
 
         email = kwargs["email"]
@@ -32,11 +35,12 @@ class EmailUserManager(BaseUserManager):
 
     def create_superuser(self, *args, **kwargs):
         """
+        Creates a User with super user privileges.
 
-        :param args:
-        :param kwargs:
-        :return:
-        :rtype:
+        :param args: Variable length argument list. Not used.
+        :param kwargs: Key words sent to create_user method.
+        :return: Created User
+        :rtype: User
         """
 
         user = self.create_user(**kwargs)
@@ -46,10 +50,12 @@ class EmailUserManager(BaseUserManager):
 
 
 class User(PermissionsMixin, AbstractBaseUser):
-    """Stores user information.
+    """
+    Model for User.
 
-    User fields are: email, first_name, last_name, is_shipper, is_carrier. The email is set to be the username.
-    The boolean fields is_shipper and is_carrier define the type of user. Inherits EmailUserManager methods.
+    Stores User information in the fields: email, first_name, last_name, is_shipper, is_carrier.
+    The email is set to be the username. The boolean fields is_shipper and is_carrier define
+    the type of user. Uses EmailUserManager.
     """
 
     email = models.EmailField(
@@ -74,13 +80,15 @@ class User(PermissionsMixin, AbstractBaseUser):
 
 
 class ShipperManager(models.Manager):
-    """A manager to access shipper information."""
+    """
+    A manager to access shipper information.
+    """
 
     def get_shipper(self, request):
-        """Gets the User primary key.
+        """Gets the Shipper by the User primary key.
 
-        :param HttpRequest request: HttpRequest object
-        :return: The Shipper that matches the primary key
+        :param django.http.HttpRequest request: Received request.
+        :return: The Shipper that matches the User primary key.
         :rtype: Shipper
         """
 
@@ -88,9 +96,10 @@ class ShipperManager(models.Manager):
 
 
 class Shipper(models.Model):
-    """Stores the information about Shippers.
+    """
+    Model for the Shipper
 
-    Shipper field is a foreign key from a User. Inherits ShipperManager methods.
+    Stores the information about Shippers. Shipper field is a foreign key from a User. Uses ShipperManager.
     """
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -100,13 +109,15 @@ class Shipper(models.Model):
 
 
 class CarrierManager(models.Manager):
-    """A manager to access Carrier information."""
+    """
+    A manager to access Carrier information.
+    """
 
     def get_carrier(self, request):
-        """Gets the User primary key.
+        """Gets the Carrier by the User primary key.
 
-        :param HttpRequest request: HttpRequest object
-        :return: The Carrier that matches the primary key
+        :param django.http.HttpRequest request: Received request.
+        :return: The Carrier that matches the User primary key.
         :rtype: Carrier
         """
 
@@ -114,9 +125,10 @@ class CarrierManager(models.Manager):
 
 
 class Carrier(models.Model):
-    """Stores the information about Carries.
+    """
+    Stores the information about Carrie.
 
-    Carrier fields are a foreign key from a User and the mc_number. Inherits CarrierManager methods.
+    Carrier fields are a foreign key from a User and the mc_number. Uses CarrierManager.
     """
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,

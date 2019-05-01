@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+
 from load.models import Load
 from users.models import Shipper, Carrier, User
 

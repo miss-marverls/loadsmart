@@ -1,13 +1,15 @@
-from django.test import TestCase
-from rest_framework.test import APITestCase, APIClient
-from django.urls import reverse
-from rest_framework import status
-from users.models import User, Shipper, Carrier
-from .models import Load
-from .forms import LoadForm
-from rest_framework.authtoken.models import Token
 import datetime
 from collections import OrderedDict
+
+from django.test import TestCase
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase, APIClient
+
+from users.models import User, Shipper, Carrier
+from .forms import LoadForm
+from .models import Load
 
 
 class ShipperAppTestCase(TestCase):
@@ -109,7 +111,6 @@ class ShipperAppTestCase(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.context['form']['shipper_price'].errors, [
             u'This field is required.'])
-#todo: isso é views? urls?
 
 
 class CarrierAppTestCase(TestCase):
