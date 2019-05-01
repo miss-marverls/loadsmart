@@ -115,6 +115,7 @@ class CarrierAppTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Carrier.objects.get(pk=1) in load.dropped_by.all())
 
+
 class ShipperAPITestCase(APITestCase):
     url = reverse("load:api-list")
     client = APIClient()
@@ -259,12 +260,24 @@ class CarrierAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_reject_already_rejected_load(self):
+        """
+           Test the rejection of a load that is not available.
+
+           If a load is already dropped, it cannot be rejected.
+        """
+
         response = self.client.post('/api/loads/3/reject/')
         self.assertEqual(response.data, {
             "detail": "Load already dropped"
         })
 
     def test_reject_accepted_load(self):
+        """
+           Test the rejection of a load that is already accepted by the logged Carrier.
+
+           If a load is already dropped, it can be rejected.
+         """
+
         response = self.client.post('/api/loads/2/reject/', format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
