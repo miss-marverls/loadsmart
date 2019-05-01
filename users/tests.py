@@ -12,25 +12,19 @@ class LogInViewTests(TestCase):
         self.user = User.objects.create_user(**self.data_)
 
     def test_view_url_by_name(self):
-        """
-        Test if the login view name returns a valid url
-        """
+        """Test if the login view name returns a valid url."""
 
         response = self.client.get(reverse('users:login'))
         self.assertEquals(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        """
-        Test if the login view renders the correct template
-        """
+        """Test if the login view renders the correct template."""
 
         response = self.client.get(reverse('users:login'))
         self.assertTemplateUsed(response, 'users/login.html')
 
     def test_login(self):
-        """
-        Test the login using email as username
-        """
+        """Test the login using email as username."""
 
         response = self.client.post(
             reverse('users:login'), self.data_, follow=True)
@@ -65,9 +59,7 @@ class RegisterViewTests(TestCase):
             'password2': 'iwilldoagreatjob'}
 
     def test_register_shipper_invalid(self):
-        """
-            Test if the registration of an invalid shipper keeps the user in the shipper registration page
-        """
+        """Test if the registration of an invalid shipper keeps the user in the shipper registration page."""
 
         response = self.client.post(
             reverse('users:register_shipper'), self.data_invalid, follow=True)
@@ -75,9 +67,7 @@ class RegisterViewTests(TestCase):
         self.assertTemplateUsed(response, 'users/register.html')
 
     def test_register_carrier_invalid(self):
-        """
-        Test if the registration of an invalid carrier keeps the user in the carrier registration page
-        """
+        """Test if the registration of an invalid carrier keeps the user in the carrier registration page."""
 
         response = self.client.post(
             reverse('users:register_carrier'), self.data_invalid, follow=True)
@@ -85,9 +75,7 @@ class RegisterViewTests(TestCase):
         self.assertTemplateUsed(response, 'users/register.html')
 
     def test_register_shipper_redirect(self):
-        """
-        Test if the registration of an valid shipper redirects the user to the login page
-        """
+        """Test if the registration of an valid shipper redirects the user to the login page."""
 
         response = self.client.post(
             reverse('users:register_shipper'), self.data_shipper, follow=True)
@@ -95,9 +83,7 @@ class RegisterViewTests(TestCase):
         self.assertRedirects(response, reverse('users:login'))
 
     def test_register_carrier_redirect(self):
-        """
-        Test if the registration of an valid carrier redirects the user to the login page
-        """
+        """Test if the registration of an valid carrier redirects the user to the login page."""
 
         response = self.client.post(
             reverse('users:register_carrier'), self.data_carrier, follow=True)

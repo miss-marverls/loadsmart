@@ -7,11 +7,22 @@ from .forms import ShipperCreationForm, CarrierCreationForm
 
 
 class ShipperRegistrationView(CreateView):
+    """View that handles Shipper registration."""
+
     form_class = ShipperCreationForm
     success_url = reverse_lazy('users:login')
     template_name = "users/register.html"
 
     def post(self, request, *args, **kwargs):
+        """
+
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        :rtype:
+        """
+
         form = ShipperRegistrationView.form_class(request.POST)
 
         if form.is_valid():
@@ -28,11 +39,20 @@ class ShipperRegistrationView(CreateView):
 
 
 class CarrierRegistrationView(CreateView):
+    """View that handles Carrier registration."""
+
     form_class = CarrierCreationForm
     success_url = reverse_lazy('users:login')
     template_name = "users/register.html"
 
     def post(self, request, *args, **kwargs):
+        """
+
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
         form = CarrierRegistrationView.form_class(request.POST)
 
         if form.is_valid():

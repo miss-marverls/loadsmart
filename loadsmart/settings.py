@@ -45,10 +45,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_nose',
+    'docs',
     'app',
     'users',
     'load',
-    'docs',
 ]
 
 MIDDLEWARE = [
@@ -140,4 +140,3 @@ NOSE_ARGS = [
 
 DOCS_ROOT = 'docs/_build/html'
 # DOCS_ACCESS = 'staff'
-
