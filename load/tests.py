@@ -75,7 +75,7 @@ class ShipperAppTestCase(TestCase):
         resp = self.client.post('/1/update/')
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.context['form']['shipper_price'].errors, [
-                         u'This field is required.'])
+            u'This field is required.'])
 
 
 class CarrierAppTestCase(TestCase):
@@ -107,6 +107,13 @@ class CarrierAppTestCase(TestCase):
     def test_reject_accepted_load(self):
         response = self.client.get('/1/reject/')
         self.assertEqual(response.status_code, 404)
+
+    def test_drop_accepted_load(self):
+        response = self.client.get('/1/accept/')
+        response = self.client.get('/1/drop/')
+        load = Load.objects.get(pk=1)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Carrier.objects.get(pk=1) in load.dropped_by.all())
 
 
 class ShipperAPITestCase(APITestCase):
@@ -164,7 +171,7 @@ class ShipperAPITestCase(APITestCase):
     def test_unauthorized_method(self):
         response = self.client.delete('/api/loads/3/')
         self.assertEqual(response.data, {
-                         "detail": "You do not have permission to perform this action."})
+            "detail": "You do not have permission to perform this action."})
 
 
 class CarrierAPITestCase(APITestCase):
@@ -252,11 +259,27 @@ class CarrierAPITestCase(APITestCase):
         response = self.client.post('/api/loads/1/reject/')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_reject_load_invalid(self):
+    def test_reject_already_rejected_load(self):
+        """
+           Test the rejection of a load that is not available.
+
+           If a load is already dropped, it cannot be rejected.
+        """
+
         response = self.client.post('/api/loads/3/reject/')
         self.assertEqual(response.data, {
             "detail": "Load already dropped"
         })
+
+    def test_reject_accepted_load(self):
+        """
+           Test the rejection of a load that is already accepted by the logged Carrier.
+
+           If a load is already dropped, it can be rejected.
+         """
+
+        response = self.client.post('/api/loads/2/reject/', format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_list_rejected(self):
         response = self.client.get(
