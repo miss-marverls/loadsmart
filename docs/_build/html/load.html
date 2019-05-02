@@ -1,0 +1,1140 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>load package &mdash; Loadsmart 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="load.api package" href="load.api.html" />
+    <link rel="prev" title="app package" href="app.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Loadsmart
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="custom_made/about_project.html">About the project</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="custom_made/readme_link.html">README</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="custom_made/code_doc.html">Code Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html">loadsmart</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app.html">app package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">load package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.admin">load.admin module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.apps">load.apps module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.decorators">load.decorators module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.forms">load.forms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.models">load.models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.tests">load.tests module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.urls">load.urls module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.utils">load.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load.views">load.views module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-load">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="loadsmart.html">loadsmart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="users.html">users package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Loadsmart</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="custom_made/code_doc.html">Code Documentation</a> &raquo;</li>
+        
+          <li><a href="modules.html">loadsmart</a> &raquo;</li>
+        
+      <li>load package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/load.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="load-package">
+<h1>load package<a class="headerlink" href="#load-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="load.api.html">load.api package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="load.api.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load.api.html#module-load.api.permissions">load.api.permissions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load.api.html#module-load.api.serializers">load.api.serializers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load.api.html#module-load.api.viewsets">load.api.viewsets module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load.api.html#module-load.api">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-load.admin">
+<span id="load-admin-module"></span><h2>load.admin module<a class="headerlink" href="#module-load.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-load.apps">
+<span id="load-apps-module"></span><h2>load.apps module<a class="headerlink" href="#module-load.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="load.apps.LoadConfig">
+<em class="property">class </em><code class="descclassname">load.apps.</code><code class="descname">LoadConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/apps.html#LoadConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.apps.LoadConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="load.apps.LoadConfig.name">
+<code class="descname">name</code><em class="property"> = 'load'</em><a class="headerlink" href="#load.apps.LoadConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.decorators">
+<span id="load-decorators-module"></span><h2>load.decorators module<a class="headerlink" href="#module-load.decorators" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="load.decorators.carrier_required">
+<code class="descclassname">load.decorators.</code><code class="descname">carrier_required</code><span class="sig-paren">(</span><em>function=None</em>, <em>redirect_field_name='next'</em>, <em>login_url='app:index'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/decorators.html#carrier_required"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.decorators.carrier_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for views that check that the user is logged in and is a carrier,
+redirects to the main page.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="load.decorators.login_required">
+<code class="descclassname">load.decorators.</code><code class="descname">login_required</code><span class="sig-paren">(</span><em>function=None</em>, <em>redirect_field_name='next'</em>, <em>login_url='users:login'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/decorators.html#login_required"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.decorators.login_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for views that check that the user is logged in,
+redirects to the login page if necessary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="load.decorators.shipper_required">
+<code class="descclassname">load.decorators.</code><code class="descname">shipper_required</code><span class="sig-paren">(</span><em>function=None</em>, <em>redirect_field_name='next'</em>, <em>login_url='app:index'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/decorators.html#shipper_required"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.decorators.shipper_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for views that check that the user is logged in and is a shipper,
+redirects to the main page.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.forms">
+<span id="load-forms-module"></span><h2>load.forms module<a class="headerlink" href="#module-load.forms" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="load.forms.DateInput">
+<em class="property">class </em><code class="descclassname">load.forms.</code><code class="descname">DateInput</code><span class="sig-paren">(</span><em>attrs=None</em>, <em>format=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/forms.html#DateInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.forms.DateInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.widgets.DateInput</span></code></p>
+<p>Form used for pickup date input.</p>
+<dl class="attribute">
+<dt id="load.forms.DateInput.input_type">
+<code class="descname">input_type</code><em class="property"> = 'date'</em><a class="headerlink" href="#load.forms.DateInput.input_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.DateInput.media">
+<code class="descname">media</code><a class="headerlink" href="#load.forms.DateInput.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.forms.LoadEditRateForm">
+<em class="property">class </em><code class="descclassname">load.forms.</code><code class="descname">LoadEditRateForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/forms.html#LoadEditRateForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.forms.LoadEditRateForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bootstrap_modal_forms.forms.BSModalForm</span></code></p>
+<p>Popup form used for load rate edition.</p>
+<p>The shipper can edit the load price suggested by the data science model.</p>
+<dl class="class">
+<dt id="load.forms.LoadEditRateForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/load/forms.html#LoadEditRateForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.forms.LoadEditRateForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="load.forms.LoadEditRateForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('shipper_price',)</em><a class="headerlink" href="#load.forms.LoadEditRateForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadEditRateForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#load.forms.LoadEditRateForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#load.models.Load" title="load.models.Load"><code class="xref py py-class docutils literal notranslate"><span class="pre">load.models.Load</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadEditRateForm.base_fields">
+<code class="descname">base_fields</code><em class="property"> = {'shipper_price': &lt;django.forms.fields.FloatField object&gt;}</em><a class="headerlink" href="#load.forms.LoadEditRateForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadEditRateForm.declared_fields">
+<code class="descname">declared_fields</code><em class="property"> = {}</em><a class="headerlink" href="#load.forms.LoadEditRateForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadEditRateForm.media">
+<code class="descname">media</code><a class="headerlink" href="#load.forms.LoadEditRateForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.forms.LoadForm">
+<em class="property">class </em><code class="descclassname">load.forms.</code><code class="descname">LoadForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/forms.html#LoadForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.forms.LoadForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bootstrap_modal_forms.forms.BSModalForm</span></code></p>
+<p>Popup form used for load creation.</p>
+<dl class="class">
+<dt id="load.forms.LoadForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/load/forms.html#LoadForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.forms.LoadForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="load.forms.LoadForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('pickup_date', 'ref', 'origin_city', 'destination_city', 'shipper_price')</em><a class="headerlink" href="#load.forms.LoadForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#load.forms.LoadForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#load.models.Load" title="load.models.Load"><code class="xref py py-class docutils literal notranslate"><span class="pre">load.models.Load</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadForm.Meta.widgets">
+<code class="descname">widgets</code><em class="property"> = {'pickup_date': &lt;load.forms.DateInput object&gt;}</em><a class="headerlink" href="#load.forms.LoadForm.Meta.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadForm.base_fields">
+<code class="descname">base_fields</code><em class="property"> = {'destination_city': &lt;django.forms.fields.CharField object&gt;, 'origin_city': &lt;django.forms.fields.CharField object&gt;, 'pickup_date': &lt;django.forms.fields.DateField object&gt;, 'ref': &lt;django.forms.fields.CharField object&gt;, 'shipper_price': &lt;django.forms.fields.FloatField object&gt;}</em><a class="headerlink" href="#load.forms.LoadForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadForm.declared_fields">
+<code class="descname">declared_fields</code><em class="property"> = {}</em><a class="headerlink" href="#load.forms.LoadForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.forms.LoadForm.media">
+<code class="descname">media</code><a class="headerlink" href="#load.forms.LoadForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.models">
+<span id="load-models-module"></span><h2>load.models module<a class="headerlink" href="#module-load.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="load.models.Load">
+<em class="property">class </em><code class="descclassname">load.models.</code><code class="descname">Load</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/models.html#Load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.models.Load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Model for the loads.</p>
+<p>Stores the loads information in the DB fields: shipper, carrier, pickup_date, ref number, origin_city,
+destination_city, shipper_price, carrier_price, dropped_by.</p>
+<dl class="exception">
+<dt id="load.models.Load.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#load.models.Load.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="load.models.Load.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#load.models.Load.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.carrier">
+<code class="descname">carrier</code><a class="headerlink" href="#load.models.Load.carrier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.carrier_id">
+<code class="descname">carrier_id</code><a class="headerlink" href="#load.models.Load.carrier_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.carrier_price">
+<code class="descname">carrier_price</code><a class="headerlink" href="#load.models.Load.carrier_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.destination_city">
+<code class="descname">destination_city</code><a class="headerlink" href="#load.models.Load.destination_city" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.dropped_by">
+<code class="descname">dropped_by</code><a class="headerlink" href="#load.models.Load.dropped_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.models.Load.get_next_by_pickup_date">
+<code class="descname">get_next_by_pickup_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: pickup_date&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#load.models.Load.get_next_by_pickup_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.models.Load.get_previous_by_pickup_date">
+<code class="descname">get_previous_by_pickup_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: pickup_date&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#load.models.Load.get_previous_by_pickup_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.id">
+<code class="descname">id</code><a class="headerlink" href="#load.models.Load.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.objects">
+<code class="descname">objects</code><em class="property"> = &lt;load.models.LoadManager object&gt;</em><a class="headerlink" href="#load.models.Load.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.origin_city">
+<code class="descname">origin_city</code><a class="headerlink" href="#load.models.Load.origin_city" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.pickup_date">
+<code class="descname">pickup_date</code><a class="headerlink" href="#load.models.Load.pickup_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.ref">
+<code class="descname">ref</code><a class="headerlink" href="#load.models.Load.ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.shipper">
+<code class="descname">shipper</code><a class="headerlink" href="#load.models.Load.shipper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.shipper_id">
+<code class="descname">shipper_id</code><a class="headerlink" href="#load.models.Load.shipper_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.models.Load.shipper_price">
+<code class="descname">shipper_price</code><a class="headerlink" href="#load.models.Load.shipper_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.models.LoadManager">
+<em class="property">class </em><code class="descclassname">load.models.</code><code class="descname">LoadManager</code><a class="reference internal" href="_modules/load/models.html#LoadManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.models.LoadManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.manager.Manager</span></code></p>
+<p>A manager for the operations on the load objects.</p>
+<dl class="method">
+<dt id="load.models.LoadManager.get_carrier_accepted_loads">
+<code class="descname">get_carrier_accepted_loads</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/models.html#LoadManager.get_carrier_accepted_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.models.LoadManager.get_carrier_accepted_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of loads that the carrier accepted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of accepted loads by the Carrier</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.db.models.QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.models.LoadManager.get_carrier_available_loads">
+<code class="descname">get_carrier_available_loads</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/models.html#LoadManager.get_carrier_available_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.models.LoadManager.get_carrier_available_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of all available loads.</p>
+<p>The loads that the shipper dropped will not be shown as available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of available loads for the Carrier</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.db.models.QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.models.LoadManager.get_carrier_rejected_loads">
+<code class="descname">get_carrier_rejected_loads</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/models.html#LoadManager.get_carrier_rejected_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.models.LoadManager.get_carrier_rejected_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of loads that the carrier rejected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of rejected loads by the Carrier</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.db.models.QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.models.LoadManager.get_shipper_accepted_loads">
+<code class="descname">get_shipper_accepted_loads</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/models.html#LoadManager.get_shipper_accepted_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.models.LoadManager.get_shipper_accepted_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of the shipper loads that were accepted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p>
+</dd>
+</dl>
+<p>return: List of the Shipper accepted loads.
+:rtype: django.db.models.QuerySet</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.models.LoadManager.get_shipper_available_loads">
+<code class="descname">get_shipper_available_loads</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/models.html#LoadManager.get_shipper_available_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.models.LoadManager.get_shipper_available_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of the shipper loads that are still available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of the Shipper available loads.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.db.models.QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.tests">
+<span id="load-tests-module"></span><h2>load.tests module<a class="headerlink" href="#module-load.tests" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="load.tests.CarrierAPITestCase">
+<em class="property">class </em><code class="descclassname">load.tests.</code><code class="descname">CarrierAPITestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.test.APITestCase</span></code></p>
+<p>Test class for the Carrier API</p>
+<dl class="attribute">
+<dt id="load.tests.CarrierAPITestCase.client">
+<code class="descname">client</code><em class="property"> = &lt;rest_framework.test.APIClient object&gt;</em><a class="headerlink" href="#load.tests.CarrierAPITestCase.client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_accept_invalid_load">
+<code class="descname">test_accept_invalid_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_accept_invalid_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_accept_invalid_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the response for an invalid load acceptance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_accept_load">
+<code class="descname">test_accept_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_accept_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_accept_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the response for a valid load acceptance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_accepted_load">
+<code class="descname">test_accepted_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_accepted_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_accepted_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the response for a valid load acceptance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_available_load">
+<code class="descname">test_available_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_available_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_available_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the listing of all available loads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_list_rejected">
+<code class="descname">test_list_rejected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_list_rejected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_list_rejected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the listing of all rejected loads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_null_credentials">
+<code class="descname">test_null_credentials</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_null_credentials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_null_credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the user authentication.</p>
+<p>If valid credentials are not provided, it returns an error.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_reject_accepted_load">
+<code class="descname">test_reject_accepted_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_reject_accepted_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_reject_accepted_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the rejection of a load that is already accepted by the logged Carrier.</p>
+<p>If a load is already dropped, it can be rejected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_reject_already_rejected_load">
+<code class="descname">test_reject_already_rejected_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_reject_already_rejected_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_reject_already_rejected_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the rejection of a load that is not available.</p>
+<p>If a load is already dropped, it cannot be rejected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAPITestCase.test_reject_load">
+<code class="descname">test_reject_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAPITestCase.test_reject_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAPITestCase.test_reject_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test a load rejection.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.tests.CarrierAPITestCase.url">
+<code class="descname">url</code><em class="property"> = '/api/loads/'</em><a class="headerlink" href="#load.tests.CarrierAPITestCase.url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.tests.CarrierAppTestCase">
+<em class="property">class </em><code class="descclassname">load.tests.</code><code class="descname">CarrierAppTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAppTestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAppTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test class for the Carrier app.</p>
+<dl class="attribute">
+<dt id="load.tests.CarrierAppTestCase.fixtures">
+<code class="descname">fixtures</code><em class="property"> = ['loads_views_testdata.json', 'users_views_testdata.json']</em><a class="headerlink" href="#load.tests.CarrierAppTestCase.fixtures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAppTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAppTestCase.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAppTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAppTestCase.test_accept_accepted_load">
+<code class="descname">test_accept_accepted_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAppTestCase.test_accept_accepted_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAppTestCase.test_accept_accepted_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test double load acceptance.</p>
+<p>A load cannot be accepted twice. If a Carrier tries to do so, a 404 error is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAppTestCase.test_accept_load">
+<code class="descname">test_accept_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAppTestCase.test_accept_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAppTestCase.test_accept_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the load acceptance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAppTestCase.test_drop_accepted_load">
+<code class="descname">test_drop_accepted_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAppTestCase.test_drop_accepted_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAppTestCase.test_drop_accepted_load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAppTestCase.test_list_loads">
+<code class="descname">test_list_loads</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAppTestCase.test_list_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAppTestCase.test_list_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the if the load listing returns a valid page.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAppTestCase.test_reject_accepted_load">
+<code class="descname">test_reject_accepted_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAppTestCase.test_reject_accepted_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAppTestCase.test_reject_accepted_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the rejection of an accepted load.</p>
+<p>An accepted load cannot be rejected. If a Carrier tries to do so, a 404 error is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.CarrierAppTestCase.test_reject_load">
+<code class="descname">test_reject_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#CarrierAppTestCase.test_reject_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.CarrierAppTestCase.test_reject_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the rejection of an accepted load.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.tests.ShipperAPITestCase">
+<em class="property">class </em><code class="descclassname">load.tests.</code><code class="descname">ShipperAPITestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAPITestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAPITestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.test.APITestCase</span></code></p>
+<p>Test class for the Shipper API.</p>
+<dl class="attribute">
+<dt id="load.tests.ShipperAPITestCase.client">
+<code class="descname">client</code><em class="property"> = &lt;rest_framework.test.APIClient object&gt;</em><a class="headerlink" href="#load.tests.ShipperAPITestCase.client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAPITestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAPITestCase.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAPITestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAPITestCase.test_create_invalid_load">
+<code class="descname">test_create_invalid_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAPITestCase.test_create_invalid_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAPITestCase.test_create_invalid_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the response for an invalid load creation through the API.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAPITestCase.test_create_load">
+<code class="descname">test_create_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAPITestCase.test_create_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAPITestCase.test_create_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the response for the load creation through the API.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAPITestCase.test_list_accepted_loads">
+<code class="descname">test_list_accepted_loads</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAPITestCase.test_list_accepted_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAPITestCase.test_list_accepted_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the listing of the accepted loads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAPITestCase.test_list_available_loads">
+<code class="descname">test_list_available_loads</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAPITestCase.test_list_available_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAPITestCase.test_list_available_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the listing of the available loads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAPITestCase.test_unauthorized_method">
+<code class="descname">test_unauthorized_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAPITestCase.test_unauthorized_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAPITestCase.test_unauthorized_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the attempt of execute an unauthorized method returns an error message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.tests.ShipperAPITestCase.url">
+<code class="descname">url</code><em class="property"> = '/api/loads/'</em><a class="headerlink" href="#load.tests.ShipperAPITestCase.url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.tests.ShipperAppTestCase">
+<em class="property">class </em><code class="descclassname">load.tests.</code><code class="descname">ShipperAppTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>Test class for the Shipper app.</p>
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.create_load">
+<code class="descname">create_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.create_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.create_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a load for the tests.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.tests.ShipperAppTestCase.fixtures">
+<code class="descname">fixtures</code><em class="property"> = ['loads_views_testdata.json', 'users_views_testdata.json']</em><a class="headerlink" href="#load.tests.ShipperAppTestCase.fixtures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.test_add_load">
+<code class="descname">test_add_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.test_add_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.test_add_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the addition of a new load by a shipper.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.test_create_load">
+<code class="descname">test_create_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.test_create_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.test_create_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the load creation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.test_form_edit_price">
+<code class="descname">test_form_edit_price</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.test_form_edit_price"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.test_form_edit_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the form for shipper price editing. If a new price is not provided it returns an error.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.test_invalid_form">
+<code class="descname">test_invalid_form</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.test_invalid_form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.test_invalid_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the form for the load creation is invalid if the parsed data is incomplete.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.test_load_list">
+<code class="descname">test_load_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.test_load_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.test_load_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the if the load listing returns a valid page.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.test_update_load">
+<code class="descname">test_update_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.test_update_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.test_update_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the shipper price update.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.tests.ShipperAppTestCase.test_valid_form">
+<code class="descname">test_valid_form</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/tests.html#ShipperAppTestCase.test_valid_form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.tests.ShipperAppTestCase.test_valid_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the form for the load creation is valid if the correct data is parsed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.urls">
+<span id="load-urls-module"></span><h2>load.urls module<a class="headerlink" href="#module-load.urls" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="load.urls.path">
+<code class="descclassname">load.urls.</code><code class="descname">path</code><span class="sig-paren">(</span><em>route</em>, <em>view</em>, <em>kwargs=None</em>, <em>name=None</em>, <em>*</em>, <em>Pattern=&lt;class 'django.urls.resolvers.RoutePattern'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#load.urls.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-load.utils">
+<span id="load-utils-module"></span><h2>load.utils module<a class="headerlink" href="#module-load.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="load.utils.calculate_carrier_price">
+<code class="descclassname">load.utils.</code><code class="descname">calculate_carrier_price</code><span class="sig-paren">(</span><em>shipper_price</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/utils.html#calculate_carrier_price"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.utils.calculate_carrier_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the carrier price based on the shipper price</p>
+<p>The carrier price is the amount of money a carrier will receive if
+they accept the load. It is the shipper price minus 5%.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shipper_price</strong> (<em>float</em>) – The price defined by the Shipper.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The price presented to the Carrier.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.views">
+<span id="load-views-module"></span><h2>load.views module<a class="headerlink" href="#module-load.views" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="load.views.LoadCreateView">
+<em class="property">class </em><code class="descclassname">load.views.</code><code class="descname">LoadCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#LoadCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.LoadCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bootstrap_modal_forms.generic.BSModalCreateView</span></code></p>
+<p>View that handles the creation of a load.</p>
+<p>Only a Shipper can create a load.</p>
+<dl class="method">
+<dt id="load.views.LoadCreateView.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#load.views.LoadCreateView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadCreateView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#load.views.LoadCreateView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#load.forms.LoadForm" title="load.forms.LoadForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">load.forms.LoadForm</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.views.LoadCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#LoadCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.LoadCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides form_valid method to automatically fill out the fields carrier, carrier_price, and shipper.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadCreateView.success_message">
+<code class="descname">success_message</code><em class="property"> = 'Success: Load was created.'</em><a class="headerlink" href="#load.views.LoadCreateView.success_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadCreateView.success_url">
+<code class="descname">success_url</code><em class="property"> = '/loads/'</em><a class="headerlink" href="#load.views.LoadCreateView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadCreateView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'load/new_load.html'</em><a class="headerlink" href="#load.views.LoadCreateView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.views.LoadUpdateView">
+<em class="property">class </em><code class="descclassname">load.views.</code><code class="descname">LoadUpdateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#LoadUpdateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.LoadUpdateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bootstrap_modal_forms.generic.BSModalUpdateView</span></code></p>
+<p>View for load rate update.</p>
+<p>Only Shippers are allowed to change the load rate and they can only update their on loads.</p>
+<dl class="method">
+<dt id="load.views.LoadUpdateView.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#load.views.LoadUpdateView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadUpdateView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#load.views.LoadUpdateView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#load.forms.LoadEditRateForm" title="load.forms.LoadEditRateForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">load.forms.LoadEditRateForm</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.views.LoadUpdateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#LoadUpdateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.LoadUpdateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides form_valid method to automatically fill out the fields carrier, carrier_price, and shipper.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadUpdateView.model">
+<code class="descname">model</code><a class="headerlink" href="#load.views.LoadUpdateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#load.models.Load" title="load.models.Load"><code class="xref py py-class docutils literal notranslate"><span class="pre">load.models.Load</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadUpdateView.success_message">
+<code class="descname">success_message</code><em class="property"> = 'Success: Rate was updated.'</em><a class="headerlink" href="#load.views.LoadUpdateView.success_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadUpdateView.success_url">
+<code class="descname">success_url</code><em class="property"> = '/loads/'</em><a class="headerlink" href="#load.views.LoadUpdateView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.views.LoadUpdateView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'load/edit_rate.html'</em><a class="headerlink" href="#load.views.LoadUpdateView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="load.views.accept_load">
+<code class="descclassname">load.views.</code><code class="descname">accept_load</code><span class="sig-paren">(</span><em>request</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#accept_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.accept_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepts an available load.</p>
+<p>Only Carriers can accept an available load. When the load is accepted the Carrier that accepted it
+is added to the load field “carrier”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p></li>
+<li><p><strong>pk</strong> – Load primary key</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Carrier loads list page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.http.HttpResponseRedirect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="load.views.drop_load">
+<code class="descclassname">load.views.</code><code class="descname">drop_load</code><span class="sig-paren">(</span><em>request</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#drop_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.drop_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drops an accepted load.</p>
+<p>Only Carriers can drop an accepted load. When the load is dropped the Carrier who dropped it
+is removed to the load field “carrier”. The load becomes available again, except for the Carrier who dropped it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p></li>
+<li><p><strong>pk</strong> – Load primary key</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Carrier loads list page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.http.HttpResponseRedirect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="load.views.list_carrier_loads">
+<code class="descclassname">load.views.</code><code class="descname">list_carrier_loads</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#list_carrier_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.list_carrier_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the all the available loads (from all Shippers) and the accepted loads of the Carrier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The page with the list of loads for the Carrier.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.http.HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="load.views.list_loads">
+<code class="descclassname">load.views.</code><code class="descname">list_loads</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#list_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.list_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>View that list the loads.</p>
+<p>The loads lists are different for Shippers and Carriers. These lists are available for logged users only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The page with the list of loads for the Shipper or for the Carrier, depending on the User type.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.http.HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="load.views.list_shipper_loads">
+<code class="descclassname">load.views.</code><code class="descname">list_shipper_loads</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#list_shipper_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.list_shipper_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the available and accepted loads of the Shipper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The page with the list of loads for the Shipper.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.http.HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="load.views.reject_load">
+<code class="descclassname">load.views.</code><code class="descname">reject_load</code><span class="sig-paren">(</span><em>request</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/views.html#reject_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.views.reject_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rejects an available load.</p>
+<p>Only Carriers can reject an available load. When the load is rejected the Carrier who rejected it
+is added to the load field “dropped_by”. The load remains available, except for the Carrier who rejected it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>django.http.HttpRequest</em>) – Received request.</p></li>
+<li><p><strong>pk</strong> – Load primary key</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Carrier loads list page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>django.http.HttpResponseRedirect</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-load">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-load" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="load.api.html" class="btn btn-neutral float-right" title="load.api package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="app.html" class="btn btn-neutral float-left" title="app package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Miss Marvels
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+    /* Sidebar header (and topbar for mobile) */
+    .wy-side-nav-search, .wy-nav-top {
+      background: #68caa1;
+    }
+    /* Sidebar */
+    .wy-nav-side {
+      background: #2b3034;
+    }
+  </style>
+
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>load.views &mdash; Loadsmart 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Loadsmart
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/about_project.html">About the project</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/readme_link.html">README</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/code_doc.html">Code Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Loadsmart</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>load.views</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for load.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">bootstrap_modal_forms.generic</span> <span class="k">import</span> <span class="n">BSModalCreateView</span><span class="p">,</span> <span class="n">BSModalUpdateView</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="k">import</span> <span class="n">reverse_lazy</span>
+<span class="kn">from</span> <span class="nn">django.utils.decorators</span> <span class="k">import</span> <span class="n">method_decorator</span>
+
+<span class="kn">from</span> <span class="nn">users.models</span> <span class="k">import</span> <span class="n">Carrier</span><span class="p">,</span> <span class="n">Shipper</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">.decorators</span> <span class="k">import</span> <span class="n">shipper_required</span><span class="p">,</span> <span class="n">carrier_required</span><span class="p">,</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="k">import</span> <span class="n">LoadForm</span><span class="p">,</span> <span class="n">LoadEditRateForm</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">Load</span>
+
+
+<div class="viewcode-block" id="LoadCreateView"><a class="viewcode-back" href="../../load.html#load.views.LoadCreateView">[docs]</a><span class="nd">@method_decorator</span><span class="p">(</span><span class="n">shipper_required</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dispatch&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">LoadCreateView</span><span class="p">(</span><span class="n">BSModalCreateView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View that handles the creation of a load.</span>
+
+<span class="sd">    Only a Shipper can create a load.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;load/new_load.html&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">LoadForm</span>
+    <span class="n">success_message</span> <span class="o">=</span> <span class="s1">&#39;Success: Load was created.&#39;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s1">&#39;load:loads&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LoadCreateView.form_valid"><a class="viewcode-back" href="../../load.html#load.views.LoadCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Overrides form_valid method to automatically fill out the fields carrier, carrier_price, and shipper.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">load</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">load</span><span class="o">.</span><span class="n">carrier</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">load</span><span class="o">.</span><span class="n">carrier_price</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">calculate_carrier_price</span><span class="p">(</span><span class="n">load</span><span class="o">.</span><span class="n">shipper_price</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+            <span class="n">shipper</span> <span class="o">=</span> <span class="n">Shipper</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_shipper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">load</span><span class="o">.</span><span class="n">shipper</span> <span class="o">=</span> <span class="n">shipper</span>
+        <span class="n">load</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">LoadCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="LoadUpdateView"><a class="viewcode-back" href="../../load.html#load.views.LoadUpdateView">[docs]</a><span class="nd">@method_decorator</span><span class="p">(</span><span class="n">shipper_required</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dispatch&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">LoadUpdateView</span><span class="p">(</span><span class="n">BSModalUpdateView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for load rate update.</span>
+
+<span class="sd">    Only Shippers are allowed to change the load rate and they can only update their on loads.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Load</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;load/edit_rate.html&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">LoadEditRateForm</span>
+    <span class="n">success_message</span> <span class="o">=</span> <span class="s1">&#39;Success: Rate was updated.&#39;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s1">&#39;load:loads&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LoadUpdateView.form_valid"><a class="viewcode-back" href="../../load.html#load.views.LoadUpdateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Overrides form_valid method to automatically fill out the fields carrier, carrier_price, and shipper.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">load</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">load</span><span class="o">.</span><span class="n">carrier</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+            <span class="n">shipper</span> <span class="o">=</span> <span class="n">Shipper</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_shipper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">load</span><span class="o">.</span><span class="n">shipper</span> <span class="o">=</span> <span class="n">shipper</span>
+            <span class="n">load</span><span class="o">.</span><span class="n">carrier_price</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">calculate_carrier_price</span><span class="p">(</span><span class="n">load</span><span class="o">.</span><span class="n">shipper_price</span><span class="p">)</span>
+        <span class="n">load</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">LoadUpdateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="list_loads"><a class="viewcode-back" href="../../load.html#load.views.list_loads">[docs]</a><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">list_loads</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;View that list the loads.</span>
+
+<span class="sd">    The loads lists are different for Shippers and Carriers. These lists are available for logged users only.</span>
+
+<span class="sd">    :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">    :return: The page with the list of loads for the Shipper or for the Carrier, depending on the User type.</span>
+<span class="sd">    :rtype: django.http.HttpResponse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_shipper</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">list_shipper_loads</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">list_carrier_loads</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_shipper_loads"><a class="viewcode-back" href="../../load.html#load.views.list_shipper_loads">[docs]</a><span class="nd">@shipper_required</span>
+<span class="k">def</span> <span class="nf">list_shipper_loads</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lists the available and accepted loads of the Shipper.</span>
+
+<span class="sd">    :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">    :return: The page with the list of loads for the Shipper.</span>
+<span class="sd">    :rtype: django.http.HttpResponse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">available_loads</span> <span class="o">=</span> <span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_shipper_available_loads</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">accepted_loads</span> <span class="o">=</span> <span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_shipper_accepted_loads</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;load/shipper_load_list.html&#39;</span><span class="p">,</span>
+                  <span class="p">{</span><span class="s1">&#39;available_loads&#39;</span><span class="p">:</span> <span class="n">available_loads</span><span class="p">,</span> <span class="s1">&#39;accepted_loads&#39;</span><span class="p">:</span> <span class="n">accepted_loads</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="list_carrier_loads"><a class="viewcode-back" href="../../load.html#load.views.list_carrier_loads">[docs]</a><span class="nd">@carrier_required</span>
+<span class="k">def</span> <span class="nf">list_carrier_loads</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lists the all the available loads (from all Shippers) and the accepted loads of the Carrier.</span>
+
+<span class="sd">    :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">    :return: The page with the list of loads for the Carrier.</span>
+<span class="sd">    :rtype: django.http.HttpResponse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">available_loads</span> <span class="o">=</span> <span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_carrier_available_loads</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">accepted_loads</span> <span class="o">=</span> <span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_carrier_accepted_loads</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;load/carrier_load_list.html&#39;</span><span class="p">,</span>
+                  <span class="p">{</span><span class="s1">&#39;available_loads&#39;</span><span class="p">:</span> <span class="n">available_loads</span><span class="p">,</span> <span class="s1">&#39;accepted_loads&#39;</span><span class="p">:</span> <span class="n">accepted_loads</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="accept_load"><a class="viewcode-back" href="../../load.html#load.views.accept_load">[docs]</a><span class="nd">@carrier_required</span>
+<span class="k">def</span> <span class="nf">accept_load</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accepts an available load.</span>
+
+<span class="sd">    Only Carriers can accept an available load. When the load is accepted the Carrier that accepted it</span>
+<span class="sd">    is added to the load field &quot;carrier&quot;.</span>
+
+<span class="sd">    :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">    :param pk: Load primary key</span>
+<span class="sd">    :return: Carrier loads list page</span>
+<span class="sd">    :rtype: django.http.HttpResponseRedirect</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">load</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Load</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">pk</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">carrier</span> <span class="o">=</span> <span class="n">Carrier</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_carrier</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">load</span><span class="o">.</span><span class="n">carrier</span> <span class="o">=</span> <span class="n">carrier</span>
+    <span class="n">load</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;load:loads&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="reject_load"><a class="viewcode-back" href="../../load.html#load.views.reject_load">[docs]</a><span class="nd">@carrier_required</span>
+<span class="k">def</span> <span class="nf">reject_load</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rejects an available load.</span>
+
+<span class="sd">    Only Carriers can reject an available load. When the load is rejected the Carrier who rejected it</span>
+<span class="sd">    is added to the load field &quot;dropped_by&quot;. The load remains available, except for the Carrier who rejected it.</span>
+
+<span class="sd">    :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">    :param pk: Load primary key</span>
+<span class="sd">    :return: Carrier loads list page</span>
+<span class="sd">    :rtype: django.http.HttpResponseRedirect</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">load</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Load</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">pk</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">carrier</span> <span class="o">=</span> <span class="n">Carrier</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_carrier</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">load</span><span class="o">.</span><span class="n">dropped_by</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">carrier</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;load:loads&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="drop_load"><a class="viewcode-back" href="../../load.html#load.views.drop_load">[docs]</a><span class="nd">@carrier_required</span>
+<span class="k">def</span> <span class="nf">drop_load</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Drops an accepted load.</span>
+
+<span class="sd">    Only Carriers can drop an accepted load. When the load is dropped the Carrier who dropped it</span>
+<span class="sd">    is removed to the load field &quot;carrier&quot;. The load becomes available again, except for the Carrier who dropped it.</span>
+
+<span class="sd">    :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">    :param pk: Load primary key</span>
+<span class="sd">    :return: Carrier loads list page</span>
+<span class="sd">    :rtype: django.http.HttpResponseRedirect</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">carrier</span> <span class="o">=</span> <span class="n">Carrier</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_carrier</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">load</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Load</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">pk</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="n">carrier</span><span class="p">)</span>
+    <span class="n">load</span><span class="o">.</span><span class="n">carrier</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">load</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">load</span><span class="o">.</span><span class="n">dropped_by</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">carrier</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;load:loads&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Miss Marvels
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+    /* Sidebar header (and topbar for mobile) */
+    .wy-side-nav-search, .wy-nav-top {
+      background: #68caa1;
+    }
+    /* Sidebar */
+    .wy-nav-side {
+      background: #2b3034;
+    }
+  </style>
+
+
+</body>
+</html>

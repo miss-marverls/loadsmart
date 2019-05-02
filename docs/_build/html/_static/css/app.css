@@ -1,0 +1,79 @@
+.th-title {
+    color: white;
+}
+
+.pac-container {
+    z-index: 1051 !important;
+}
+
+body {
+    background-color: #f9f9f9;
+}
+
+.title-row {
+    color: #2b3034;
+    background-color: rgba(0, 0, 0, 0.03);
+
+}
+
+.navbar-custom {
+    background-color: #2b3034;
+}
+
+.thead-custom {
+    background-color: #3e4c55;
+}
+
+.rate-button {
+    background-color: #2b3034;
+    color: white;
+}
+
+.container-custom {
+    margin-top: 10px;
+}
+
+.add-button {
+    background-color: #3e4c55;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.title-table {
+    display: flex;
+    align-items: center;
+}
+
+.thead-secondary {
+    background-color: #6c757d;
+}
+
+.table-custom {
+    table-layout: auto;
+}
+
+.button-custom {
+    display: inline-block;
+    border: none;
+    color: whitesmoke;
+    padding: 5px;
+}
+
+.button-accept {
+    width: 48%;
+    background-color: #66caa1;
+}
+
+.button-cancel {
+    background-color: #AAAAAA;
+}
+
+.button-drop {
+    width: 48%;
+    background-color: #AAAAAA;
+}
+
+.logo-custom {
+    color: #66caa1;
+    font-size: 22px;
+}

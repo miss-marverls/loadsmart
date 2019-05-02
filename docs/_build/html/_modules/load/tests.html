@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>load.tests &mdash; Loadsmart 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Loadsmart
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/about_project.html">About the project</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/readme_link.html">README</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/code_doc.html">Code Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Loadsmart</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>load.tests</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for load.tests</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="k">import</span> <span class="n">TestCase</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="k">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="k">import</span> <span class="n">status</span>
+<span class="kn">from</span> <span class="nn">rest_framework.authtoken.models</span> <span class="k">import</span> <span class="n">Token</span>
+<span class="kn">from</span> <span class="nn">rest_framework.test</span> <span class="k">import</span> <span class="n">APITestCase</span><span class="p">,</span> <span class="n">APIClient</span>
+
+<span class="kn">from</span> <span class="nn">users.models</span> <span class="k">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Shipper</span><span class="p">,</span> <span class="n">Carrier</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="k">import</span> <span class="n">LoadForm</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">Load</span>
+
+
+<div class="viewcode-block" id="ShipperAppTestCase"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase">[docs]</a><span class="k">class</span> <span class="nc">ShipperAppTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test class for the Shipper app.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fixtures</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;loads_views_testdata.json&#39;</span><span class="p">,</span> <span class="s1">&#39;users_views_testdata.json&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ShipperAppTestCase.setUp"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;hireme@loadsmart.com&quot;</span><span class="p">,</span>
+                          <span class="n">password</span><span class="o">=</span><span class="s2">&quot;iwilldoagreatjob&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAppTestCase.create_load"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.create_load">[docs]</a>    <span class="k">def</span> <span class="nf">create_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a load for the tests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">Load</span><span class="p">(</span><span class="n">pickup_date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">ref</span><span class="o">=</span><span class="s2">&quot;123&quot;</span><span class="p">,</span> <span class="n">origin_city</span><span class="o">=</span><span class="s2">&quot;NY&quot;</span><span class="p">,</span> <span class="n">destination_city</span><span class="o">=</span><span class="s2">&quot;Los Angeles&quot;</span><span class="p">,</span>
+                    <span class="n">shipper_price</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAppTestCase.test_create_load"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.test_create_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the load creation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">load</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_load</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="n">Load</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">load</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(),</span> <span class="s2">&quot;123&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAppTestCase.test_valid_form"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.test_valid_form">[docs]</a>    <span class="k">def</span> <span class="nf">test_valid_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests if the form for the load creation is valid if the correct data is parsed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;132&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Alagoinhas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Feira de Santana&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">150</span>
+        <span class="p">}</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">LoadForm</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="ShipperAppTestCase.test_invalid_form"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.test_invalid_form">[docs]</a>    <span class="k">def</span> <span class="nf">test_invalid_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests if the form for the load creation is invalid if the parsed data is incomplete.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;132&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Alagoinhas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">150</span>
+        <span class="p">}</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">LoadForm</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="ShipperAppTestCase.test_add_load"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.test_add_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the addition of a new load by a shipper.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;load:create-load&#39;</span><span class="p">),</span> <span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;132&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Alagoinhas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Feira de Santana&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">302</span><span class="p">)</span>
+        <span class="n">load</span> <span class="o">=</span> <span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">load</span><span class="o">.</span><span class="n">carrier_price</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAppTestCase.test_update_load"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.test_update_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_update_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the shipper price update.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/1/update/&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">302</span><span class="p">)</span>
+        <span class="n">load</span> <span class="o">=</span> <span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">load</span><span class="o">.</span><span class="n">shipper_price</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">load</span><span class="o">.</span><span class="n">carrier_price</span><span class="p">,</span> <span class="mi">190</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAppTestCase.test_load_list"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.test_load_list">[docs]</a>    <span class="k">def</span> <span class="nf">test_load_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the if the load listing returns a valid page.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/loads/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAppTestCase.test_form_edit_price"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAppTestCase.test_form_edit_price">[docs]</a>    <span class="k">def</span> <span class="nf">test_form_edit_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the form for shipper price editing. If a new price is not provided it returns an error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/1/update/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">][</span><span class="s1">&#39;shipper_price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="p">[</span>
+            <span class="sa">u</span><span class="s1">&#39;This field is required.&#39;</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="CarrierAppTestCase"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAppTestCase">[docs]</a><span class="k">class</span> <span class="nc">CarrierAppTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test class for the Carrier app.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fixtures</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;loads_views_testdata.json&#39;</span><span class="p">,</span> <span class="s1">&#39;users_views_testdata.json&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="CarrierAppTestCase.setUp"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAppTestCase.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;carrier@loadsmart.com&quot;</span><span class="p">,</span>
+                          <span class="n">password</span><span class="o">=</span><span class="s2">&quot;iwilldoagreatjob&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAppTestCase.test_list_loads"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAppTestCase.test_list_loads">[docs]</a>    <span class="k">def</span> <span class="nf">test_list_loads</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the if the load listing returns a valid page.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/loads/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAppTestCase.test_accept_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAppTestCase.test_accept_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_accept_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the load acceptance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/5/accept/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">302</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">carrier_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAppTestCase.test_accept_accepted_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAppTestCase.test_accept_accepted_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_accept_accepted_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test double load acceptance.</span>
+
+<span class="sd">        A load cannot be accepted twice. If a Carrier tries to do so, a 404 error is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/1/accept/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">404</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAppTestCase.test_reject_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAppTestCase.test_reject_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_reject_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the rejection of an accepted load.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/5/reject/&#39;</span><span class="p">)</span>
+        <span class="n">load</span> <span class="o">=</span> <span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">302</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">Carrier</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">load</span><span class="o">.</span><span class="n">dropped_by</span><span class="o">.</span><span class="n">all</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="CarrierAppTestCase.test_reject_accepted_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAppTestCase.test_reject_accepted_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_reject_accepted_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the rejection of an accepted load.</span>
+
+<span class="sd">        An accepted load cannot be rejected. If a Carrier tries to do so, a 404 error is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/1/reject/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">404</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAppTestCase.test_drop_accepted_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAppTestCase.test_drop_accepted_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_drop_accepted_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/1/accept/&#39;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/1/drop/&#39;</span><span class="p">)</span>
+        <span class="n">load</span> <span class="o">=</span> <span class="n">Load</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">302</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">Carrier</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">load</span><span class="o">.</span><span class="n">dropped_by</span><span class="o">.</span><span class="n">all</span><span class="p">())</span></div></div>
+
+
+<div class="viewcode-block" id="ShipperAPITestCase"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAPITestCase">[docs]</a><span class="k">class</span> <span class="nc">ShipperAPITestCase</span><span class="p">(</span><span class="n">APITestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test class for the Shipper API.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;load:api-list&quot;</span><span class="p">)</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ShipperAPITestCase.setUp"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAPITestCase.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span>
+            <span class="n">email</span><span class="o">=</span><span class="s2">&quot;hireme@loadsmart.com&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;iwilldoagreatjob&quot;</span><span class="p">,</span> <span class="n">is_shipper</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">Shipper</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">update_or_create</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">credentials</span><span class="p">(</span><span class="n">HTTP_AUTHORIZATION</span><span class="o">=</span><span class="s1">&#39;Token &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;963&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Salvador&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Lauro de Freitas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">75</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;132&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Alagoinhas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Feira de Santana&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">150</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAPITestCase.test_create_load"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAPITestCase.test_create_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the response for the load creation through the API.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAPITestCase.test_create_invalid_load"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAPITestCase.test_create_invalid_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_invalid_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the response for an invalid load creation through the API.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;132&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Alagoinhas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">150</span>
+        <span class="p">},</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_400_BAD_REQUEST</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAPITestCase.test_list_available_loads"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAPITestCase.test_list_available_loads">[docs]</a>    <span class="k">def</span> <span class="nf">test_list_available_loads</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the listing of the available loads.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;load:api-available&quot;</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAPITestCase.test_list_accepted_loads"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAPITestCase.test_list_accepted_loads">[docs]</a>    <span class="k">def</span> <span class="nf">test_list_accepted_loads</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the listing of the accepted loads.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;load:api-accepted&quot;</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ShipperAPITestCase.test_unauthorized_method"><a class="viewcode-back" href="../../load.html#load.tests.ShipperAPITestCase.test_unauthorized_method">[docs]</a>    <span class="k">def</span> <span class="nf">test_unauthorized_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test if the attempt of execute an unauthorized method returns an error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;/api/loads/3/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;You do not have permission to perform this action.&quot;</span><span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="CarrierAPITestCase"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase">[docs]</a><span class="k">class</span> <span class="nc">CarrierAPITestCase</span><span class="p">(</span><span class="n">APITestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test class for the Carrier API</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;load:api-list&quot;</span><span class="p">)</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CarrierAPITestCase.setUp"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span>
+            <span class="n">email</span><span class="o">=</span><span class="s2">&quot;hireme@loadsmart.com&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;iwilldoagreatjob&quot;</span><span class="p">,</span> <span class="n">is_shipper</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">Shipper</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">update_or_create</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">credentials</span><span class="p">(</span><span class="n">HTTP_AUTHORIZATION</span><span class="o">=</span><span class="s1">&#39;Token &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;963&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Salvador&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Lauro de Freitas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">75</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;132&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Alagoinhas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Feira de Santana&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">150</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;132&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;NY&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Los Angeles&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shipper_price&quot;</span><span class="p">:</span> <span class="mi">1500</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span>
+            <span class="n">email</span><span class="o">=</span><span class="s2">&quot;carrier@loadsmart.com&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;iwilldoagreatjob&quot;</span><span class="p">,</span> <span class="n">is_carrier</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">Carrier</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">update_or_create</span><span class="p">(</span>
+            <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">mc_number</span><span class="o">=</span><span class="s2">&quot;MC123456&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">credentials</span><span class="p">(</span><span class="n">HTTP_AUTHORIZATION</span><span class="o">=</span><span class="s1">&#39;Token &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/api/loads/2/accept/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/api/loads/3/reject/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_accept_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_accept_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_accept_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the response for a valid load acceptance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="s1">&#39;/api/loads/1/accept/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="n">data_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;shipper&quot;</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">([</span>
+                <span class="p">(</span><span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;hireme@loadsmart.com&#39;</span><span class="p">)]</span>
+            <span class="p">))]),</span>
+            <span class="s2">&quot;carrier&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="s1">&#39;2019-04-11&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;963&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Salvador&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Lauro de Freitas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;carrier_price&quot;</span><span class="p">:</span> <span class="mf">71.25</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">data_</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_accept_invalid_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_accept_invalid_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_accept_invalid_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the response for an invalid load acceptance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="s1">&#39;/api/loads/2/accept/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Not found.&quot;</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_accepted_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_accepted_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_accepted_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the response for a valid load acceptance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;/api/loads/accepted/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_available_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_available_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_available_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the listing of all available loads.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;/api/loads/available/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_reject_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_reject_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_reject_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test a load rejection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/api/loads/1/reject/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_reject_already_rejected_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_reject_already_rejected_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_reject_already_rejected_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Test the rejection of a load that is not available.</span>
+
+<span class="sd">           If a load is already dropped, it cannot be rejected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/api/loads/3/reject/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Load already dropped&quot;</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_reject_accepted_load"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_reject_accepted_load">[docs]</a>    <span class="k">def</span> <span class="nf">test_reject_accepted_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Test the rejection of a load that is already accepted by the logged Carrier.</span>
+
+<span class="sd">           If a load is already dropped, it can be rejected.</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/api/loads/2/reject/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_list_rejected"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_list_rejected">[docs]</a>    <span class="k">def</span> <span class="nf">test_list_rejected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the listing of all rejected loads.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;/api/loads/rejected/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CarrierAPITestCase.test_null_credentials"><a class="viewcode-back" href="../../load.html#load.tests.CarrierAPITestCase.test_null_credentials">[docs]</a>    <span class="k">def</span> <span class="nf">test_null_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the user authentication.</span>
+
+<span class="sd">        If valid credentials are not provided, it returns an error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">credentials</span><span class="p">(</span><span class="n">HTTP_AUTHORIZATION</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;/api/loads/rejected/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">})</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Miss Marvels
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+    /* Sidebar header (and topbar for mobile) */
+    .wy-side-nav-search, .wy-nav-top {
+      background: #68caa1;
+    }
+    /* Sidebar */
+    .wy-nav-side {
+      background: #2b3034;
+    }
+  </style>
+
+
+</body>
+</html>

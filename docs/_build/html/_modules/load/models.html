@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>load.models &mdash; Loadsmart 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Loadsmart
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/about_project.html">About the project</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/readme_link.html">README</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_made/code_doc.html">Code Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Loadsmart</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>load.models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for load.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
+
+<span class="kn">from</span> <span class="nn">users.models</span> <span class="k">import</span> <span class="n">Shipper</span><span class="p">,</span> <span class="n">Carrier</span>
+
+
+<div class="viewcode-block" id="LoadManager"><a class="viewcode-back" href="../../load.html#load.forms.LoadManager">[docs]</a><span class="k">class</span> <span class="nc">LoadManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A manager for the operations on the load objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LoadManager.get_carrier_available_loads"><a class="viewcode-back" href="../../load.html#load.forms.LoadManager.get_carrier_available_loads">[docs]</a>    <span class="k">def</span> <span class="nf">get_carrier_available_loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of all available loads.</span>
+
+<span class="sd">        The loads that the shipper dropped will not be shown as available.</span>
+
+<span class="sd">        :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">        :return: List of available loads for the Carrier</span>
+<span class="sd">        :rtype: django.db.models.QuerySet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dropped_loads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_carrier_rejected_loads</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">carrier</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">id__in</span><span class="o">=</span><span class="n">dropped_loads</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LoadManager.get_carrier_accepted_loads"><a class="viewcode-back" href="../../load.html#load.forms.LoadManager.get_carrier_accepted_loads">[docs]</a>    <span class="k">def</span> <span class="nf">get_carrier_accepted_loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of loads that the carrier accepted.</span>
+
+<span class="sd">        :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">        :return: List of accepted loads by the Carrier</span>
+<span class="sd">        :rtype: django.db.models.QuerySet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">carrier</span> <span class="o">=</span> <span class="n">Carrier</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_carrier</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">carrier</span><span class="o">=</span><span class="n">carrier</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LoadManager.get_carrier_rejected_loads"><a class="viewcode-back" href="../../load.html#load.forms.LoadManager.get_carrier_rejected_loads">[docs]</a>    <span class="k">def</span> <span class="nf">get_carrier_rejected_loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of loads that the carrier rejected.</span>
+
+<span class="sd">        :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">        :return: List of rejected loads by the Carrier</span>
+<span class="sd">        :rtype: django.db.models.QuerySet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">carrier</span> <span class="o">=</span> <span class="n">Carrier</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_carrier</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">carrier</span><span class="o">.</span><span class="n">dropped_by</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="LoadManager.get_shipper_available_loads"><a class="viewcode-back" href="../../load.html#load.forms.LoadManager.get_shipper_available_loads">[docs]</a>    <span class="k">def</span> <span class="nf">get_shipper_available_loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of the shipper loads that are still available.</span>
+
+<span class="sd">        :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">        :return: List of the Shipper available loads.</span>
+<span class="sd">        :rtype: django.db.models.QuerySet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">shipper</span> <span class="o">=</span> <span class="n">Shipper</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_shipper</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">carrier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shipper</span><span class="o">=</span><span class="n">shipper</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LoadManager.get_shipper_accepted_loads"><a class="viewcode-back" href="../../load.html#load.forms.LoadManager.get_shipper_accepted_loads">[docs]</a>    <span class="k">def</span> <span class="nf">get_shipper_accepted_loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of the shipper loads that were accepted.</span>
+
+<span class="sd">        :param django.http.HttpRequest request: Received request.</span>
+<span class="sd">        return: List of the Shipper accepted loads.</span>
+<span class="sd">        :rtype: django.db.models.QuerySet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">shipper</span> <span class="o">=</span> <span class="n">Shipper</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_shipper</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">carrier</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">shipper</span><span class="o">=</span><span class="n">shipper</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Load"><a class="viewcode-back" href="../../load.html#load.forms.Load">[docs]</a><span class="k">class</span> <span class="nc">Load</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Model for the loads.</span>
+
+<span class="sd">    Stores the loads information in the DB fields: shipper, carrier, pickup_date, ref number, origin_city,</span>
+<span class="sd">    destination_city, shipper_price, carrier_price, dropped_by.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">shipper</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Shipper</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;shipper&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">PROTECT</span><span class="p">)</span>
+    <span class="n">carrier</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Carrier</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;carrier&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">PROTECT</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pickup_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">origin_city</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">destination_city</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">shipper_price</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">()</span>
+    <span class="n">carrier_price</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">()</span>
+    <span class="n">dropped_by</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Carrier</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;dropped_by&quot;</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">LoadManager</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Miss Marvels
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+    /* Sidebar header (and topbar for mobile) */
+    .wy-side-nav-search, .wy-nav-top {
+      background: #68caa1;
+    }
+    /* Sidebar */
+    .wy-nav-side {
+      background: #2b3034;
+    }
+  </style>
+
+
+</body>
+</html>

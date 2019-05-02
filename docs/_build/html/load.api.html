@@ -1,0 +1,544 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>load.api package &mdash; Loadsmart 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="loadsmart package" href="loadsmart.html" />
+    <link rel="prev" title="load package" href="load.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Loadsmart
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="custom_made/about_project.html">About the project</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="custom_made/readme_link.html">README</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="custom_made/code_doc.html">Code Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html">loadsmart</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app.html">app package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="load.html">load package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="load.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.admin">load.admin module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.apps">load.apps module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.decorators">load.decorators module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.forms">load.forms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.models">load.models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.tests">load.tests module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.urls">load.urls module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.utils">load.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load.views">load.views module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load.html#module-load">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="loadsmart.html">loadsmart package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="users.html">users package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Loadsmart</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="custom_made/code_doc.html">Code Documentation</a> &raquo;</li>
+        
+          <li><a href="modules.html">loadsmart</a> &raquo;</li>
+        
+          <li><a href="load.html">load package</a> &raquo;</li>
+        
+      <li>load.api package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/load.api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="load-api-package">
+<h1>load.api package<a class="headerlink" href="#load-api-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-load.api.permissions">
+<span id="load-api-permissions-module"></span><h2>load.api.permissions module<a class="headerlink" href="#module-load.api.permissions" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="load.api.permissions.CanAccess">
+<em class="property">class </em><code class="descclassname">load.api.permissions.</code><code class="descname">CanAccess</code><a class="reference internal" href="_modules/load/api/permissions.html#CanAccess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.permissions.CanAccess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<dl class="method">
+<dt id="load.api.permissions.CanAccess.has_permission">
+<code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/permissions.html#CanAccess.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.permissions.CanAccess.has_permission" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <cite>True</cite> if permission is granted, <cite>False</cite> otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.api.serializers">
+<span id="load-api-serializers-module"></span><h2>load.api.serializers module<a class="headerlink" href="#module-load.api.serializers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="load.api.serializers.CarrierLoadSerializer">
+<em class="property">class </em><code class="descclassname">load.api.serializers.</code><code class="descname">CarrierLoadSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/serializers.html#CarrierLoadSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.CarrierLoadSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<dl class="class">
+<dt id="load.api.serializers.CarrierLoadSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/load/api/serializers.html#CarrierLoadSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.CarrierLoadSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="load.api.serializers.CarrierLoadSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('id', 'shipper', 'carrier', 'pickup_date', 'ref', 'origin_city', 'destination_city', 'carrier_price')</em><a class="headerlink" href="#load.api.serializers.CarrierLoadSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.serializers.CarrierLoadSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#load.api.serializers.CarrierLoadSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="load.html#load.models.Load" title="load.models.Load"><code class="xref py py-class docutils literal notranslate"><span class="pre">load.models.Load</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.api.serializers.CarrierSerializer">
+<em class="property">class </em><code class="descclassname">load.api.serializers.</code><code class="descname">CarrierSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/serializers.html#CarrierSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.CarrierSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<dl class="class">
+<dt id="load.api.serializers.CarrierSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/load/api/serializers.html#CarrierSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.CarrierSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="load.api.serializers.CarrierSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('mc_number',)</em><a class="headerlink" href="#load.api.serializers.CarrierSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.serializers.CarrierSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#load.api.serializers.CarrierSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="users.html#users.models.Carrier" title="users.models.Carrier"><code class="xref py py-class docutils literal notranslate"><span class="pre">users.models.Carrier</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.api.serializers.CreateLoadSerializer">
+<em class="property">class </em><code class="descclassname">load.api.serializers.</code><code class="descname">CreateLoadSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/serializers.html#CreateLoadSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.CreateLoadSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<dl class="class">
+<dt id="load.api.serializers.CreateLoadSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/load/api/serializers.html#CreateLoadSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.CreateLoadSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="load.api.serializers.CreateLoadSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('pickup_date', 'ref', 'origin_city', 'destination_city', 'shipper_price')</em><a class="headerlink" href="#load.api.serializers.CreateLoadSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.serializers.CreateLoadSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#load.api.serializers.CreateLoadSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="load.html#load.models.Load" title="load.models.Load"><code class="xref py py-class docutils literal notranslate"><span class="pre">load.models.Load</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.api.serializers.ShipperLoadSerializer">
+<em class="property">class </em><code class="descclassname">load.api.serializers.</code><code class="descname">ShipperLoadSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/serializers.html#ShipperLoadSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.ShipperLoadSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<dl class="class">
+<dt id="load.api.serializers.ShipperLoadSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/load/api/serializers.html#ShipperLoadSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.ShipperLoadSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="load.api.serializers.ShipperLoadSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('shipper', 'carrier', 'pickup_date', 'ref', 'origin_city', 'destination_city', 'shipper_price')</em><a class="headerlink" href="#load.api.serializers.ShipperLoadSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.serializers.ShipperLoadSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#load.api.serializers.ShipperLoadSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="load.html#load.models.Load" title="load.models.Load"><code class="xref py py-class docutils literal notranslate"><span class="pre">load.models.Load</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.api.serializers.ShipperSerializer">
+<em class="property">class </em><code class="descclassname">load.api.serializers.</code><code class="descname">ShipperSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/serializers.html#ShipperSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.ShipperSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<dl class="class">
+<dt id="load.api.serializers.ShipperSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/load/api/serializers.html#ShipperSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.ShipperSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="load.api.serializers.ShipperSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('user',)</em><a class="headerlink" href="#load.api.serializers.ShipperSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.serializers.ShipperSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#load.api.serializers.ShipperSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="users.html#users.models.Shipper" title="users.models.Shipper"><code class="xref py py-class docutils literal notranslate"><span class="pre">users.models.Shipper</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="load.api.serializers.UserSerializer">
+<em class="property">class </em><code class="descclassname">load.api.serializers.</code><code class="descname">UserSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/serializers.html#UserSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.UserSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<dl class="class">
+<dt id="load.api.serializers.UserSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/load/api/serializers.html#UserSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.serializers.UserSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="load.api.serializers.UserSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('first_name', 'last_name', 'email')</em><a class="headerlink" href="#load.api.serializers.UserSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.serializers.UserSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#load.api.serializers.UserSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="users.html#users.models.User" title="users.models.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">users.models.User</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.api.viewsets">
+<span id="load-api-viewsets-module"></span><h2>load.api.viewsets module<a class="headerlink" href="#module-load.api.viewsets" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="load.api.viewsets.LoadViewSet">
+<em class="property">class </em><code class="descclassname">load.api.viewsets.</code><code class="descname">LoadViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.accept">
+<code class="descname">accept</code><span class="sig-paren">(</span><em>request</em>, <em>pk=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.accept"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.accept" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.accepted">
+<code class="descname">accepted</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.accepted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.accepted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.viewsets.LoadViewSet.authentication_classes">
+<code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'rest_framework.authentication.TokenAuthentication'&gt;,)</em><a class="headerlink" href="#load.api.viewsets.LoadViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.available" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.viewsets.LoadViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#load.api.viewsets.LoadViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.carrier_accepted">
+<code class="descname">carrier_accepted</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.carrier_accepted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.carrier_accepted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.carrier_available">
+<code class="descname">carrier_available</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.carrier_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.carrier_available" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.viewsets.LoadViewSet.description">
+<code class="descname">description</code><em class="property"> = None</em><a class="headerlink" href="#load.api.viewsets.LoadViewSet.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.viewsets.LoadViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#load.api.viewsets.LoadViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of items for this view.
+This must be an iterable, and may be a queryset.
+Defaults to using <cite>self.queryset</cite>.</p>
+<p>This method should always be used rather than accessing <cite>self.queryset</cite>
+directly, as <cite>self.queryset</cite> gets evaluated only once, and those results
+are cached for all subsequent requests.</p>
+<p>You may want to override this if you need to provide different
+querysets depending on the incoming request.</p>
+<p>(Eg. return a list of items that is specific to the user)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.get_serializer_class">
+<code class="descname">get_serializer_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.get_serializer_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.get_serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the class to use for the serializer.
+Defaults to using <cite>self.serializer_class</cite>.</p>
+<p>You may want to override this if you need to provide different
+serializations depending on the incoming request.</p>
+<p>(Eg. admins get full serialization, others get basic serialization)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.viewsets.LoadViewSet.name">
+<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#load.api.viewsets.LoadViewSet.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.viewsets.LoadViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'rest_framework.permissions.IsAuthenticated'&gt;, &lt;class 'load.api.permissions.CanAccess'&gt;)</em><a class="headerlink" href="#load.api.viewsets.LoadViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.reject">
+<code class="descname">reject</code><span class="sig-paren">(</span><em>request</em>, <em>pk=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.reject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.reject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.reject_accepted">
+<code class="descname">reject_accepted</code><span class="sig-paren">(</span><em>pk</em>, <em>carrier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.reject_accepted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.reject_accepted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.reject_non_accepted">
+<code class="descname">reject_non_accepted</code><span class="sig-paren">(</span><em>pk</em>, <em>carrier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.reject_non_accepted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.reject_non_accepted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.rejected">
+<code class="descname">rejected</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.rejected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.rejected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.viewsets.LoadViewSet.serializer_class">
+<code class="descname">serializer_class</code><em class="property"> = ''</em><a class="headerlink" href="#load.api.viewsets.LoadViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.shipper_accepted">
+<code class="descname">shipper_accepted</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.shipper_accepted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.shipper_accepted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="load.api.viewsets.LoadViewSet.shipper_available">
+<code class="descname">shipper_available</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/load/api/viewsets.html#LoadViewSet.shipper_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#load.api.viewsets.LoadViewSet.shipper_available" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="load.api.viewsets.LoadViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#load.api.viewsets.LoadViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-load.api">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-load.api" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="loadsmart.html" class="btn btn-neutral float-right" title="loadsmart package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="load.html" class="btn btn-neutral float-left" title="load package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Miss Marvels
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+    /* Sidebar header (and topbar for mobile) */
+    .wy-side-nav-search, .wy-nav-top {
+      background: #68caa1;
+    }
+    /* Sidebar */
+    .wy-nav-side {
+      background: #2b3034;
+    }
+  </style>
+
+
+</body>
+</html>
