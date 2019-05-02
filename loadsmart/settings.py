@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_nose',
+    'docs',
     'app',
     'users',
     'load',
@@ -136,3 +137,6 @@ NOSE_ARGS = [
     '--cover-erase',
     '--cover-html',
 ]
+
+DOCS_ROOT = 'docs/_build/html'
+# DOCS_ACCESS = 'staff'
