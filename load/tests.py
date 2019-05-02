@@ -305,7 +305,7 @@ class CarrierAPITestCase(APITestCase):
             email="carrier@loadsmart.com", password="iwilldoagreatjob", is_carrier="1")
         self.token = Token.objects.create(user=self.user)
         self.user = Carrier.objects.update_or_create(
-            user=self.user, mc_number="123456789")
+            user=self.user, mc_number="MC123456")
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.client.post('/api/loads/2/accept/', format="json")
         self.client.post('/api/loads/3/reject/', format="json")
