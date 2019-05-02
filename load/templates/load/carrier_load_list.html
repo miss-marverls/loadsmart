@@ -44,7 +44,7 @@
                 <td>{{ load.pickup_date }}</td>
                 <td>{{ load.origin_city }}</td>
                 <td>{{ load.destination_city }}</td>
-                <td>{{ load.shipper.first_name }} {{ load.shipper.last_name }} </td>
+                <td>{{ load.shipper.user.first_name }} {{ load.shipper.user.last_name }} </td>
                 <td style="color:green">Accepted</td>
                 <td>${{ load.carrier_price }}</td>
                 <td><a class = "btn button-custom btn-block button-cancel" href="{% url 'load:drop-load' load.id %}">Drop</a></td>
@@ -62,7 +62,7 @@
                 <td>{{ load.pickup_date }}</td>
                 <td>{{ load.origin_city }}</td>
                 <td>{{ load.destination_city }}</td>
-                <td>{{ load.shipper.first_name }} {{ load.shipper.last_name }}</td>
+                <td>{{ load.shipper.user.first_name }} {{ load.shipper.user.last_name }}</td>
                 <td> Waiting</td>
                 <td> ${{ load.carrier_price }}</td>
                 <td>
