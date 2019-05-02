@@ -47,7 +47,7 @@ class RegisterViewTests(TestCase):
         self.data_carrier = {
             'first_name': 'hireme',
             'last_name': 'carrier',
-            'mc_number': '123456',
+            'mc_number': 'MC123456',
             'email': 'hireme_carrier@loadsmart.com',
             'password1': 'iwilldoagreatjob',
             'password2': 'iwilldoagreatjob'}
