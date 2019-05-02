@@ -75,7 +75,7 @@
     "pk": 1,
     "fields": {
         "user": 2,
-        "mc_number": "54125"
+        "mc_number": "MC54125"
     }
 },
 {
@@ -90,7 +90,7 @@
     "pk": 2,
     "fields": {
         "user": 4,
-        "mc_number": "64417"
+        "mc_number": "MC64417"
     }
 }
 ]
