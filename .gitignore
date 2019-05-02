@@ -86,7 +86,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
-docs/rst/
+docs/rst/*.rst
 
 # PyBuilder
 target/

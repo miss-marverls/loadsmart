@@ -5,6 +5,7 @@
 SPHINXOPTS    = -c .
 SPHINXBUILD   = sphinx-build
 SOURCEDIR     = rst/
+SOURCEDIR_AUX = rst/custom_made/
 BUILDDIR      = _build/
 
 # Put it first so that "make" without argument is like "make help".
@@ -15,14 +16,14 @@ help:
 
 clean:
 	@echo "Removing rst files..."
-	@rm -f rst/*
+	@rm -f $(SOURCEDIR)*.rst
 	@$(SPHINXBUILD) -M $@ $(SOURCEDIR) "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 # Force create source files.
-	@sphinx-apidoc -f -o rst .. '../*/migrations' '../manage.py'
-	@cp $(SOURCEDIR)/modules.rst $(SOURCEDIR)/index.rst
+	@sphinx-apidoc -f -o $(SOURCEDIR) .. '../*/migrations' '../manage.py'
+	@cp $(SOURCEDIR_AUX)/custom_index.rst $(SOURCEDIR)/index.rst
 # Build documentation
 	$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

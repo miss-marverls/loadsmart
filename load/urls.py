@@ -1,8 +1,9 @@
-from django.urls import path
-from . import views
-from rest_framework import routers
 from django.conf.urls import include
-from load.api.viewsets import LoadViewSet  # , CarrierLoadViewSet
+from django.urls import path
+from rest_framework import routers
+
+from load.api.viewsets import LoadViewSet
+from . import views
 
 app_name = 'load'
 
