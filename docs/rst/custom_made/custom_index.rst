@@ -12,8 +12,7 @@ Project documentation
 .. toctree::
     custom_made/code_doc
 
-.. toctree::
-    custom_made/api_doc
+
 
 
 
